@@ -1,0 +1,30 @@
+echo "🔄 Post-merge hook executed..."
+
+# Check if package files changed during merge
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -E '^(package\.json|package-lock\.json|yarn\.lock|pnpm-lock\.yaml)$' > /dev/null; then
+  echo "📦 Dependency changes detected after merge, installing..."
+  
+  # Install dependencies
+  if [ -f "pnpm-lock.yaml" ]; then
+    pnpm install
+  elif [ -f "yarn.lock" ]; then
+    yarn install  
+  else
+    npm install
+  fi
+  
+  echo "✅ Dependencies updated after merge!"
+fi
+
+# Clean up any generated files that might conflict
+if [ -d ".next" ]; then
+  echo "🧹 Cleaning Next.js cache..."
+  rm -rf .next
+fi
+
+if [ -d "node_modules/.cache" ]; then
+  echo "🧹 Cleaning node modules cache..."
+  rm -rf node_modules/.cache
+fi
+
+echo "✅ Post-merge cleanup completed!"

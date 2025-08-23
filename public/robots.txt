@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://omniversegeckos.com/sitemap.xml
+
+# Block admin and internal pages
+Disallow: /admin
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow important pages for SEO
+Allow: /
+Allow: /game
+Allow: /marketplace
+Allow: /casino
+
+# Block sensitive files
+Disallow: *.json$
+Disallow: *.yml$
+Disallow: *.yaml$
+Disallow: *.env$
+Disallow: /logs/
+Disallow: /tmp/
+
+# Crawl delay (be nice to servers)
+Crawl-delay: 1

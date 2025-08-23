@@ -1,0 +1,43 @@
+echo "🚀 Running pre-push checks..."
+
+# Get current branch
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# Prevent direct push to main/master
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  echo "❌ No puedes pushear directamente a $branch"
+  echo "Crea un PR desde una feature branch"
+  exit 1
+fi
+
+# Run tests if they exist
+if [ -f "package.json" ] && grep -q '"test"' package.json; then
+  echo "🧪 Running tests..."
+  npm test -- --passWithNoTests || {
+    echo "❌ Tests fallaron. Corrígelos antes del push."
+    exit 1
+  }
+fi
+
+# Type checking
+echo "🔍 Running type check..."
+npx tsc --noEmit || {
+  echo "❌ Errores de TypeScript encontrados."
+  exit 1
+}
+
+# Lint check
+echo "🔍 Running lint check..."
+npm run lint || {
+  echo "❌ Errores de linting encontrados."
+  exit 1
+}
+
+# Build check
+echo "🏗️ Running build check..."
+npm run build || {
+  echo "❌ Build falló. Revisa los errores."
+  exit 1
+}
+
+echo "✅ All pre-push checks passed! 🎉"

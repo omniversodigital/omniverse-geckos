@@ -1,0 +1,266 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # Pre-deployment checks
+  pre-deploy:
+    name: Pre-deployment Validation
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Check deployment conditions
+        id: check
+        run: |
+          # Check if this is a hotfix or regular deployment
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+  # Deploy to Vercel
+  deploy-vercel:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: pre-deploy
+    if: needs.pre-deploy.outputs.should-deploy == 'true'
+    environment:
+      name: ${{ github.event.inputs.environment || 'production' }}
+      url: ${{ steps.deploy.outputs.url }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build application
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_CHAIN_ID: ${{ secrets.NEXT_PUBLIC_CHAIN_ID }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS }}
+          NEXT_PUBLIC_NFT_CONTRACT_ADDRESS: ${{ secrets.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS }}
+          NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS: ${{ secrets.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS }}
+          
+      - name: Deploy to Vercel
+        id: deploy
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: ${{ github.event.inputs.environment == 'staging' && '--env=preview' || '--prod' }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          scope: ${{ secrets.VERCEL_SCOPE }}
+
+  # Deploy Smart Contracts
+  deploy-contracts:
+    name: Deploy Smart Contracts
+    runs-on: ubuntu-latest
+    needs: pre-deploy
+    if: needs.pre-deploy.outputs.should-deploy == 'true' && github.event.inputs.environment == 'production'
+    environment:
+      name: contracts-${{ github.event.inputs.environment || 'production' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+          
+      - name: Install dependencies
+        run: |
+          cd contracts
+          npm install
+          
+      - name: Deploy contracts to mainnet
+        run: |
+          cd contracts
+          npx hardhat run scripts/deploy.js --network mainnet
+        env:
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+          
+      - name: Verify contracts on Etherscan
+        run: |
+          cd contracts
+          npx hardhat verify --network mainnet
+        continue-on-error: true
+
+  # Deploy to IPFS
+  deploy-ipfs:
+    name: Deploy to IPFS
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-vercel]
+    if: needs.pre-deploy.outputs.should-deploy == 'true'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build static site
+        run: pnpm build && pnpm export
+        
+      - name: Upload to IPFS
+        uses: aquiladev/ipfs-action@v0.3.1
+        with:
+          path: ./out
+          service: pinata
+          pinataKey: ${{ secrets.PINATA_API_KEY }}
+          pinataSecret: ${{ secrets.PINATA_API_SECRET }}
+          pinataPinName: omniverse-geckos-${{ github.sha }}
+
+  # Update CDN
+  update-cdn:
+    name: Update CDN Cache
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel, deploy-ipfs]
+    if: success()
+    
+    steps:
+      - name: Purge Cloudflare cache
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
+            
+      - name: Warm up cache
+        run: |
+          curl -s https://omniversegeckos.com > /dev/null
+          curl -s https://omniversegeckos.com/game > /dev/null
+          curl -s https://omniversegeckos.com/marketplace > /dev/null
+
+  # Post-deployment tasks
+  post-deploy:
+    name: Post-deployment Tasks
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel, deploy-contracts, deploy-ipfs, update-cdn]
+    if: success()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Create deployment record
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: '${{ github.event.inputs.environment || 'production' }}',
+              description: 'Deployment to ${{ github.event.inputs.environment || 'production' }}',
+              auto_merge: false,
+              required_contexts: [],
+              production_environment: ${{ github.event.inputs.environment == 'production' }}
+            });
+            
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: 'success',
+              environment_url: 'https://omniversegeckos.com',
+              description: 'Deployment completed successfully'
+            });
+            
+      - name: Send deployment notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            🚀 Deployment to ${{ github.event.inputs.environment || 'production' }} completed!
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+            URL: https://omniversegeckos.com
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
+        
+      - name: Create GitHub Release
+        if: github.event.inputs.environment == 'production'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            ## 🚀 Production Deployment
+            
+            ### Changes
+            - Automated deployment from commit ${{ github.sha }}
+            
+            ### Deployment Info
+            - Environment: Production
+            - Vercel URL: https://omniversegeckos.com
+            - IPFS Hash: Check deployment logs
+            
+            ### Contracts
+            - Token: ${{ secrets.NEXT_PUBLIC_CONTRACT_ADDRESS }}
+            - NFT: ${{ secrets.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS }}
+            - Marketplace: ${{ secrets.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS }}
+          draft: false
+          prerelease: false

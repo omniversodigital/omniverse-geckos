@@ -1,0 +1,24 @@
+# Run lint-staged to check staged files
+npx lint-staged
+
+# Check for console.log in staged files (production safety)
+if git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx)$' | xargs grep -l 'console\.\(log\|warn\|error\|info\)' > /dev/null 2>&1; then
+  echo "❌ console.log/warn/error/info encontrado en archivos staged"
+  echo "Remueve los console statements antes de hacer commit o usa --no-verify si es intencional"
+  exit 1
+fi
+
+# Check for TODO/FIXME in critical files
+if git diff --cached --name-only | grep -E 'src/(components|app|lib).*\.(js|jsx|ts|tsx)$' | xargs grep -l 'TODO\|FIXME' > /dev/null 2>&1; then
+  echo "⚠️  TODO/FIXME encontrado en archivos críticos staged"
+  echo "Resuelve estos comentarios antes de hacer commit o usa --no-verify si está OK"
+fi
+
+# Verify TypeScript compilation for staged files
+echo "🔍 Verificando compilación TypeScript..."
+npx tsc --noEmit || {
+  echo "❌ Errores de TypeScript encontrados. Corrígelos antes del commit."
+  exit 1
+}
+
+echo "✅ Pre-commit checks passed!"

@@ -1,0 +1,23 @@
+# Run commitlint on the commit message
+npx --no -- commitlint --edit $1
+
+# Additional commit message validation
+commit_msg=$(cat "$1")
+
+# Check commit message length (max 50 chars for title)
+first_line=$(echo "$commit_msg" | head -n 1)
+if [ ${#first_line} -gt 50 ]; then
+  echo "❌ El título del commit debe tener máximo 50 caracteres"
+  echo "Actual: ${#first_line} caracteres"
+  exit 1
+fi
+
+# Check for proper capitalization (first letter should be lowercase for conventional commits)
+if echo "$first_line" | grep -E '^[A-Z]' > /dev/null; then
+  if ! echo "$first_line" | grep -E '^(feat|fix|docs|style|refactor|test|chore|ci|perf|build|revert)' > /dev/null; then
+    echo "⚠️  Considera usar conventional commit format: type(scope): description"
+    echo "Ejemplos: feat: add new feature, fix: resolve bug, docs: update README"
+  fi
+fi
+
+echo "✅ Commit message validation passed!"

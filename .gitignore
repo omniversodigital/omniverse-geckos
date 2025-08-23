@@ -1,0 +1,109 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+.vercel
+
+# Production builds
+/build
+/dist
+/public/build
+
+# Environment variables
+.env
+.env*.local
+.env.production
+
+# Testing
+/coverage
+/.nyc_output
+/playwright-report/
+/blob-report/
+/test-results/
+
+# Misc
+.DS_Store
+*.tsbuildinfo
+.turbo
+
+# Database
+*.db
+*.sqlite
+/prisma/migrations/
+/data/
+
+# Blockchain
+/contracts/artifacts/
+/contracts/cache/
+/contracts/typechain/
+artifacts/
+cache/
+typechain/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# AI & ML Models (large files)
+*.model
+*.weights
+/models/
+*.bin
+*.onnx
+
+# Game assets (if large)
+/public/assets/models/
+/public/assets/textures/large/
+
+# Docker
+.dockerignore
+
+# Storybook
+storybook-static/
+
+# Bundle analysis
+.bundle-analyzer/
+/analyze/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Security
+.secrets/
+*.key
+*.pem
+*.p12
+
+# Analytics and monitoring
+.sentry/

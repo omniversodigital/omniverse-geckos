@@ -1,0 +1,658 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* =============================================================================
+   CSS Variables
+   ============================================================================= */
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    
+    /* Card Colors */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    
+    /* Popover Colors */
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* Primary Colors */
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
+    
+    /* Secondary Colors */
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    
+    /* Muted Colors */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    /* Accent Colors */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    
+    /* Destructive Colors */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Border and Input */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 76% 36%;
+    
+    /* Radius */
+    --radius: 0.75rem;
+    
+    /* Gaming Theme Colors */
+    --gecko-primary: 142 76% 36%;
+    --gecko-secondary: 217.2 32.6% 17.5%;
+    --neon-blue: 195 100% 50%;
+    --neon-pink: 330 100% 50%;
+    --neon-green: 120 100% 50%;
+    --neon-yellow: 60 100% 50%;
+    --neon-purple: 270 100% 50%;
+    
+    /* Game Rarity Colors */
+    --rarity-common: 210 11% 71%;
+    --rarity-uncommon: 120 100% 40%;
+    --rarity-rare: 210 100% 50%;
+    --rarity-epic: 270 100% 50%;
+    --rarity-legendary: 30 100% 50%;
+    
+    /* Animation Durations */
+    --animation-duration-fast: 150ms;
+    --animation-duration-normal: 300ms;
+    --animation-duration-slow: 500ms;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 142 76% 36%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 76% 36%;
+  }
+}
+
+/* =============================================================================
+   Base Styles
+   ============================================================================= */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  
+  /* Selection styles */
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+  
+  ::-moz-selection {
+    @apply bg-primary/20 text-primary;
+  }
+  
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/50;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted;
+    border-radius: 4px;
+    transition: background-color var(--animation-duration-normal) ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+  
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+  }
+}
+
+/* =============================================================================
+   Typography
+   ============================================================================= */
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+  
+  code {
+    font-family: var(--font-mono), 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    @apply text-sm bg-muted px-1.5 py-0.5 rounded;
+  }
+  
+  pre {
+    font-family: var(--font-mono), 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    @apply bg-muted p-4 rounded-lg overflow-x-auto text-sm;
+  }
+  
+  pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+}
+
+/* =============================================================================
+   Gaming UI Components
+   ============================================================================= */
+
+@layer components {
+  /* Neon glow effects */
+  .neon-glow {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  
+  .neon-glow-strong {
+    text-shadow: 
+      0 0 5px currentColor, 
+      0 0 10px currentColor, 
+      0 0 20px currentColor, 
+      0 0 40px currentColor;
+  }
+  
+  .neon-border {
+    box-shadow: 
+      0 0 5px currentColor,
+      inset 0 0 5px currentColor;
+    border: 1px solid currentColor;
+  }
+  
+  .neon-border-strong {
+    box-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      inset 0 0 10px currentColor;
+    border: 2px solid currentColor;
+  }
+  
+  /* Gaming card styles */
+  .game-card {
+    @apply bg-gradient-to-br from-card to-card/50 border border-border/50 rounded-xl backdrop-blur-sm;
+    transition: all var(--animation-duration-normal) ease;
+    transform-style: preserve-3d;
+  }
+  
+  .game-card:hover {
+    @apply shadow-2xl border-primary/30;
+    transform: translateY(-2px) rotateX(2deg);
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 0 20px hsl(var(--primary) / 0.1);
+  }
+  
+  /* NFT card specific styles */
+  .nft-card {
+    @apply game-card relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.8) 100%);
+  }
+  
+  .nft-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+  }
+  
+  .nft-card:hover::before {
+    @apply opacity-100;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Rarity indicators */
+  .rarity-common {
+    @apply text-slate-400;
+    --rarity-color: 148 163 184;
+  }
+  
+  .rarity-uncommon {
+    @apply text-green-400;
+    --rarity-color: 74 222 128;
+  }
+  
+  .rarity-rare {
+    @apply text-blue-400;
+    --rarity-color: 96 165 250;
+  }
+  
+  .rarity-epic {
+    @apply text-purple-400;
+    --rarity-color: 196 181 253;
+  }
+  
+  .rarity-legendary {
+    @apply text-orange-400;
+    --rarity-color: 251 146 60;
+  }
+  
+  .rarity-glow {
+    text-shadow: 0 0 10px hsl(var(--rarity-color));
+    box-shadow: 0 0 20px hsl(var(--rarity-color) / 0.3);
+  }
+  
+  /* Button animations */
+  .btn-game {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+  }
+  
+  .btn-game::before {
+    content: '';
+    @apply absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full transition-transform duration-700;
+  }
+  
+  .btn-game:hover::before {
+    @apply translate-x-full;
+  }
+  
+  .btn-game:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+      0 10px 25px -3px hsl(var(--primary) / 0.3),
+      0 4px 6px -2px hsl(var(--primary) / 0.1);
+  }
+  
+  /* Loading animations */
+  .loading-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-loading 2s infinite;
+  }
+  
+  @keyframes shimmer-loading {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  /* Pulse animation for live elements */
+  .pulse-gentle {
+    animation: pulse-gentle 2s infinite;
+  }
+  
+  @keyframes pulse-gentle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  /* Game UI specific styles */
+  .game-hud {
+    @apply backdrop-blur-md bg-black/20 border border-white/20 rounded-lg;
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+  
+  .game-progress-bar {
+    @apply relative overflow-hidden rounded-full bg-muted;
+  }
+  
+  .game-progress-bar::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    transform: translateX(-100%);
+    animation: progress-shine 2s infinite;
+  }
+  
+  @keyframes progress-shine {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Parallax scrolling container */
+  .parallax-container {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .parallax-element {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .parallax-back {
+    transform: translateZ(-1px) scale(2);
+  }
+  
+  .parallax-base {
+    transform: translateZ(0);
+  }
+  
+  /* Floating elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .float-delay-1 {
+    animation-delay: 1s;
+  }
+  
+  .float-delay-2 {
+    animation-delay: 2s;
+  }
+  
+  .float-delay-3 {
+    animation-delay: 3s;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  /* Particle system container */
+  .particles-container {
+    @apply absolute inset-0 overflow-hidden pointer-events-none;
+  }
+  
+  .particle {
+    @apply absolute rounded-full opacity-70;
+    animation: particle-float 10s linear infinite;
+  }
+  
+  @keyframes particle-float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-10vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+}
+
+/* =============================================================================
+   Utility Classes
+   ============================================================================= */
+
+@layer utilities {
+  /* Text gradients */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-rainbow {
+    @apply bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent;
+  }
+  
+  /* Glass morphism */
+  .glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply backdrop-blur-md bg-black/20 border border-white/10;
+  }
+  
+  /* Responsive text */
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Custom aspect ratios */
+  .aspect-card {
+    aspect-ratio: 3/4;
+  }
+  
+  .aspect-banner {
+    aspect-ratio: 16/9;
+  }
+  
+  .aspect-nft {
+    aspect-ratio: 1/1;
+  }
+  
+  /* Animation delays */
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  /* Transform utilities */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Interactive states */
+  .interactive {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .interactive:hover {
+    @apply scale-105 shadow-lg;
+  }
+  
+  .interactive:active {
+    @apply scale-95;
+  }
+  
+  /* Focus utilities */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  }
+  
+  /* Safe area utilities for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* =============================================================================
+   Dark Mode Adjustments
+   ============================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .dark-mode-adjust {
+    filter: brightness(0.9) contrast(1.1);
+  }
+}
+
+/* =============================================================================
+   Reduced Motion
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .parallax-element {
+    transform: none !important;
+  }
+}
+
+/* =============================================================================
+   Print Styles
+   ============================================================================= */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .game-card,
+  .nft-card {
+    border: 1px solid black !important;
+  }
+  
+  .neon-glow,
+  .neon-glow-strong {
+    text-shadow: none !important;
+  }
+}
