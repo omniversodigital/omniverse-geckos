@@ -63,10 +63,10 @@
     "deploy:netlify": "netlify deploy --prod"
   },
   "dependencies": {
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@next/third-parties": "^15.0.0",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@next/third-parties": "^14.2.15",
     "server-only": "^0.0.1",
     
     "@radix-ui/react-accordion": "^1.2.0",
@@ -115,7 +115,7 @@
     
     "zustand": "^4.5.4",
     "immer": "^10.1.1",
-    "use-immer": "^0.10.0",
+    "use-immer": "^0.9.0",
     "valtio": "^1.13.2",
     
     "framer-motion": "^11.3.8",
@@ -244,9 +244,8 @@
     "typescript": "^5.5.3",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
-    "eslint": "^9.7.0",
-    "eslint-config-next": "^15.0.0",
-    "@next/eslint-plugin-next": "^15.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.15",
     "eslint-plugin-react": "^7.34.4",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-jsx-a11y": "^6.9.0",
@@ -296,7 +295,7 @@
     "dotenv-cli": "^7.4.2",
     "rimraf": "^6.0.1",
     
-    "@next/bundle-analyzer": "^15.0.0",
+    "@next/bundle-analyzer": "^14.2.15",
     "webpack-bundle-analyzer": "^4.10.2",
     "size-limit": "^11.1.4",
     "@size-limit/preset-big-lib": "^11.1.4",
