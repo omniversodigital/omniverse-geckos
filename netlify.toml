@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "echo 'Static site ready!'"
+  command = "echo 'Static HTML site ready!'"
 
 [[redirects]]
   from = "/*"
