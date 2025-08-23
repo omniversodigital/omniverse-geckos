@@ -293,6 +293,68 @@
             transform: translateY(-2px);
         }
 
+        /* Gecko Assistant Styles */
+        @keyframes geckoFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .quick-btn {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+        
+        #gecko-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+        }
+        
+        #gecko-chat {
+            animation: chatSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes chatSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .user-message {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+        
+        .gecko-message {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .logo { font-size: 2.5rem; }
@@ -300,6 +362,17 @@
             .container { padding: 0 1rem; }
             .nav { gap: 1rem; }
             .investment-table { grid-template-columns: 1fr; }
+            
+            #gecko-chat {
+                width: 300px;
+                height: 400px;
+                right: -10px;
+            }
+            
+            #gecko-assistant {
+                right: 10px;
+                bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -820,7 +893,111 @@
         </div>
     </footer>
 
+    <!-- AI Gecko Assistant -->
+    <div id="gecko-assistant" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <!-- Gecko Avatar Button -->
+        <div id="gecko-avatar" style="width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; cursor: pointer; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3); animation: geckoFloat 3s ease-in-out infinite; transition: all 0.3s;">
+            🦎
+        </div>
+        
+        <!-- Chat Window -->
+        <div id="gecko-chat" style="position: absolute; bottom: 100px; right: 0; width: 350px; height: 500px; background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 20px; border: 2px solid #10b981; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+            <!-- Chat Header -->
+            <div style="padding: 1.5rem; border-bottom: 1px solid rgba(16, 185, 129, 0.3); display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🦎</div>
+                <div>
+                    <h3 style="margin: 0; color: #10b981; font-size: 1.2rem;">GeckoBot AI</h3>
+                    <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Your Web3 Gaming Assistant</p>
+                </div>
+                <button id="close-chat" style="margin-left: auto; background: none; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer;">×</button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chat-messages" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;">
+                <div class="gecko-message">
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 15px 15px 15px 5px; border-left: 3px solid #10b981;">
+                        <p style="margin: 0; color: white; font-size: 0.9rem;">🦎 ¡Hola! Soy GeckoBot, tu asistente de Omniverse Geckos. ¿En qué puedo ayudarte?</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                            <button class="quick-btn" data-question="¿Qué son los NFT Geckos?">🦎 NFT Geckos</button>
+                            <button class="quick-btn" data-question="¿Cómo funciona el token $GECKO?">💰 Token $GECKO</button>
+                            <button class="quick-btn" data-question="¿Cuándo es el lanzamiento?">🚀 Roadmap</button>
+                            <button class="quick-btn" data-question="¿Cómo invertir?">💎 Invertir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div style="padding: 1rem; border-top: 1px solid rgba(16, 185, 129, 0.3);">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input id="chat-input" type="text" placeholder="Pregúntame sobre Omniverse Geckos..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 0.75rem; color: white; font-size: 0.9rem;" />
+                    <button id="send-btn" style="background: linear-gradient(45deg, #10b981, #34d399); border: none; border-radius: 10px; padding: 0.75rem 1rem; color: white; cursor: pointer; font-size: 1rem;">📤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // AI Gecko Assistant Logic
+        const geckoResponses = {
+            "nft": "🦎 Los NFT Geckos son una colección de 10,000 geckos únicos con utilidad real en nuestro juego tower defense. Cada uno tiene stats únicos, habilidades especiales y puede generar tokens $GECKO. ¡Son mucho más que simples imágenes!",
+            "token": "💰 $GECKO es nuestro token nativo con supply de 1B tokens. Se usa para: gameplay, staking (8-25% APY), governance DAO, trading NFTs y tournament entry. ¡Es deflacinoario con quemas automáticas!",
+            "roadmap": "🚀 Q1 2025: Lanzamiento Genesis con NFTs y marketplace. Q2: App móvil y AI avanzado. Q3: Metaverso 3D y VR. Q4: DAO completo. ¡El futuro es emocionante!",
+            "invertir": "💎 Pre-sale activa: $0.001 por token (público: $0.0015). ROI proyectado 500%+. Genesis NFTs desde 0.08 ETH. Mercado de $321B. ¡Únete al early access!",
+            "juego": "🎮 Tower Defense revolucionario donde tus NFT Geckos funcionan como torres únicas. Incluye modo historia, boss battles, PvP tournaments, casino y breeding. ¡Play-to-earn real!",
+            "staking": "📈 Stakea tus NFT Geckos para generar $GECKO pasivamente. APY variable del 8-25% según rareza. Legendary Geckos generan más rewards. ¡Ingresos mientras juegas!",
+            "equipo": "👥 Equipo experimentado en gaming y blockchain. Contratos auditados por CertiK. Desarrollo transparente en GitHub. ¡Construimos el futuro del Web3 gaming!",
+            "tecnologia": "🔧 Next.js 15, React 19, Phaser.js gaming, Ethereum/L2, AI con GPT-4/Claude, Three.js 3D. Stack moderno para máximo rendimiento.",
+            "default": "🦎 Interesante pregunta! Te puedo ayudar con: NFT Geckos, tokenomics $GECKO, roadmap, inversiones, gameplay, staking, equipo técnico y más. ¿Qué te gustaría saber específicamente?"
+        };
+
+        function getGeckoResponse(message) {
+            const msg = message.toLowerCase();
+            
+            if (msg.includes('nft') || msg.includes('gecko') || msg.includes('colección')) return geckoResponses.nft;
+            if (msg.includes('token') || msg.includes('$gecko') || msg.includes('precio')) return geckoResponses.token;
+            if (msg.includes('roadmap') || msg.includes('lanzamiento') || msg.includes('cuando')) return geckoResponses.roadmap;
+            if (msg.includes('invertir') || msg.includes('comprar') || msg.includes('roi')) return geckoResponses.invertir;
+            if (msg.includes('juego') || msg.includes('tower') || msg.includes('defense') || msg.includes('gameplay')) return geckoResponses.juego;
+            if (msg.includes('staking') || msg.includes('stake') || msg.includes('rewards')) return geckoResponses.staking;
+            if (msg.includes('equipo') || msg.includes('team') || msg.includes('audit')) return geckoResponses.equipo;
+            if (msg.includes('tecnologia') || msg.includes('tech') || msg.includes('stack')) return geckoResponses.tecnologia;
+            
+            return geckoResponses.default;
+        }
+
+        function addMessage(message, isUser = false) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'user-message' : 'gecko-message';
+            
+            messageDiv.innerHTML = `
+                <div style="background: ${isUser ? 'rgba(59, 130, 246, 0.1)' : 'rgba(16, 185, 129, 0.1)'}; padding: 1rem; border-radius: ${isUser ? '15px 15px 5px 15px' : '15px 15px 15px 5px'}; border-${isUser ? 'right' : 'left'}: 3px solid ${isUser ? '#3b82f6' : '#10b981'}; margin-left: ${isUser ? '2rem' : '0'}; margin-right: ${isUser ? '0' : '2rem'};">
+                    <p style="margin: 0; color: white; font-size: 0.9rem;">${isUser ? '👤' : '🦎'} ${message}</p>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            input.value = '';
+            
+            // Simulate typing delay
+            setTimeout(() => {
+                const response = getGeckoResponse(message);
+                addMessage(response);
+            }, 1000);
+        }
+
         // Simple analytics and interactions
         console.log('🦎 Omniverse Geckos - Revolutionary Web3 Gaming Platform loaded!');
         
@@ -851,6 +1028,34 @@
         document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 console.log('CTA clicked:', this.textContent.trim());
+            });
+        });
+        
+        // Gecko Assistant Event Listeners
+        document.getElementById('gecko-avatar').addEventListener('click', () => {
+            const chat = document.getElementById('gecko-chat');
+            chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
+        });
+        
+        document.getElementById('close-chat').addEventListener('click', () => {
+            document.getElementById('gecko-chat').style.display = 'none';
+        });
+        
+        document.getElementById('send-btn').addEventListener('click', sendMessage);
+        
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Quick buttons event listeners
+        document.querySelectorAll('.quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                addMessage(question, true);
+                setTimeout(() => {
+                    const response = getGeckoResponse(question);
+                    addMessage(response);
+                }, 1000);
             });
         });
     </script>
