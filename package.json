@@ -1,0 +1,10 @@
+{
+  "name": "omniverse-geckos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Static site - open public/index.html'",
+    "build": "cp public/index.html index.html",
+    "start": "echo 'Static site ready'"
+  }
+}
