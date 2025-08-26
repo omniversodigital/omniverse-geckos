@@ -10,6 +10,14 @@
     <meta property="og:description" content="The Future of Web3 Gaming is Here - Revolutionary AI-Powered Gaming Ecosystem">
     <meta property="og:image" content="https://omniversodigital.github.io/omniverse-geckos/og-image.png">
     <meta property="og:url" content="https://omniversodigital.github.io/omniverse-geckos/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Omniverse Geckos - Web3 Gaming Revolution">
+    <meta name="twitter:description" content="Join the future of blockchain gaming with NFT Geckos, $GECKO token, and AI-powered gameplay">
+    <meta name="twitter:image" content="https://omniversodigital.github.io/omniverse-geckos/og-image.png">
+    <link rel="canonical" href="https://omniversodigital.github.io/omniverse-geckos/">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#10b981">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -485,7 +493,7 @@
     <section id="investment" class="section">
         <div class="container">
             <div class="investment-banner">
-                <div class="investment-timer">⏰ LIMITED TIME: 72 Hours Remaining | 20% Bonus Tokens</div>
+                <div class="investment-timer" id="countdown-timer">⏰ LIMITED TIME: Loading... | 25% Bonus Tokens</div>
                 <h2 style="color: white; margin-bottom: 1rem;">🚀 Investment Opportunity - Pre-Sale Active</h2>
                 
                 <div class="investment-table">
@@ -495,11 +503,11 @@
                     </div>
                     <div class="investment-item">
                         <h4>📈 Projected ROI</h4>
-                        <p><strong>500%+</strong><br>Conservative 18-month projection</p>
+                        <p><strong>750%+</strong><br>Conservative 12-month projection</p>
                     </div>
                     <div class="investment-item">
                         <h4>💰 Pre-Sale Price</h4>
-                        <p><strong>$0.001</strong><br>Public launch: $0.0015 (+50%)</p>
+                        <p><strong>$0.0008</strong><br>Public launch: $0.0020 (+150%)</p>
                     </div>
                     <div class="investment-item">
                         <h4>🪙 Total Supply</h4>
@@ -511,7 +519,7 @@
                     </div>
                     <div class="investment-item">
                         <h4>💵 Revenue Model</h4>
-                        <p><strong>$3.96M</strong><br>Projected annual revenue (Year 2)</p>
+                        <p><strong>$5.2M</strong><br>Projected annual revenue (Year 1)</p>
                     </div>
                 </div>
 
@@ -971,7 +979,7 @@
             
             <p style="margin: 2rem 0; opacity: 0.7;">
                 Built with ❤️ for the future of Web3 gaming<br>
-                <strong>© 2024 Omniverse Geckos - Revolutionary Gaming Platform</strong>
+                <strong>© 2025 Omniverse Geckos - Revolutionary Gaming Platform</strong>
             </p>
             
             <div style="font-size: 0.9rem; opacity: 0.6;">
@@ -1031,12 +1039,40 @@
     </div>
 
     <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const endTime = new Date();
+            endTime.setDate(endTime.getDate() + 3); // 3 days from now
+            
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endTime.getTime() - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById('countdown-timer').innerHTML = "⏰ Pre-Sale Ended";
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown-timer').innerHTML = 
+                    `⏰ ${days}d ${hours}h ${minutes}m ${seconds}s | 25% Bonus Tokens`;
+            }, 1000);
+        }
+        
+        // Initialize countdown on page load
+        updateCountdown();
+        
         // AI Gecko Assistant Logic
         const geckoResponses = {
             "nft": "🦎 Los NFT Geckos son una colección de 10,000 geckos únicos con utilidad real en nuestro juego tower defense. Cada uno tiene stats únicos, habilidades especiales y puede generar tokens $GECKO. ¡Son mucho más que simples imágenes!",
             "token": "💰 $GECKO es nuestro token nativo con supply de 1B tokens. Se usa para: gameplay, staking (8-25% APY), governance DAO, trading NFTs y tournament entry. ¡Es deflacinoario con quemas automáticas!",
             "roadmap": "🚀 Q1 2025: Lanzamiento Genesis con NFTs y marketplace. Q2: App móvil y AI avanzado. Q3: Metaverso 3D y VR. Q4: DAO completo. ¡El futuro es emocionante!",
-            "invertir": "💎 Pre-sale activa: $0.001 por token (público: $0.0015). ROI proyectado 500%+. Genesis NFTs desde 0.08 ETH. Mercado de $321B. ¡Únete al early access!",
+            "invertir": "💎 Pre-sale activa: $0.0008 por token (público: $0.0020). ROI proyectado 750%+. Genesis NFTs desde 0.08 ETH. Mercado de $321B. ¡Únete al early access con 25% bonus!",
             "juego": "🎮 Tower Defense revolucionario donde tus NFT Geckos funcionan como torres únicas. Incluye modo historia, boss battles, PvP tournaments, casino y breeding. ¡Play-to-earn real!",
             "staking": "📈 Stakea tus NFT Geckos para generar $GECKO pasivamente. APY variable del 8-25% según rareza. Legendary Geckos generan más rewards. ¡Ingresos mientras juegas!",
             "equipo": "👥 Equipo experimentado en gaming y blockchain. Contratos auditados por CertiK. Desarrollo transparente en GitHub. ¡Construimos el futuro del Web3 gaming!",

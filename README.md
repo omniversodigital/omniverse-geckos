@@ -13,16 +13,16 @@
 
 ## 🚀 Investment Opportunity - Pre-Sale Active
 
-**⏰ LIMITED TIME: 72 Hours Remaining | 20% Bonus Tokens**
+**⏰ LIMITED TIME: Live Countdown on Website | 25% Bonus Tokens**
 
 | 💎 Investment Highlights | Value | Details |
 |-------------------------|--------|---------|
 | **Market Opportunity** | $321B | Global gaming market (2024) |
-| **Projected ROI** | 500%+ | Conservative 18-month projection |
-| **Pre-Sale Price** | $0.001 | Public launch: $0.0015 (+50%) |
+| **Projected ROI** | 750%+ | Conservative 12-month projection |
+| **Pre-Sale Price** | $0.0008 | Public launch: $0.0020 (+150%) |
 | **Total Supply** | 1B $GECKO | Deflationary with token burns |
 | **Genesis NFTs** | 10,000 | Limited collection at 0.08 ETH |
-| **Revenue Model** | $3.96M | Projected annual revenue (Year 2) |
+| **Revenue Model** | $5.2M | Projected annual revenue (Year 1) |
 
 ### 🔥 Why Invest Now?
 
@@ -291,5 +291,5 @@ MIT License - ver [LICENSE](./LICENSE) para detalles.
 
 ---
 
-**Built with ❤️ by Jean**
+**Built with ❤️ by Omniverso Digital Team**
 *Combining the best of Gaming, AI, and Web3*
