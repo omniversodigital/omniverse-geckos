@@ -5,6 +5,31 @@ All notable changes to the Omniverse Geckos project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2025-01-31
+
+### Added
+- Complete modern redesign with new CSS design system
+- Professional glass-morphism UI components
+- Advanced animations and transitions
+- Scroll progress bar indicator
+- Mobile-responsive hamburger menu
+- NFT card hover effects with rotating borders
+- Footer with organized links structure
+- Custom scrollbar styling
+
+### Changed
+- Complete UI/UX overhaul with modern design patterns
+- Improved color palette with CSS variables
+- Enhanced responsive breakpoints
+- Better typography system with clamp() sizing
+- Optimized performance with CSS animations
+
+### Technical
+- Separated styles into dedicated styles.css file
+- Implemented CSS Grid and Flexbox layouts
+- Added backdrop filters for glass effects
+- Improved accessibility with proper contrast ratios
+
 ## [2.0.0] - 2025-01-31
 
 ### Added

@@ -1,531 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🦎 Omniverse Geckos - Revolutionary Web3 Gaming Platform</title>
     <meta name="description" content="The Future of Web3 Gaming is Here - Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs">
     <meta name="keywords" content="Web3 Gaming, NFT Games, Play-to-Earn, Tower Defense, Blockchain Gaming, Cryptocurrency Gaming, NFT Marketplace, GameFi, Ethereum Gaming, DeFi Gaming">
+    
+    <!-- Open Graph / Social Media -->
     <meta property="og:title" content="🦎 Omniverse Geckos - Revolutionary Web3 Gaming Platform">
     <meta property="og:description" content="The Future of Web3 Gaming is Here - Revolutionary AI-Powered Gaming Ecosystem">
     <meta property="og:image" content="https://omniversodigital.github.io/omniverse-geckos/og-image.png">
     <meta property="og:url" content="https://omniversodigital.github.io/omniverse-geckos/">
     <meta property="og:type" content="website">
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omniverse Geckos - Web3 Gaming Revolution">
     <meta name="twitter:description" content="Join the future of blockchain gaming with NFT Geckos, $GECKO token, and AI-powered gameplay">
     <meta name="twitter:image" content="https://omniversodigital.github.io/omniverse-geckos/og-image.png">
+    
+    <!-- SEO & Performance -->
     <link rel="canonical" href="https://omniversodigital.github.io/omniverse-geckos/">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#10b981">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            color: white;
-            line-height: 1.6;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        
-        /* Header */
-        .header {
-            padding: 2rem 0;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .logo { 
-            font-size: 3.5rem; 
-            font-weight: bold;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.3)); }
-            to { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); }
-        }
-        
-        .tagline { 
-            font-size: 1.5rem; 
-            margin-bottom: 1rem; 
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.7;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-
-        /* Investment Banner */
-        .investment-banner {
-            background: linear-gradient(135deg, #dc2626, #ea580c);
-            padding: 2rem;
-            border-radius: 16px;
-            margin: 2rem 0;
-            text-align: center;
-            border: 2px solid #f59e0b;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); }
-        }
-
-        .investment-timer {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #fbbf24;
-        }
-
-        .investment-table {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .investment-item {
-            background: rgba(0,0,0,0.3);
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .investment-item h4 {
-            color: #fbbf24;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Navigation */
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            background: rgba(16, 185, 129, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Buttons */
-        .btn {
-            background: linear-gradient(45deg, #10b981, #3b82f6);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin: 0.5rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.3s;
-        }
-        
-        .btn:hover { transform: translateY(-2px); }
-        .btn-secondary { background: linear-gradient(45deg, #6366f1, #8b5cf6); }
-
-        /* Sections */
-        .section {
-            padding: 4rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(45deg, #10b981, #3b82f6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.08);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        /* Tokenomics */
-        .tokenomics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .tokenomics-item {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        /* Roadmap */
-        .roadmap-timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .roadmap-item {
-            margin-bottom: 3rem;
-            padding-left: 3rem;
-            position: relative;
-        }
-
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 1rem;
-            height: 1rem;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #10b981, #3b82f6);
-        }
-
-        .roadmap-item::after {
-            content: '';
-            position: absolute;
-            left: 0.45rem;
-            top: 1.5rem;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, #10b981, transparent);
-        }
-
-        .roadmap-item:last-child::after { display: none; }
-
-        /* Tech Stack */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .tech-category {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid #10b981;
-        }
-
-        .tech-category h4 {
-            color: #10b981;
-            margin-bottom: 1rem;
-        }
-
-        .tech-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .tech-list li {
-            padding: 0.25rem 0;
-            opacity: 0.8;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 3rem 0;
-            background: rgba(0,0,0,0.3);
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: rgba(16, 185, 129, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Gecko Assistant Styles */
-        @keyframes geckoFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-        
-        @keyframes borderSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes geckoPulse {
-            0%, 100% { 
-                box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4), inset 0 0 20px rgba(16, 185, 129, 0.1);
-            }
-            50% { 
-                box-shadow: 0 15px 35px rgba(16, 185, 129, 0.6), inset 0 0 25px rgba(16, 185, 129, 0.2);
-            }
-        }
-        
-        /* NFT Gallery Gecko Styles */
-        .nft-gecko-container {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .nft-gecko-container::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #f59e0b, #10b981);
-            border-radius: 12px;
-            z-index: -1;
-            opacity: 0.7;
-            animation: borderSpin 6s linear infinite;
-        }
-        
-        .nft-gecko-image {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .nft-gecko-emoji {
-            text-shadow: 
-                0 0 10px rgba(16, 185, 129, 0.8),
-                0 0 20px rgba(59, 130, 246, 0.4),
-                0 0 30px rgba(139, 92, 246, 0.3);
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-            animation: geckoFloat 4s ease-in-out infinite;
-        }
-        
-        /* Rarity-specific glow colors */
-        .legendary-glow { 
-            text-shadow: 
-                0 0 15px rgba(251, 191, 36, 0.9),
-                0 0 25px rgba(245, 158, 11, 0.5),
-                0 0 35px rgba(251, 191, 36, 0.3);
-        }
-        
-        .epic-glow { 
-            text-shadow: 
-                0 0 15px rgba(139, 92, 246, 0.9),
-                0 0 25px rgba(124, 58, 237, 0.5),
-                0 0 35px rgba(147, 51, 234, 0.3);
-        }
-        
-        .rare-glow { 
-            text-shadow: 
-                0 0 15px rgba(59, 130, 246, 0.9),
-                0 0 25px rgba(37, 99, 235, 0.5),
-                0 0 35px rgba(96, 165, 250, 0.3);
-        }
-        
-        .common-glow { 
-            text-shadow: 
-                0 0 15px rgba(16, 185, 129, 0.9),
-                0 0 25px rgba(5, 150, 105, 0.5),
-                0 0 35px rgba(52, 211, 153, 0.3);
-        }
-        
-        .quick-btn {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10b981;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-        }
-        
-        .quick-btn:hover {
-            background: rgba(16, 185, 129, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-        }
-        
-        #gecko-avatar:hover {
-            transform: scale(1.15);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6), 0 0 30px rgba(59, 130, 246, 0.3), inset 0 0 25px rgba(16, 185, 129, 0.2);
-            border-color: #3b82f6;
-        }
-        
-        #gecko-avatar:active {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
-        }
-        
-        #gecko-chat {
-            animation: chatSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes chatSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .user-message {
-            animation: messageSlideIn 0.3s ease-out;
-        }
-        
-        .gecko-message {
-            animation: messageSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo { font-size: 2.5rem; }
-            .tagline { font-size: 1.2rem; }
-            .container { padding: 0 1rem; }
-            .nav { gap: 1rem; }
-            .investment-table { grid-template-columns: 1fr; }
-            
-            #gecko-chat {
-                width: 300px;
-                height: 400px;
-                right: -10px;
-            }
-            
-            #gecko-assistant {
-                right: 10px;
-                bottom: 10px;
-            }
-        }
-    </style>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1 class="logo">🦎 Omniverse Geckos</h1>
-            <p class="tagline">The Future of Web3 Gaming is Here</p>
-            <p class="subtitle">Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs</p>
-            
-            <div class="nav">
-                <a href="#investment" class="nav-link">💰 Investment</a>
-                <a href="#nft-gallery" class="nav-link">🦎 NFT Gallery</a>
-                <a href="#features" class="nav-link">🎮 Features</a>
-                <a href="#tokenomics" class="nav-link">💎 Tokenomics</a>
-                <a href="#roadmap" class="nav-link">🛣️ Roadmap</a>
-                <a href="#tech" class="nav-link">🔧 Tech Stack</a>
-            </div>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
 
-            <div>
-                <a href="#early-access" class="btn">🚀 Join Early Access</a>
-                <a href="#investment" class="btn btn-secondary">💰 Investment Deck</a>
-            </div>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a class="brand" href="#home">
+                <div class="brand-logo">🦎</div>
+                <div class="brand-title">
+                    OMNIVERSE
+                    <span>GECKOS</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#investment" class="nav-link">Investment</a>
+                <a href="#nft-gallery" class="nav-link">NFT Gallery</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#tokenomics" class="nav-link">Tokenomics</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="#team" class="nav-link">Team</a>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
-    <!-- Investment Opportunity -->
+    <!-- Hero Section -->
+    <main class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="badge badge-gold">🔥 PRE-SALE LIVE</span>
+                <h1 class="gradient-text">The Future of Web3 Gaming is Here</h1>
+                <p>Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs. Join 15,000+ players in the Omniverse.</p>
+                
+                <div class="btn-row">
+                    <a href="#connect-wallet" class="btn btn-gradient">
+                        🔗 Connect Wallet
+                    </a>
+                    <a href="#early-access" class="btn btn-secondary">
+                        📝 Join Whitelist
+                    </a>
+                    <a href="https://discord.gg/omniversegeckos" target="_blank" class="btn btn-secondary">
+                        💬 Discord
+                    </a>
+                </div>
+                
+                <div style="margin-top: 2rem; display: flex; gap: 2rem; flex-wrap: wrap;">
+                    <div>
+                        <strong style="color: var(--accent);">10,000</strong><br>
+                        <span style="color: var(--muted); font-size: 0.875rem;">Genesis NFTs</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-2);">$5.2M</strong><br>
+                        <span style="color: var(--muted); font-size: 0.875rem;">Projected Revenue</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-3);">750%</strong><br>
+                        <span style="color: var(--muted); font-size: 0.875rem;">ROI Projection</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gecko-showcase">
+                <div class="gecko-frame">
+                    <div class="gecko-img">🦎</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Investment Section -->
     <section id="investment" class="section">
         <div class="container">
             <div class="investment-banner">
-                <div class="investment-timer" id="countdown-timer">⏰ LIMITED TIME: Loading... | 25% Bonus Tokens</div>
-                <h2 style="color: white; margin-bottom: 1rem;">🚀 Investment Opportunity - Pre-Sale Active</h2>
+                <div class="investment-timer" id="countdown-timer">⏰ Loading...</div>
+                <h2>🚀 Investment Opportunity - Pre-Sale Active</h2>
                 
-                <div class="investment-table">
-                    <div class="investment-item">
-                        <h4>💎 Market Opportunity</h4>
-                        <p><strong>$321B</strong><br>Global gaming market (2024)</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h4 style="color: var(--accent-gold);">💎 Market Opportunity</h4>
+                        <p><strong>$321B</strong><br>Global gaming market (2025)</p>
                     </div>
-                    <div class="investment-item">
-                        <h4>📈 Projected ROI</h4>
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h4 style="color: var(--accent);">📈 Projected ROI</h4>
                         <p><strong>750%+</strong><br>Conservative 12-month projection</p>
                     </div>
-                    <div class="investment-item">
-                        <h4>💰 Pre-Sale Price</h4>
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h4 style="color: var(--accent-2);">💰 Pre-Sale Price</h4>
                         <p><strong>$0.0008</strong><br>Public launch: $0.0020 (+150%)</p>
                     </div>
-                    <div class="investment-item">
-                        <h4>🪙 Total Supply</h4>
+                    <div class="glass" style="padding: 1.5rem;">
+                        <h4 style="color: var(--accent-3);">🪙 Total Supply</h4>
                         <p><strong>1B $GECKO</strong><br>Deflationary with token burns</p>
-                    </div>
-                    <div class="investment-item">
-                        <h4>🦎 Genesis NFTs</h4>
-                        <p><strong>10,000</strong><br>Limited collection at 0.08 ETH</p>
-                    </div>
-                    <div class="investment-item">
-                        <h4>💵 Revenue Model</h4>
-                        <p><strong>$5.2M</strong><br>Projected annual revenue (Year 1)</p>
                     </div>
                 </div>
 
-                <div style="margin-top: 2rem;">
-                    <h3 style="color: #fbbf24; margin-bottom: 1rem;">🔥 Why Invest Now?</h3>
-                    <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                <div style="max-width: 800px; margin: 2rem auto;">
+                    <h3 style="margin-bottom: 1.5rem;">🔥 Why Invest Now?</h3>
+                    <div style="text-align: left; display: grid; gap: 0.75rem;">
                         <p>✅ <strong>First AI-Native Gaming Platform</strong> - Revolutionary personalization technology</p>
                         <p>✅ <strong>Multiple Revenue Streams</strong> - Play-to-earn, marketplace, casino, breeding</p>
                         <p>✅ <strong>Deflationary Tokenomics</strong> - Built-in scarcity with automatic token burns</p>
@@ -534,388 +141,278 @@
                         <p>✅ <strong>Audited Contracts</strong> - Security-first development by CertiK</p>
                     </div>
                 </div>
+                
+                <div class="btn-row" style="justify-content: center; margin-top: 2rem;">
+                    <a href="mailto:invest@omniversegeckos.com" class="btn btn-gradient">
+                        💎 Invest Now - 25% Bonus
+                    </a>
+                    <a href="docs/INVESTOR_DECK.md" class="btn btn-secondary">
+                        📊 Download Investor Deck
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- NFT Gallery Section -->
-    <section id="nft-gallery" class="section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(16, 185, 129, 0.05));">
+    <section id="nft-gallery" class="section" style="background: linear-gradient(180deg, transparent, rgba(139,92,246,.03));">
         <div class="container">
-            <h2>🦎 Genesis Geckos Collection</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">
-                10,000 Unique AI-Generated Geckos with Functional Gaming Utility
-            </p>
-            
-            <!-- NFT Showcase Grid -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
-                <!-- Legendary Gecko -->
-                <div style="background: linear-gradient(135deg, #fbbf24, #f59e0b); padding: 1rem; border-radius: 16px; text-align: center; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">
-                        ⭐ Legendary
-                    </div>
-                    <div class="nft-gecko-container" style="width: 100%; height: 250px; background: linear-gradient(135deg, #FFD700, #FFA500); display: flex; align-items: center; justify-content: center; font-size: 6rem; margin-bottom: 1rem; position: relative;">
-                        <!-- Reemplazar con tu imagen: <img src="images/nfts/gecko-legendary.png" alt="Legendary Gecko" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        <img src="./images/nfts/gecko-legendary.jpg" alt="Legendary Gecko" class="nft-gecko-image" style="width: 100%; height: 100%; object-fit: cover;" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 6rem;">
-                            <span class="nft-gecko-emoji legendary-glow">🦎</span>
-                        </div>
-                    </div>
-                    <h4 style="margin-bottom: 0.5rem;">Golden Emperor #0001</h4>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Power: 9999 | Speed: MAX</p>
-                    <p style="font-size: 0.8rem; opacity: 0.8;">Special: Instant Kill Wave</p>
-                </div>
-                
-                <!-- Epic Gecko -->
-                <div style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); padding: 1rem; border-radius: 16px; text-align: center; position: relative;">
-                    <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">
-                        💎 Epic
-                    </div>
-                    <div class="nft-gecko-container" style="width: 100%; height: 250px; background: linear-gradient(135deg, #9333ea, #7e22ce); display: flex; align-items: center; justify-content: center; font-size: 6rem; margin-bottom: 1rem; position: relative;">
-                        <!-- Reemplazar con tu imagen: <img src="images/nfts/gecko-epic.png" alt="Epic Gecko" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        <img src="./images/nfts/gecko-epic.jpg" alt="Epic Gecko" class="nft-gecko-image" style="width: 100%; height: 100%; object-fit: cover;" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 6rem;">
-                            <span class="nft-gecko-emoji epic-glow">🦎</span>
-                        </div>
-                    </div>
-                    <h4 style="margin-bottom: 0.5rem;">Crystal Guardian #0742</h4>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Power: 750 | Defense: 900</p>
-                    <p style="font-size: 0.8rem; opacity: 0.8;">Special: Shield Dome</p>
-                </div>
-                
-                <!-- Rare Gecko -->
-                <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); padding: 1rem; border-radius: 16px; text-align: center; position: relative;">
-                    <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">
-                        💙 Rare
-                    </div>
-                    <div class="nft-gecko-container" style="width: 100%; height: 250px; background: linear-gradient(135deg, #60a5fa, #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 6rem; margin-bottom: 1rem; position: relative;">
-                        <!-- Reemplazar con tu imagen: <img src="images/nfts/gecko-rare.png" alt="Rare Gecko" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        <img src="./images/nfts/gecko-rare.jpg" alt="Rare Gecko" class="nft-gecko-image" style="width: 100%; height: 100%; object-fit: cover;" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 6rem;">
-                            <span class="nft-gecko-emoji rare-glow">🦎</span>
-                        </div>
-                    </div>
-                    <h4 style="margin-bottom: 0.5rem;">Ice Striker #2156</h4>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Power: 500 | Speed: 750</p>
-                    <p style="font-size: 0.8rem; opacity: 0.8;">Special: Freeze Ray</p>
-                </div>
-                
-                <!-- Common Gecko -->
-                <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1rem; border-radius: 16px; text-align: center; position: relative;">
-                    <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">
-                        💚 Common
-                    </div>
-                    <div class="nft-gecko-container" style="width: 100%; height: 250px; background: linear-gradient(135deg, #34d399, #10b981); display: flex; align-items: center; justify-content: center; font-size: 6rem; margin-bottom: 1rem; position: relative;">
-                        <!-- Reemplazar con tu imagen: <img src="images/nfts/gecko-common.png" alt="Common Gecko" style="width: 100%; height: 100%; object-fit: cover;"> -->
-                        <img src="./images/nfts/gecko-common.jpg" alt="Common Gecko" class="nft-gecko-image" style="width: 100%; height: 100%; object-fit: cover;" onload="this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 6rem;">
-                            <span class="nft-gecko-emoji common-glow">🦎</span>
-                        </div>
-                    </div>
-                    <h4 style="margin-bottom: 0.5rem;">Forest Scout #5823</h4>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Power: 250 | Speed: 500</p>
-                    <p style="font-size: 0.8rem; opacity: 0.8;">Special: Rapid Fire</p>
-                </div>
+            <div class="section-header">
+                <h2 class="gradient-text">🦎 Genesis Geckos Collection</h2>
+                <p>10,000 Unique AI-Generated Geckos with Functional Gaming Utility</p>
             </div>
             
+            <div class="nft-grid">
+                <!-- Legendary -->
+                <div class="nft-card">
+                    <div class="nft-rarity rarity-legendary">⭐ LEGENDARY</div>
+                    <div class="nft-image">🦎</div>
+                    <div class="nft-info">
+                        <h4>Golden Emperor #0001</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 9999 | Speed: MAX</p>
+                        <p style="color: var(--accent-gold); font-size: 0.875rem;">Special: Instant Kill Wave</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge badge-gold">0.5 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Epic -->
+                <div class="nft-card">
+                    <div class="nft-rarity rarity-epic">💎 EPIC</div>
+                    <div class="nft-image" style="color: var(--accent-3);">🦎</div>
+                    <div class="nft-info">
+                        <h4>Crystal Guardian #0742</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 750 | Defense: 900</p>
+                        <p style="color: var(--accent-3); font-size: 0.875rem;">Special: Shield Dome</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge badge-purple">0.2 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rare -->
+                <div class="nft-card">
+                    <div class="nft-rarity rarity-rare">💙 RARE</div>
+                    <div class="nft-image" style="color: var(--accent-2);">🦎</div>
+                    <div class="nft-info">
+                        <h4>Ice Striker #2156</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 500 | Speed: 750</p>
+                        <p style="color: var(--accent-2); font-size: 0.875rem;">Special: Freeze Ray</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge" style="background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.3); color: var(--accent-2);">0.1 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common -->
+                <div class="nft-card">
+                    <div class="nft-rarity rarity-common">💚 COMMON</div>
+                    <div class="nft-image" style="color: var(--accent);">🦎</div>
+                    <div class="nft-info">
+                        <h4>Forest Scout #5823</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 250 | Speed: 500</p>
+                        <p style="color: var(--accent); font-size: 0.875rem;">Special: Rapid Fire</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge badge-success">0.08 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Rarity Distribution -->
-            <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 16px; margin-bottom: 2rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem; color: #10b981;">📊 Rarity Distribution</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;">
-                    <div>
+            <div class="glass" style="margin: 3rem auto; max-width: 1000px;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">📊 Rarity Distribution</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
                         <div style="font-size: 2rem;">⭐</div>
-                        <p><strong>Legendary</strong></p>
-                        <p style="color: #fbbf24;">1% (100 NFTs)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">0.5 ETH Floor</p>
+                        <strong>Legendary</strong>
+                        <p style="color: var(--accent-gold);">1% (100 NFTs)</p>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <div style="font-size: 2rem;">💎</div>
-                        <p><strong>Epic</strong></p>
-                        <p style="color: #8b5cf6;">9% (900 NFTs)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">0.2 ETH Floor</p>
+                        <strong>Epic</strong>
+                        <p style="color: var(--accent-3);">9% (900 NFTs)</p>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <div style="font-size: 2rem;">💙</div>
-                        <p><strong>Rare</strong></p>
-                        <p style="color: #3b82f6;">25% (2,500 NFTs)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">0.1 ETH Floor</p>
+                        <strong>Rare</strong>
+                        <p style="color: var(--accent-2);">25% (2,500 NFTs)</p>
                     </div>
-                    <div>
+                    <div style="text-align: center;">
                         <div style="font-size: 2rem;">💚</div>
-                        <p><strong>Common</strong></p>
-                        <p style="color: #10b981;">65% (6,500 NFTs)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">0.08 ETH Floor</p>
+                        <strong>Common</strong>
+                        <p style="color: var(--accent);">65% (6,500 NFTs)</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- NFT Features -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #fbbf24;">
-                    <h4 style="color: #fbbf24; margin-bottom: 1rem;">🎨 Unique Traits</h4>
-                    <p>• Background (20 variations)</p>
-                    <p>• Body Type (15 variations)</p>
-                    <p>• Eyes (30 variations)</p>
-                    <p>• Accessories (50+ items)</p>
-                    <p>• Special Effects (10 rare)</p>
-                </div>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #8b5cf6;">
-                    <h4 style="color: #8b5cf6; margin-bottom: 1rem;">⚔️ Battle Stats</h4>
-                    <p>• Attack Power (100-9999)</p>
-                    <p>• Defense Rating (100-9999)</p>
-                    <p>• Speed (100-MAX)</p>
-                    <p>• Special Ability Cooldown</p>
-                    <p>• Evolution Level (1-10)</p>
-                </div>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981;">
-                    <h4 style="color: #10b981; margin-bottom: 1rem;">💰 Earning Potential</h4>
-                    <p>• Daily $GECKO Generation</p>
-                    <p>• Tournament Multipliers</p>
-                    <p>• Staking APY Boost</p>
-                    <p>• Breeding Capability</p>
-                    <p>• Marketplace Trading</p>
-                </div>
-            </div>
-            
-            <!-- Coming Soon Note -->
-            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 16px;">
-                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-                    📸 <strong>Note:</strong> These are preview representations. Actual NFT artwork will be revealed at mint.
-                </p>
-                <p style="opacity: 0.8;">
-                    Each Gecko is procedurally generated with over 1 million possible combinations!
-                </p>
-                <a href="#early-access" class="btn" style="margin-top: 1rem;">🦎 Get Whitelist Access</a>
             </div>
         </div>
     </section>
 
-    <!-- Main Features -->
+    <!-- Features Section -->
     <section id="features" class="section">
         <div class="container">
-            <h2>🎯 Platform Features</h2>
+            <div class="section-header">
+                <h2 class="gradient-text">🎯 Platform Features</h2>
+                <p>Everything you need for the ultimate Web3 gaming experience</p>
+            </div>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <span class="feature-icon">🦎</span>
-                    <h3>NFT Geckos Coleccionables</h3>
-                    <p><strong>Generación Procedural:</strong> Cada Gecko es único con traits algorítmicos</p>
-                    <p><strong>Rareza Dinámica:</strong> Sistema basado en performance en juego</p>
-                    <p><strong>Evolución:</strong> Los Geckos evolucionan basado en uso y achievements</p>
-                    <p><strong>Breeding:</strong> Cruza Geckos para crear nuevas variaciones</p>
+                    <span class="feature-icon" style="color: var(--accent);">🦎</span>
+                    <h3>NFT Geckos Collection</h3>
+                    <p>Unique procedurally generated Geckos with dynamic rarity system, evolution mechanics, and breeding capabilities.</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🏰</span>
+                    <span class="feature-icon" style="color: var(--accent-2);">🏰</span>
                     <h3>Tower Defense Gameplay</h3>
-                    <p><strong>Mecánicas Avanzadas:</strong> Basado en el sistema de Alien Threat</p>
-                    <p><strong>Geckos como Torres:</strong> Cada NFT Gecko funciona como torre única</p>
-                    <p><strong>Habilidades Especiales:</strong> Cada Gecko tiene habilidades basadas en sus traits</p>
-                    <p><strong>Modos PvP:</strong> Batalla contra otros jugadores</p>
+                    <p>Advanced mechanics with Geckos as towers, special abilities based on traits, and competitive PvP modes.</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🎰</span>
+                    <span class="feature-icon" style="color: var(--accent-3);">🎰</span>
                     <h3>Casino & Mini-Games</h3>
-                    <p><strong>Slots con NFTs:</strong> Usar Geckos NFTs en máquinas tragamonedas</p>
-                    <p><strong>Poker & Blackjack:</strong> Apostar tokens $GECKO</p>
-                    <p><strong>Wheel of Fortune:</strong> Girar por premios especiales</p>
-                    <p><strong>Daily Challenges:</strong> Misiones diarias con rewards</p>
+                    <p>NFT-powered slots, poker, blackjack, wheel of fortune, and daily challenges with $GECKO rewards.</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">💰</span>
-                    <h3>Token Economy ($GECKO)</h3>
-                    <p><strong>Play-to-Earn:</strong> Gana tokens jugando</p>
-                    <p><strong>Staking:</strong> Stakea NFTs para generar rewards pasivos</p>
-                    <p><strong>Governance:</strong> Vota en propuestas del DAO</p>
-                    <p><strong>Marketplace:</strong> Moneda principal para trading</p>
+                    <span class="feature-icon" style="color: var(--accent-gold);">💰</span>
+                    <h3>Token Economy</h3>
+                    <p>Play-to-earn mechanics, staking for passive income, DAO governance, and marketplace trading.</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🤖</span>
+                    <span class="feature-icon" style="color: var(--success);">🤖</span>
                     <h3>AI-Powered Features</h3>
-                    <p><strong>Procedural Generation:</strong> Generación automática de niveles</p>
-                    <p><strong>Smart NPCs:</strong> Enemigos con comportamiento inteligente</p>
-                    <p><strong>Content Creation:</strong> Generación de assets con IA</p>
-                    <p><strong>Performance Optimization:</strong> IA para balancear gameplay</p>
+                    <p>Procedural level generation, smart NPC behavior, content creation, and performance optimization.</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🎮</span>
-                    <h3>Gameplay Modes</h3>
-                    <p><strong>Modo Historia:</strong> Tutorial + 50+ niveles progresivos</p>
-                    <p><strong>Boss Battles:</strong> Enfréntate a jefes únicos</p>
-                    <p><strong>Endless Mode:</strong> Sobrevive el mayor tiempo posible</p>
-                    <p><strong>PvP Tournaments:</strong> Competencias semanales</p>
+                    <span class="feature-icon" style="color: var(--danger);">🎮</span>
+                    <h3>Multiple Game Modes</h3>
+                    <p>Story campaign with 50+ levels, boss battles, endless survival mode, and weekly tournaments.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tokenomics -->
-    <section id="tokenomics" class="section">
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="section" style="background: linear-gradient(180deg, transparent, rgba(16,185,129,.03));">
         <div class="container">
-            <h2>💎 Tokenomics $GECKO</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">
-                <strong>Total Supply: 1,000,000,000 $GECKO</strong>
-            </p>
+            <div class="section-header">
+                <h2 class="gradient-text">💎 Tokenomics $GECKO</h2>
+                <p>Total Supply: 1,000,000,000 $GECKO</p>
+            </div>
             
-            <div class="tokenomics-grid">
-                <div class="tokenomics-item">
-                    <h4>🎮 Play-to-Earn Rewards</h4>
-                    <p><strong>400M tokens (40%)</strong></p>
-                    <p>Distributed to players through gameplay, tournaments, and achievements</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <div class="glass">
+                    <h4 style="color: var(--accent);">🎮 Play-to-Earn</h4>
+                    <p style="font-size: 1.5rem; margin: 0.5rem 0;"><strong>40%</strong></p>
+                    <p style="color: var(--muted);">400M tokens for player rewards</p>
                 </div>
-                <div class="tokenomics-item">
-                    <h4>🛠️ Development</h4>
-                    <p><strong>250M tokens (25%)</strong></p>
-                    <p>Platform development, game expansion, and technical infrastructure</p>
+                <div class="glass">
+                    <h4 style="color: var(--accent-2);">🛠️ Development</h4>
+                    <p style="font-size: 1.5rem; margin: 0.5rem 0;"><strong>25%</strong></p>
+                    <p style="color: var(--muted);">250M tokens for platform growth</p>
                 </div>
-                <div class="tokenomics-item">
-                    <h4>🏛️ Community Treasury</h4>
-                    <p><strong>150M tokens (15%)</strong></p>
-                    <p>Community-governed fund for ecosystem growth and initiatives</p>
+                <div class="glass">
+                    <h4 style="color: var(--accent-3);">🏛️ Treasury</h4>
+                    <p style="font-size: 1.5rem; margin: 0.5rem 0;"><strong>15%</strong></p>
+                    <p style="color: var(--muted);">150M tokens for community</p>
                 </div>
-                <div class="tokenomics-item">
-                    <h4>👥 Team (4 años vesting)</h4>
-                    <p><strong>100M tokens (10%)</strong></p>
-                    <p>Core team allocation with long-term vesting schedule</p>
+                <div class="glass">
+                    <h4 style="color: var(--accent-gold);">👥 Team</h4>
+                    <p style="font-size: 1.5rem; margin: 0.5rem 0;"><strong>10%</strong></p>
+                    <p style="color: var(--muted);">100M tokens (4-year vesting)</p>
                 </div>
-                <div class="tokenomics-item">
-                    <h4>🤝 Partnerships</h4>
-                    <p><strong>100M tokens (10%)</strong></p>
-                    <p>Strategic partnerships and collaborations</p>
+                <div class="glass">
+                    <h4 style="color: var(--success);">🤝 Partnerships</h4>
+                    <p style="font-size: 1.5rem; margin: 0.5rem 0;"><strong>10%</strong></p>
+                    <p style="color: var(--muted);">100M tokens for collaborations</p>
                 </div>
             </div>
 
-            <div style="margin-top: 3rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem; color: #10b981;">🔧 Utility del Token</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                    <div style="text-align: center; padding: 1rem;">
-                        <p><strong>💰 In-Game Currency</strong></p>
-                        <p>Compras, upgrades, betting</p>
+            <!-- Token Utility -->
+            <div class="glass" style="max-width: 1000px; margin: 0 auto;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">🔧 Token Utility</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center;">
+                        <strong>💰 In-Game Currency</strong>
+                        <p style="color: var(--muted);">Purchases & upgrades</p>
                     </div>
-                    <div style="text-align: center; padding: 1rem;">
-                        <p><strong>🛒 NFT Trading</strong></p>
-                        <p>Moneda del marketplace</p>
+                    <div style="text-align: center;">
+                        <strong>🛒 NFT Trading</strong>
+                        <p style="color: var(--muted);">Marketplace currency</p>
                     </div>
-                    <div style="text-align: center; padding: 1rem;">
-                        <p><strong>📈 Staking Rewards</strong></p>
-                        <p>APY variable 8-25%</p>
+                    <div style="text-align: center;">
+                        <strong>📈 Staking Rewards</strong>
+                        <p style="color: var(--muted);">8-25% APY</p>
                     </div>
-                    <div style="text-align: center; padding: 1rem;">
-                        <p><strong>🗳️ DAO Governance</strong></p>
-                        <p>1 token = 1 voto</p>
+                    <div style="text-align: center;">
+                        <strong>🗳️ DAO Governance</strong>
+                        <p style="color: var(--muted);">1 token = 1 vote</p>
                     </div>
-                    <div style="text-align: center; padding: 1rem;">
-                        <p><strong>🏆 Tournament Entry</strong></p>
-                        <p>Fees de entrada en competencias</p>
+                    <div style="text-align: center;">
+                        <strong>🏆 Tournament Entry</strong>
+                        <p style="color: var(--muted);">Competition fees</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Roadmap -->
+    <!-- Roadmap Section -->
     <section id="roadmap" class="section">
         <div class="container">
-            <h2>🛣️ Roadmap</h2>
-            
-            <div class="roadmap-timeline">
-                <div class="roadmap-item">
-                    <h3 style="color: #10b981;">Q1 2025: Genesis Launch</h3>
-                    <p>✅ Smart contracts deployment</p>
-                    <p>✅ NFT collection mint (10,000 Geckos)</p>
-                    <p>✅ Basic tower defense gameplay</p>
-                    <p>🔄 Marketplace launch</p>
-                    <p>🔄 Staking mechanism</p>
-                </div>
-                
-                <div class="roadmap-item">
-                    <h3 style="color: #3b82f6;">Q2 2025: Expansion</h3>
-                    <p>📱 Mobile app (React Native)</p>
-                    <p>🤖 Advanced AI features</p>
-                    <p>👥 Guild system</p>
-                    <p>🌉 Cross-chain integration (Polygon/Arbitrum)</p>
-                </div>
-                
-                <div class="roadmap-item">
-                    <h3 style="color: #8b5cf6;">Q3 2025: Metaverse</h3>
-                    <p>🌍 3D Metaverse integration</p>
-                    <p>🥽 VR/AR support</p>
-                    <p>🏡 Land NFTs</p>
-                    <p>🎪 Virtual events space</p>
-                </div>
-                
-                <div class="roadmap-item">
-                    <h3 style="color: #f59e0b;">Q4 2025: DAO & Governance</h3>
-                    <p>🏛️ Full DAO launch</p>
-                    <p>🗳️ Community governance</p>
-                    <p>💵 Revenue sharing</p>
-                    <p>🤝 Ecosystem partnerships</p>
-                </div>
+            <div class="section-header">
+                <h2 class="gradient-text">🛣️ Roadmap 2025</h2>
+                <p>Our journey to revolutionize Web3 gaming</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack -->
-    <section id="tech" class="section">
-        <div class="container">
-            <h2>🔧 Tech Stack</h2>
             
-            <div class="tech-grid">
-                <div class="tech-category">
-                    <h4>Frontend</h4>
-                    <ul class="tech-list">
-                        <li>Next.js 15 with App Router</li>
-                        <li>React 19 with Server Components</li>
-                        <li>TypeScript for type safety</li>
-                        <li>Tailwind CSS + shadcn/ui</li>
-                        <li>Framer Motion animations</li>
-                        <li>Three.js for 3D rendering</li>
+            <div style="display: grid; gap: 2rem; max-width: 800px; margin: 0 auto;">
+                <div class="glass">
+                    <span class="badge badge-success">Q1 2025</span>
+                    <h3 style="color: var(--accent); margin: 1rem 0;">Genesis Launch</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✅ Smart contracts deployment</li>
+                        <li>✅ NFT collection mint (10,000 Geckos)</li>
+                        <li>✅ Basic tower defense gameplay</li>
+                        <li>🔄 Marketplace launch</li>
+                        <li>🔄 Staking mechanism</li>
                     </ul>
                 </div>
-                
-                <div class="tech-category">
-                    <h4>Gaming</h4>
-                    <ul class="tech-list">
-                        <li>Phaser.js game engine</li>
-                        <li>Matter.js physics</li>
-                        <li>Socket.io multiplayer</li>
-                        <li>WebGL advanced rendering</li>
+
+                <div class="glass">
+                    <span class="badge" style="background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.3); color: var(--accent-2);">Q2 2025</span>
+                    <h3 style="color: var(--accent-2); margin: 1rem 0;">Expansion</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>📱 Mobile app (React Native)</li>
+                        <li>🤖 Advanced AI features</li>
+                        <li>👥 Guild system</li>
+                        <li>🌉 Cross-chain integration</li>
                     </ul>
                 </div>
-                
-                <div class="tech-category">
-                    <h4>Blockchain</h4>
-                    <ul class="tech-list">
-                        <li>Ethereum (Mainnet/L2)</li>
-                        <li>Hardhat development</li>
-                        <li>OpenZeppelin contracts</li>
-                        <li>Wagmi + RainbowKit</li>
-                        <li>IPFS metadata</li>
+
+                <div class="glass">
+                    <span class="badge badge-purple">Q3 2025</span>
+                    <h3 style="color: var(--accent-3); margin: 1rem 0;">Metaverse</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>🌍 3D Metaverse integration</li>
+                        <li>🥽 VR/AR support</li>
+                        <li>🏡 Land NFTs</li>
+                        <li>🎪 Virtual events space</li>
                     </ul>
                 </div>
-                
-                <div class="tech-category">
-                    <h4>Backend</h4>
-                    <ul class="tech-list">
-                        <li>Node.js + Fastify</li>
-                        <li>Prisma ORM + PostgreSQL</li>
-                        <li>Redis caching</li>
-                        <li>tRPC API</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-category">
-                    <h4>AI/ML</h4>
-                    <ul class="tech-list">
-                        <li>OpenAI GPT-4</li>
-                        <li>Anthropic Claude</li>
-                        <li>TensorFlow.js</li>
-                        <li>Langchain workflows</li>
+
+                <div class="glass">
+                    <span class="badge badge-gold">Q4 2025</span>
+                    <h3 style="color: var(--accent-gold); margin: 1rem 0;">DAO & Governance</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>🏛️ Full DAO launch</li>
+                        <li>🗳️ Community governance</li>
+                        <li>💵 Revenue sharing</li>
+                        <li>🤝 Ecosystem partnerships</li>
                     </ul>
                 </div>
             </div>
@@ -923,32 +420,33 @@
     </section>
 
     <!-- Call to Action -->
-    <section id="early-access" class="section" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));">
-        <div class="container" style="text-align: center;">
-            <h2>🚀 Ready to Join the Revolution?</h2>
-            <p style="font-size: 1.3rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Be among the first to experience the future of Web3 gaming. Early access members get exclusive benefits, bonus tokens, and priority access to Genesis NFTs.
-            </p>
-            
-            <div style="margin: 2rem 0;">
-                <a href="mailto:invest@omniversegeckos.com" class="btn" style="font-size: 1.2rem; padding: 1.5rem 3rem;">
-                    🦎 Join Early Access Now
-                </a>
-                <br><br>
-                <a href="mailto:investors@omniversegeckos.com" class="btn btn-secondary">
-                    💰 Investment Inquiries
-                </a>
-            </div>
-            
-            <div style="margin-top: 3rem; opacity: 0.8;">
-                <p><strong>🎯 What Early Access Members Get:</strong></p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                    <div>✅ Exclusive Genesis NFT Whitelist</div>
-                    <div>✅ 20% Bonus Token Allocation</div>
-                    <div>✅ Priority Game Access</div>
-                    <div>✅ Community Governance Rights</div>
-                    <div>✅ Special Discord Channel</div>
-                    <div>✅ Monthly Team AMAs</div>
+    <section id="early-access" class="section" style="background: linear-gradient(180deg, transparent, rgba(16,185,129,.05));">
+        <div class="container">
+            <div class="glass" style="text-align: center; max-width: 800px; margin: 0 auto; padding: 3rem;">
+                <h2 class="gradient-text">🚀 Ready to Join the Revolution?</h2>
+                <p style="font-size: 1.25rem; margin: 2rem 0; color: var(--muted);">
+                    Be among the first to experience the future of Web3 gaming. Early access members get exclusive benefits, bonus tokens, and priority access to Genesis NFTs.
+                </p>
+                
+                <div class="btn-row" style="justify-content: center;">
+                    <a href="mailto:invest@omniversegeckos.com" class="btn btn-gradient">
+                        🦎 Join Early Access
+                    </a>
+                    <a href="mailto:investors@omniversegeckos.com" class="btn btn-secondary">
+                        💰 Investment Inquiries
+                    </a>
+                </div>
+                
+                <div style="margin-top: 3rem;">
+                    <h4 style="margin-bottom: 1rem;">🎯 Early Access Benefits</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div>✅ Genesis NFT Whitelist</div>
+                        <div>✅ 25% Bonus Tokens</div>
+                        <div>✅ Priority Game Access</div>
+                        <div>✅ Governance Rights</div>
+                        <div>✅ VIP Discord Channel</div>
+                        <div>✅ Monthly Team AMAs</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -957,88 +455,68 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/omniversodigital/omniverse-geckos" class="social-link">📚 GitHub</a>
-                <a href="#" class="social-link">🐦 Twitter</a>
-                <a href="#" class="social-link">💬 Discord</a>
-                <a href="#" class="social-link">📝 Medium</a>
-                <a href="mailto:contact@omniversegeckos.com" class="social-link">📧 Contact</a>
-            </div>
-            
-            <div style="margin: 2rem 0; padding: 2rem; background: rgba(0,0,0,0.3); border-radius: 12px;">
-                <h4 style="color: #10b981; margin-bottom: 1rem;">⚡ Performance & Monitoring</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
-                    <div>📊 Real-time Analytics Dashboard</div>
-                    <div>🐛 Sentry Error Tracking</div>
-                    <div>⚡ Web Vitals Performance</div>
-                    <div>⛓️ Blockchain Analytics</div>
-                    <div>🤖 AI Model Monitoring</div>
-                    <div>📈 Growth Metrics</div>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>🦎 Omniverse Geckos</h3>
+                    <p style="color: var(--muted); margin: 1rem 0;">
+                        Revolutionary AI-Powered Web3 Gaming Platform. Building the future of blockchain gaming with NFTs, tokens, and immersive gameplay.
+                    </p>
+                    <div class="social-links" style="justify-content: flex-start;">
+                        <a href="https://github.com/omniversodigital/omniverse-geckos" class="social-link">📚</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">💬</a>
+                        <a href="#" class="social-link">📝</a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#nft-gallery">NFT Gallery</a></li>
+                        <li><a href="#tokenomics">Tokenomics</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="docs/WHITEPAPER.md">Whitepaper</a></li>
+                        <li><a href="docs/INVESTOR_DECK.md">Investor Deck</a></li>
+                        <li><a href="https://github.com/omniversodigital/omniverse-geckos">GitHub</a></li>
+                        <li><a href="#team">Team</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@omniversegeckos.com">General</a></li>
+                        <li><a href="mailto:invest@omniversegeckos.com">Investment</a></li>
+                        <li><a href="mailto:support@omniversegeckos.com">Support</a></li>
+                        <li><a href="mailto:press@omniversegeckos.com">Press</a></li>
+                    </ul>
                 </div>
             </div>
-            
-            <p style="margin: 2rem 0; opacity: 0.7;">
-                Built with ❤️ for the future of Web3 gaming<br>
-                <strong>© 2025 Omniverse Geckos - Revolutionary Gaming Platform</strong>
-            </p>
-            
-            <div style="font-size: 0.9rem; opacity: 0.6;">
-                <p>MVP is LIVE! 🎉 Building the future of blockchain gaming...</p>
-                <p>This platform demonstrates our vision for the ultimate Web3 gaming ecosystem.</p>
-                <p><strong>Ready to revolutionize gaming together? 🦎🚀</strong></p>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year">2025</span> Omniverse Geckos - Revolutionary Gaming Platform</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem;">Built with ❤️ by Omniverso Digital Team</p>
             </div>
         </div>
     </footer>
 
-    <!-- AI Gecko Assistant -->
-    <div id="gecko-assistant" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <!-- Gecko Avatar Button -->
-        <div id="gecko-avatar" style="width: 80px; height: 80px; background: linear-gradient(135deg, #1e293b, #334155); border: 3px solid #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; cursor: pointer; animation: geckoFloat 3s ease-in-out infinite, geckoPulse 2s ease-in-out infinite; transition: all 0.3s; position: relative;">
-            <div style="position: absolute; inset: -5px; background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #10b981); border-radius: 50%; z-index: -1; opacity: 0.6; animation: borderSpin 4s linear infinite;"></div>
-            <span style="text-shadow: 0 0 10px rgba(16, 185, 129, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🦎</span>
-        </div>
-        
-        <!-- Chat Window -->
-        <div id="gecko-chat" style="position: absolute; bottom: 100px; right: 0; width: 350px; height: 500px; background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 20px; border: 2px solid #10b981; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
-            <!-- Chat Header -->
-            <div style="padding: 1.5rem; border-bottom: 1px solid rgba(16, 185, 129, 0.3); display: flex; align-items: center; gap: 1rem;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #1e293b, #334155); border: 2px solid #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; position: relative;">
-                    <div style="position: absolute; inset: -3px; background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #10b981); border-radius: 50%; z-index: -1; opacity: 0.6; animation: borderSpin 4s linear infinite;"></div>
-                    <span style="text-shadow: 0 0 8px rgba(16, 185, 129, 0.5), 0 0 15px rgba(255, 255, 255, 0.2);">🦎</span>
-                </div>
-                <div>
-                    <h3 style="margin: 0; color: #10b981; font-size: 1.2rem;">GeckoBot AI</h3>
-                    <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Your Web3 Gaming Assistant</p>
-                </div>
-                <button id="close-chat" style="margin-left: auto; background: none; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer;">×</button>
-            </div>
-            
-            <!-- Chat Messages -->
-            <div id="chat-messages" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;">
-                <div class="gecko-message">
-                    <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 15px 15px 15px 5px; border-left: 3px solid #10b981;">
-                        <p style="margin: 0; color: white; font-size: 0.9rem;">🦎 ¡Hola! Soy GeckoBot, tu asistente de Omniverse Geckos. ¿En qué puedo ayudarte?</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-                            <button class="quick-btn" data-question="¿Qué son los NFT Geckos?">🦎 NFT Geckos</button>
-                            <button class="quick-btn" data-question="¿Cómo funciona el token $GECKO?">💰 Token $GECKO</button>
-                            <button class="quick-btn" data-question="¿Cuándo es el lanzamiento?">🚀 Roadmap</button>
-                            <button class="quick-btn" data-question="¿Cómo invertir?">💎 Invertir</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Chat Input -->
-            <div style="padding: 1rem; border-top: 1px solid rgba(16, 185, 129, 0.3);">
-                <div style="display: flex; gap: 0.5rem;">
-                    <input id="chat-input" type="text" placeholder="Pregúntame sobre Omniverse Geckos..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 0.75rem; color: white; font-size: 0.9rem;" />
-                    <button id="send-btn" style="background: linear-gradient(45deg, #10b981, #34d399); border: none; border-radius: 10px; padding: 0.75rem 1rem; color: white; cursor: pointer; font-size: 1rem;">📤</button>
-                </div>
-            </div>
-        </div>
+    <!-- Gecko AI Assistant (Hidden by default, can be enabled) -->
+    <div id="gecko-assistant" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: none;">
+        <!-- Assistant code here if needed -->
     </div>
 
+    <!-- Scripts -->
     <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         // Countdown Timer
         function updateCountdown() {
             const endTime = new Date();
@@ -1060,76 +538,26 @@
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
                 document.getElementById('countdown-timer').innerHTML = 
-                    `⏰ ${days}d ${hours}h ${minutes}m ${seconds}s | 25% Bonus Tokens`;
+                    `⏰ ${days}d ${hours}h ${minutes}m ${seconds}s | 25% BONUS TOKENS`;
             }, 1000);
         }
         
-        // Initialize countdown on page load
+        // Initialize countdown
         updateCountdown();
-        
-        // AI Gecko Assistant Logic
-        const geckoResponses = {
-            "nft": "🦎 Los NFT Geckos son una colección de 10,000 geckos únicos con utilidad real en nuestro juego tower defense. Cada uno tiene stats únicos, habilidades especiales y puede generar tokens $GECKO. ¡Son mucho más que simples imágenes!",
-            "token": "💰 $GECKO es nuestro token nativo con supply de 1B tokens. Se usa para: gameplay, staking (8-25% APY), governance DAO, trading NFTs y tournament entry. ¡Es deflacinoario con quemas automáticas!",
-            "roadmap": "🚀 Q1 2025: Lanzamiento Genesis con NFTs y marketplace. Q2: App móvil y AI avanzado. Q3: Metaverso 3D y VR. Q4: DAO completo. ¡El futuro es emocionante!",
-            "invertir": "💎 Pre-sale activa: $0.0008 por token (público: $0.0020). ROI proyectado 750%+. Genesis NFTs desde 0.08 ETH. Mercado de $321B. ¡Únete al early access con 25% bonus!",
-            "juego": "🎮 Tower Defense revolucionario donde tus NFT Geckos funcionan como torres únicas. Incluye modo historia, boss battles, PvP tournaments, casino y breeding. ¡Play-to-earn real!",
-            "staking": "📈 Stakea tus NFT Geckos para generar $GECKO pasivamente. APY variable del 8-25% según rareza. Legendary Geckos generan más rewards. ¡Ingresos mientras juegas!",
-            "equipo": "👥 Equipo experimentado en gaming y blockchain. Contratos auditados por CertiK. Desarrollo transparente en GitHub. ¡Construimos el futuro del Web3 gaming!",
-            "tecnologia": "🔧 Next.js 15, React 19, Phaser.js gaming, Ethereum/L2, AI con GPT-4/Claude, Three.js 3D. Stack moderno para máximo rendimiento.",
-            "default": "🦎 Interesante pregunta! Te puedo ayudar con: NFT Geckos, tokenomics $GECKO, roadmap, inversiones, gameplay, staking, equipo técnico y más. ¿Qué te gustaría saber específicamente?"
-        };
 
-        function getGeckoResponse(message) {
-            const msg = message.toLowerCase();
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
             
-            if (msg.includes('nft') || msg.includes('gecko') || msg.includes('colección')) return geckoResponses.nft;
-            if (msg.includes('token') || msg.includes('$gecko') || msg.includes('precio')) return geckoResponses.token;
-            if (msg.includes('roadmap') || msg.includes('lanzamiento') || msg.includes('cuando')) return geckoResponses.roadmap;
-            if (msg.includes('invertir') || msg.includes('comprar') || msg.includes('roi')) return geckoResponses.invertir;
-            if (msg.includes('juego') || msg.includes('tower') || msg.includes('defense') || msg.includes('gameplay')) return geckoResponses.juego;
-            if (msg.includes('staking') || msg.includes('stake') || msg.includes('rewards')) return geckoResponses.staking;
-            if (msg.includes('equipo') || msg.includes('team') || msg.includes('audit')) return geckoResponses.equipo;
-            if (msg.includes('tecnologia') || msg.includes('tech') || msg.includes('stack')) return geckoResponses.tecnologia;
-            
-            return geckoResponses.default;
-        }
+            // Add scrolled class to header
+            if (window.scrollY > 50) {
+                document.getElementById('header').classList.add('scrolled');
+            } else {
+                document.getElementById('header').classList.remove('scrolled');
+            }
+        });
 
-        function addMessage(message, isUser = false) {
-            const messagesDiv = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = isUser ? 'user-message' : 'gecko-message';
-            
-            messageDiv.innerHTML = `
-                <div style="background: ${isUser ? 'rgba(59, 130, 246, 0.1)' : 'rgba(16, 185, 129, 0.1)'}; padding: 1rem; border-radius: ${isUser ? '15px 15px 5px 15px' : '15px 15px 15px 5px'}; border-${isUser ? 'right' : 'left'}: 3px solid ${isUser ? '#3b82f6' : '#10b981'}; margin-left: ${isUser ? '2rem' : '0'}; margin-right: ${isUser ? '0' : '2rem'};">
-                    <p style="margin: 0; color: white; font-size: 0.9rem;">${isUser ? '👤' : '🦎'} ${message}</p>
-                </div>
-            `;
-            
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // Add user message
-            addMessage(message, true);
-            input.value = '';
-            
-            // Simulate typing delay
-            setTimeout(() => {
-                const response = getGeckoResponse(message);
-                addMessage(response);
-            }, 1000);
-        }
-
-        // Simple analytics and interactions
-        console.log('🦎 Omniverse Geckos - Revolutionary Web3 Gaming Platform loaded!');
-        
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1143,50 +571,25 @@
                 }
             });
         });
+
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Analytics
+        console.log('🦎 Omniverse Geckos v2.0 - Revolutionary Web3 Gaming Platform');
+        console.log('🚀 Pre-sale is LIVE with 25% bonus tokens!');
         
         // Track engagement
         let engagementTime = 0;
         setInterval(() => {
-            engagementTime += 1;
-            if (engagementTime % 30 === 0) { // Every 30 seconds
+            engagementTime++;
+            if (engagementTime % 30 === 0) {
                 console.log(`User engaged for ${engagementTime} seconds`);
             }
         }, 1000);
-        
-        // Track clicks on important elements
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                console.log('CTA clicked:', this.textContent.trim());
-            });
-        });
-        
-        // Gecko Assistant Event Listeners
-        document.getElementById('gecko-avatar').addEventListener('click', () => {
-            const chat = document.getElementById('gecko-chat');
-            chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
-        });
-        
-        document.getElementById('close-chat').addEventListener('click', () => {
-            document.getElementById('gecko-chat').style.display = 'none';
-        });
-        
-        document.getElementById('send-btn').addEventListener('click', sendMessage);
-        
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-        
-        // Quick buttons event listeners
-        document.querySelectorAll('.quick-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const question = btn.getAttribute('data-question');
-                addMessage(question, true);
-                setTimeout(() => {
-                    const response = getGeckoResponse(question);
-                    addMessage(response);
-                }, 1000);
-            });
-        });
     </script>
 </body>
 </html>
