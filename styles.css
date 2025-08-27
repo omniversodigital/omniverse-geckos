@@ -1062,8 +1062,9 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 }
 
 .hero-content h1 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
   margin-bottom: 1.5rem;
+  margin-top: 0.8rem;
   animation: slideInLeft 0.8s ease;
 }
 
