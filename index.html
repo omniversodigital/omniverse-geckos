@@ -152,20 +152,39 @@
             z-index: 2147483647 !important;
         }
         
-        /* ANIMACIÓN PARA LOGO INTERNO DEL CHAT */
-        @keyframes gecko-logo-glow {
+        /* MEGA ANIMACIÓN PARA LOGO INTERNO DEL CHAT */
+        @keyframes gecko-logo-mega-glow {
             0%, 100% {
-                box-shadow: 
-                    0 0 20px #FFD700,
-                    0 6px 20px rgba(0,0,0,0.7),
-                    inset 0 3px 8px rgba(255,255,255,0.4);
-            }
-            50% {
+                transform: scale(1) rotate(0deg);
                 box-shadow: 
                     0 0 30px #FFD700,
-                    0 0 40px #FFD700,
-                    0 6px 25px rgba(0,0,0,0.8),
-                    inset 0 3px 10px rgba(255,255,255,0.5);
+                    0 0 50px #FFD700,
+                    0 8px 25px rgba(0,0,0,0.8),
+                    inset 0 4px 12px rgba(255,255,255,0.6),
+                    inset 0 -4px 8px rgba(0,0,0,0.3);
+                filter: 
+                    drop-shadow(4px 4px 8px rgba(0,0,0,1)) 
+                    drop-shadow(0 0 20px #FFD700);
+            }
+            25% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(0deg);
+                box-shadow: 
+                    0 0 50px #FFD700,
+                    0 0 80px #FFD700,
+                    0 0 100px #FFD700,
+                    0 10px 35px rgba(0,0,0,0.9),
+                    inset 0 6px 18px rgba(255,255,255,0.8),
+                    inset 0 -6px 12px rgba(0,0,0,0.4);
+                filter: 
+                    drop-shadow(6px 6px 12px rgba(0,0,0,1)) 
+                    drop-shadow(0 0 30px #FFD700)
+                    drop-shadow(0 0 40px #FFFF00);
+            }
+            75% {
+                transform: scale(1.05) rotate(-2deg);
             }
         }
     </style>
@@ -173,28 +192,43 @@
     <!-- Gecko AI Assistant Chat -->
     <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
         <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
-            <h3 style="margin: 0; color: white; font-size: 18px;"><span style="
-                display: inline-block;
-                background: radial-gradient(circle, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
-                color: #000000;
-                padding: 8px 12px;
-                border-radius: 50%;
-                margin-right: 12px;
-                font-size: 22px;
-                box-shadow: 
-                    0 0 20px #FFD700,
-                    0 6px 20px rgba(0,0,0,0.7),
-                    inset 0 3px 8px rgba(255,255,255,0.4);
-                border: 4px solid #FFFFFF;
-                text-shadow: 
-                    2px 2px 0px #333333,
-                    -2px -2px 0px #333333,
-                    2px -2px 0px #333333,
-                    -2px 2px 0px #333333,
-                    0 0 8px #333333;
-                filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9));
-                animation: gecko-logo-glow 2s infinite;
-            ">🦎</span>GeckoBot AI Assistant</h3>
+            <h3 style="margin: 0; color: white; font-size: 18px;">
+                <span style="
+                    display: inline-block !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    background: 
+                        radial-gradient(circle at 30% 30%, #FFFFFF 0%, #FFD700 20%, #FFA500 60%, #000000 100%),
+                        linear-gradient(45deg, #FFD700, #FFA500, #FF8C00, #FFD700) !important;
+                    color: #000000 !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    margin-right: 15px !important;
+                    font-size: 28px !important;
+                    line-height: 50px !important;
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    box-shadow: 
+                        0 0 30px #FFD700,
+                        0 0 50px #FFD700,
+                        0 8px 25px rgba(0,0,0,0.8),
+                        inset 0 4px 12px rgba(255,255,255,0.6),
+                        inset 0 -4px 8px rgba(0,0,0,0.3) !important;
+                    border: 5px solid #FFFFFF !important;
+                    text-shadow: 
+                        3px 3px 0px #000000,
+                        -3px -3px 0px #000000,
+                        3px -3px 0px #000000,
+                        -3px 3px 0px #000000,
+                        0 0 15px #000000,
+                        0 0 25px #FFD700 !important;
+                    filter: 
+                        drop-shadow(4px 4px 8px rgba(0,0,0,1)) 
+                        drop-shadow(0 0 20px #FFD700) !important;
+                    animation: gecko-logo-mega-glow 1.8s infinite !important;
+                    transform: translateZ(0) !important;
+                    will-change: transform, box-shadow !important;
+                ">🦎</span>GeckoBot AI Assistant</h3>
             <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
         </div>
         <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
@@ -820,28 +854,43 @@
     <!-- Gecko AI Assistant Chat -->
     <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
         <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
-            <h3 style="margin: 0; color: white; font-size: 18px;"><span style="
-                display: inline-block;
-                background: radial-gradient(circle, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
-                color: #000000;
-                padding: 8px 12px;
-                border-radius: 50%;
-                margin-right: 12px;
-                font-size: 22px;
-                box-shadow: 
-                    0 0 20px #FFD700,
-                    0 6px 20px rgba(0,0,0,0.7),
-                    inset 0 3px 8px rgba(255,255,255,0.4);
-                border: 4px solid #FFFFFF;
-                text-shadow: 
-                    2px 2px 0px #333333,
-                    -2px -2px 0px #333333,
-                    2px -2px 0px #333333,
-                    -2px 2px 0px #333333,
-                    0 0 8px #333333;
-                filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9));
-                animation: gecko-logo-glow 2s infinite;
-            ">🦎</span>GeckoBot AI Assistant</h3>
+            <h3 style="margin: 0; color: white; font-size: 18px;">
+                <span style="
+                    display: inline-block !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    background: 
+                        radial-gradient(circle at 30% 30%, #FFFFFF 0%, #FFD700 20%, #FFA500 60%, #000000 100%),
+                        linear-gradient(45deg, #FFD700, #FFA500, #FF8C00, #FFD700) !important;
+                    color: #000000 !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    margin-right: 15px !important;
+                    font-size: 28px !important;
+                    line-height: 50px !important;
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    box-shadow: 
+                        0 0 30px #FFD700,
+                        0 0 50px #FFD700,
+                        0 8px 25px rgba(0,0,0,0.8),
+                        inset 0 4px 12px rgba(255,255,255,0.6),
+                        inset 0 -4px 8px rgba(0,0,0,0.3) !important;
+                    border: 5px solid #FFFFFF !important;
+                    text-shadow: 
+                        3px 3px 0px #000000,
+                        -3px -3px 0px #000000,
+                        3px -3px 0px #000000,
+                        -3px 3px 0px #000000,
+                        0 0 15px #000000,
+                        0 0 25px #FFD700 !important;
+                    filter: 
+                        drop-shadow(4px 4px 8px rgba(0,0,0,1)) 
+                        drop-shadow(0 0 20px #FFD700) !important;
+                    animation: gecko-logo-mega-glow 1.8s infinite !important;
+                    transform: translateZ(0) !important;
+                    will-change: transform, box-shadow !important;
+                ">🦎</span>GeckoBot AI Assistant</h3>
             <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
         </div>
         <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
