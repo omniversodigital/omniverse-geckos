@@ -1401,6 +1401,11 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
   box-shadow: 0 0 20px rgba(245,158,11,.2);
 }
 
+.hero-content .badge-gold {
+  margin: 1.5rem 0;
+  display: inline-block;
+}
+
 .badge-purple {
   background: rgba(139,92,246,.15);
   border: 1px solid rgba(139,92,246,.3);
