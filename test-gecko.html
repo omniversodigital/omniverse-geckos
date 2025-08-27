@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Gecko Button</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 50px; 
+            background: #0a0f1c; 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            height: 200vh; 
+        }
+        .section { 
+            height: 50vh; 
+            border: 1px solid #333; 
+            margin: 20px 0; 
+            padding: 20px; 
+        }
+        
+        @keyframes gecko-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700;
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 30px #FFD700, 0 0 60px #FFD700;
+            }
+        }
+        
+        @keyframes gecko-wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🦎 Test de Visibilidad del Gecko Button</h1>
+    
+    <div class="section">
+        <h2>Sección 1</h2>
+        <p>El botón del gecko debería ser visible aquí.</p>
+    </div>
+    
+    <div class="section">
+        <h2>Sección 2</h2>
+        <p>Y también aquí, en cualquier parte de la página.</p>
+    </div>
+    
+    <div class="section">
+        <h2>Sección 3</h2>
+        <p>¡Haz scroll y el gecko siempre debe estar visible!</p>
+    </div>
+
+    <!-- TEST Gecko Button -->
+    <div id="test-gecko-btn" onclick="alert('🦎 ¡Gecko funciona!')" style="
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 80px;
+        height: 80px;
+        background: #000000;
+        border: 5px solid #FFD700;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700;
+        animation: gecko-pulse 2s infinite;
+    ">
+        <span style="
+            font-size: 45px;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+            animation: gecko-wiggle 1.5s infinite;
+        ">🦎</span>
+    </div>
+    
+    <script>
+        console.log('🦎 TEST: Gecko button cargado');
+        
+        document.getElementById('test-gecko-btn').addEventListener('mouseenter', function() {
+            console.log('🦎 TEST: Mouse sobre gecko');
+        });
+    </script>
+</body>
+</html>
