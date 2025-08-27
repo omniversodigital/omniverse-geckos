@@ -115,9 +115,8 @@
         </div>
     </header>
 
-    <!-- GECKO BOT (OLD - HIDDEN) -->
+    <!-- GECKO BOT - FIXED POSITIONING -->
     <div id="gecko-assistant-btn" onclick="toggleGeckoChat()" style="
-        display: none !important;
         position: fixed !important;
         bottom: 30px !important;
         right: 30px !important;
@@ -199,13 +198,15 @@
                 -3px 3px 0 #000 !important;
         }
         
-        /* FUERZA BRUTA PARA VISIBILIDAD */
+        /* FUERZA BRUTA PARA VISIBILIDAD SIEMPRE */
         #gecko-assistant-btn {
             position: fixed !important;
             display: flex !important;
             opacity: 1 !important;
             visibility: visible !important;
-            z-index: 2147483647 !important;
+            z-index: 999999 !important;
+            bottom: 30px !important;
+            right: 30px !important;
         }
         
         /* MEGA ANIMACIÓN PARA LOGO INTERNO DEL CHAT */
@@ -1459,6 +1460,15 @@
                 assistant.style.display = 'none';
                 if (button) button.style.transform = 'scale(1) rotate(0deg)';
                 console.log('🦎 Gecko chat cerrado');
+            }
+            
+            // Ensure button stays visible after interaction
+            if (button) {
+                button.style.position = 'fixed';
+                button.style.bottom = '30px';
+                button.style.right = '30px';
+                button.style.zIndex = '2147483647';
+                button.style.display = 'flex';
             }
         }
 
@@ -2737,6 +2747,32 @@
             window.addEventListener('load', () => {
                 setTimeout(createGeckoButton, 500);
             });
+            
+            // Ensure button stays visible during scroll
+            window.addEventListener('scroll', function() {
+                const geckoBtn = document.getElementById('gecko-bot-fixed-button');
+                if (geckoBtn) {
+                    geckoBtn.style.position = 'fixed';
+                    geckoBtn.style.bottom = '30px';
+                    geckoBtn.style.right = '30px';
+                    geckoBtn.style.zIndex = '2147483647';
+                    geckoBtn.style.display = 'flex';
+                    geckoBtn.style.visibility = 'visible';
+                    geckoBtn.style.opacity = '1';
+                }
+            });
+            
+            // Additional check every 2 seconds to ensure button stays visible
+            setInterval(function() {
+                const geckoBtn = document.getElementById('gecko-bot-fixed-button');
+                if (geckoBtn) {
+                    geckoBtn.style.position = 'fixed';
+                    geckoBtn.style.display = 'flex';
+                    geckoBtn.style.visibility = 'visible';
+                    geckoBtn.style.opacity = '1';
+                    geckoBtn.style.zIndex = '2147483647';
+                }
+            }, 2000);
         })();
 
         // Navigation Actions Functions
