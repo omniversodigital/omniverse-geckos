@@ -99,6 +99,24 @@
                 <a href="#investment" class="nav-link nav-cta">Pre-Sale</a>
             </nav>
 
+            <div class="nav-actions">
+                <button class="nav-btn connect-wallet-btn" onclick="connectWallet()">
+                    🔗 Connect Wallet
+                </button>
+                <button class="nav-btn whitelist-btn" onclick="joinWhitelist()">
+                    📝 Join Whitelist
+                </button>
+                <a href="https://twitter.com/omniversegeckos" target="_blank" class="nav-btn social-btn twitter-btn">
+                    🎯 X Missions
+                </a>
+                <a href="https://twitter.com/omniversegeckos" target="_blank" class="nav-btn social-btn">
+                    📱 Follow on X
+                </a>
+                <a href="https://discord.gg/omniversegeckos" target="_blank" class="nav-btn social-btn discord-btn">
+                    💬 Join Discord
+                </a>
+            </div>
+
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -2197,11 +2215,13 @@
         // Mobile menu toggle with accessibility
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.querySelector('.nav-links');
+        const navActions = document.querySelector('.nav-actions');
         
         menuToggle.addEventListener('click', function() {
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
             
             navLinks.classList.toggle('active');
+            navActions.classList.toggle('active');
             this.classList.toggle('active');
             this.setAttribute('aria-expanded', !isExpanded);
             
@@ -2216,6 +2236,7 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
+                navActions.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
                 menuToggle.focus();
@@ -2224,8 +2245,9 @@
         
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
-            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target) && !navActions.contains(e.target)) {
                 navLinks.classList.remove('active');
+                navActions.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
             }
@@ -2738,6 +2760,86 @@
                 setTimeout(createGeckoButton, 500);
             });
         })();
+
+        // Navigation Actions Functions
+        async function connectWallet() {
+            try {
+                if (typeof window.ethereum !== 'undefined') {
+                    const accounts = await window.ethereum.request({
+                        method: 'eth_requestAccounts'
+                    });
+                    
+                    if (accounts.length > 0) {
+                        const walletAddress = accounts[0];
+                        document.querySelector('.connect-wallet-btn').innerHTML = `🔗 ${walletAddress.slice(0,6)}...${walletAddress.slice(-4)}`;
+                        document.querySelector('.connect-wallet-btn').style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+                        
+                        // Show success notification
+                        showNotification('🎉 Wallet connected successfully!', 'success');
+                    }
+                } else {
+                    showNotification('Please install MetaMask or another Web3 wallet', 'warning');
+                    // Redirect to MetaMask
+                    window.open('https://metamask.io/download/', '_blank');
+                }
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showNotification('Failed to connect wallet. Please try again.', 'error');
+            }
+        }
+
+        function joinWhitelist() {
+            // Open whitelist form in modal or redirect
+            showNotification('🚀 Redirecting to whitelist registration...', 'info');
+            setTimeout(() => {
+                window.open('https://forms.gle/omniversegeckos-whitelist', '_blank');
+            }, 1000);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 140px;
+                right: 20px;
+                z-index: 10001;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                color: white;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                backdrop-filter: blur(10px);
+            `;
+            
+            const colors = {
+                success: 'background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #22c55e;',
+                error: 'background: linear-gradient(135deg, #ef4444, #dc2626); border: 1px solid #ef4444;',
+                warning: 'background: linear-gradient(135deg, #f59e0b, #d97706); border: 1px solid #f59e0b;',
+                info: 'background: linear-gradient(135deg, #3b82f6, #2563eb); border: 1px solid #3b82f6;'
+            };
+            
+            notification.style.cssText += colors[type];
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
     </script>
 </body>
 </html>
