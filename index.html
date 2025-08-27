@@ -474,163 +474,595 @@
     <section id="nft-gallery" class="section" style="background: linear-gradient(180deg, transparent, rgba(139,92,246,.03));">
         <div class="container">
             <div class="section-header">
-                <h2 class="gradient-text">🦎 Genesis Geckos Collection</h2>
-                <p>10,000 Unique AI-Generated Geckos with Functional Gaming Utility</p>
+                <h2 class="gradient-text">🦎 NFT Marketplace</h2>
+                <p>Discover, collect, and trade unique Omniverse Geckos</p>
             </div>
             
-            <div class="nft-grid" role="region" aria-label="NFT Collection Gallery">
-                <!-- Legendary -->
-                <article class="nft-card" tabindex="0" role="article" aria-labelledby="nft-1-title">
-                    <div class="nft-rarity rarity-legendary">⭐ LEGENDARY</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-1.jpg" alt="Golden Emperor Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem;">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4 id="nft-1-title">Golden Emperor #0001</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 9999 | Speed: MAX</p>
-                        <p style="color: var(--accent-gold); font-size: 0.875rem;">Special: Instant Kill Wave</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge badge-gold">0.5 ETH Floor</span>
-                        </div>
-                    </div>
+            <style>
+            /* Marketplace Gallery Styles */
+            .marketplace-controls {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+            
+            .marketplace-search {
+                position: relative;
+                flex: 1;
+                max-width: 300px;
+            }
+            
+            .marketplace-search input {
+                width: 100%;
+                padding: 0.75rem 1rem 0.75rem 2.5rem;
+                background: rgba(17, 24, 39, 0.8);
+                border: 1px solid rgba(75, 85, 99, 0.5);
+                border-radius: 0.5rem;
+                color: white;
+                font-size: 0.875rem;
+            }
+            
+            .marketplace-search input:focus {
+                outline: none;
+                border-color: #10b981;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            }
+            
+            .marketplace-search-icon {
+                position: absolute;
+                left: 0.75rem;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #6b7280;
+            }
+            
+            .marketplace-filters {
+                display: flex;
+                gap: 0.75rem;
+                align-items: center;
+            }
+            
+            .marketplace-select {
+                padding: 0.5rem 0.75rem;
+                background: rgba(17, 24, 39, 0.8);
+                border: 1px solid rgba(75, 85, 99, 0.5);
+                border-radius: 0.5rem;
+                color: white;
+                font-size: 0.875rem;
+            }
+            
+            .marketplace-select:focus {
+                outline: none;
+                border-color: #10b981;
+            }
+            
+            .nft-marketplace-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .nft-marketplace-card {
+                background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95));
+                border: 1px solid rgba(75, 85, 99, 0.3);
+                border-radius: 1rem;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+            
+            .nft-marketplace-card:hover {
+                transform: translateY(-4px) scale(1.02);
+                border-color: rgba(16, 185, 129, 0.5);
+                box-shadow: 0 10px 40px rgba(16, 185, 129, 0.2);
+            }
+            
+            .nft-image-container {
+                position: relative;
+                aspect-ratio: 1;
+                overflow: hidden;
+            }
+            
+            .nft-marketplace-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+            
+            .nft-marketplace-card:hover .nft-marketplace-image {
+                transform: scale(1.1);
+            }
+            
+            .nft-rarity-badge {
+                position: absolute;
+                top: 0.75rem;
+                left: 0.75rem;
+                padding: 0.25rem 0.5rem;
+                border-radius: 9999px;
+                font-size: 0.75rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nft-like-btn {
+                position: absolute;
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 2rem;
+                height: 2rem;
+                border: none;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.5);
+                color: #6b7280;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+            }
+            
+            .nft-like-btn:hover,
+            .nft-like-btn.liked {
+                background: #ef4444;
+                color: white;
+            }
+            
+            .nft-card-content {
+                padding: 1rem;
+            }
+            
+            .nft-name {
+                font-size: 1.125rem;
+                font-weight: bold;
+                color: white;
+                margin: 0 0 0.5rem 0;
+            }
+            
+            .nft-description {
+                color: #9ca3af;
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+                line-height: 1.4;
+            }
+            
+            .nft-stats {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .nft-stat {
+                text-align: center;
+            }
+            
+            .nft-stat-label {
+                font-size: 0.75rem;
+                color: #6b7280;
+                margin-bottom: 0.25rem;
+            }
+            
+            .nft-stat-value {
+                font-size: 0.875rem;
+                font-weight: bold;
+            }
+            
+            .nft-price-section {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            
+            .nft-price {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .nft-price-eth {
+                font-size: 1.125rem;
+                font-weight: bold;
+                color: #10b981;
+            }
+            
+            .nft-price-usd {
+                font-size: 0.875rem;
+                color: #6b7280;
+            }
+            
+            .nft-engagement {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.25rem;
+            }
+            
+            .nft-engagement-stat {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+                font-size: 0.75rem;
+                color: #6b7280;
+            }
+            
+            .nft-buy-btn {
+                width: 100%;
+                padding: 0.75rem;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .nft-buy-btn:hover {
+                background: linear-gradient(135deg, #059669, #047857);
+                transform: translateY(-1px);
+            }
+            
+            .rarity-common { background-color: rgba(107, 114, 128, 0.2); color: #6b7280; border: 1px solid rgba(107, 114, 128, 0.4); }
+            .rarity-rare { background-color: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.4); }
+            .rarity-epic { background-color: rgba(139, 92, 246, 0.2); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.4); }
+            .rarity-legendary { background-color: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+            .rarity-mythic { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+            
+            .stat-power { color: #ef4444; }
+            .stat-defense { color: #3b82f6; }
+            .stat-speed { color: #10b981; }
+            .stat-special { color: #8b5cf6; }
+            
+            @media (max-width: 768px) {
+                .nft-marketplace-grid {
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                    gap: 1rem;
+                }
+                
+                .marketplace-controls {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                
+                .marketplace-search {
+                    max-width: none;
+                    margin-bottom: 1rem;
+                }
+                
+                .marketplace-filters {
+                    justify-content: center;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .nft-marketplace-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            </style>
+            
+            <div class="marketplace-controls">
+                <div class="marketplace-search">
+                    <span class="marketplace-search-icon">🔍</span>
+                    <input type="text" id="nft-search" placeholder="Search NFTs..." />
                 </div>
-
-                <!-- Epic -->
-                <div class="nft-card">
-                    <div class="nft-rarity rarity-epic">💎 EPIC</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-2.jpg" alt="Crystal Guardian Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent-3);">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Crystal Guardian #0742</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 750 | Defense: 900</p>
-                        <p style="color: var(--accent-3); font-size: 0.875rem;">Special: Shield Dome</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge badge-purple">0.2 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rare -->
-                <div class="nft-card">
-                    <div class="nft-rarity rarity-rare">💙 RARE</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-3.jpg" alt="Ice Striker Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent-2);">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Ice Striker #2156</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 500 | Speed: 750</p>
-                        <p style="color: var(--accent-2); font-size: 0.875rem;">Special: Freeze Ray</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge" style="background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.3); color: var(--accent-2);">0.1 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Common -->
-                <div class="nft-card">
-                    <div class="nft-rarity rarity-common">💚 COMMON</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-4.jpg" alt="Forest Scout Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent);">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Forest Scout #5823</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 250 | Speed: 500</p>
-                        <p style="color: var(--accent); font-size: 0.875rem;">Special: Nature Bond</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge" style="background: rgba(16,185,129,.15); border-color: rgba(16,185,129,.3); color: var(--accent);">0.05 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lightning Rare -->
-                <div class="nft-card">
-                    <div class="nft-rarity rarity-rare">💙 RARE</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-5.jpg" alt="Lightning Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent-2);">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Lightning Strike #3421</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 650 | Speed: 850</p>
-                        <p style="color: var(--accent-2); font-size: 0.875rem;">Special: Thunder Bolt</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge" style="background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.3); color: var(--accent-2);">0.12 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shadow Epic -->
-                <div class="nft-card">
-                    <div class="nft-rarity rarity-epic">💎 EPIC</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-6.jpg" alt="Shadow Master Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent-3);">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Shadow Master #1987</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 800 | Stealth: 950</p>
-                        <p style="color: var(--accent-3); font-size: 0.875rem;">Special: Shadow Clone</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge badge-purple">0.25 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mythic NFT -->
-                <div class="nft-card">
-                    <div class="nft-rarity" style="background: linear-gradient(45deg, #FF1493, #8A2BE2); color: white;">🌟 MYTHIC</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-7.jpg" alt="Cosmic Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: #FF1493;">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Cosmic Voyager #0007</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 1500 | Cosmic: 999</p>
-                        <p style="color: #FF1493; font-size: 0.875rem;">Special: Galaxy Burst</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge" style="background: rgba(255,20,147,.15); border-color: rgba(255,20,147,.3); color: #FF1493;">1.5 ETH Floor</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Divine NFT -->
-                <div class="nft-card">
-                    <div class="nft-rarity" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: #000;">✨ DIVINE</div>
-                    <div class="gecko-image-container nft-gecko-image">
-                        <img src="assets/geckos/gecko-nft-8.jpg" alt="Divine Gecko" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
-                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: #FFD700;">🦎</div>
-                    </div>
-                    <div class="nft-info">
-                        <h4>Divine Guardian #0003</h4>
-                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 2000 | Divine: MAX</p>
-                        <p style="color: #FFD700; font-size: 0.875rem;">Special: Holy Light</p>
-                        <div style="margin-top: 1rem;">
-                            <span class="badge" style="background: rgba(255,215,0,.15); border-color: rgba(255,215,0,.3); color: #FFD700;">2.8 ETH Floor</span>
-                        </div>
-                    </div>
+                
+                <div class="marketplace-filters">
+                    <select id="rarity-filter" class="marketplace-select">
+                        <option value="all">All Rarities</option>
+                        <option value="common">Common</option>
+                        <option value="rare">Rare</option>
+                        <option value="epic">Epic</option>
+                        <option value="legendary">Legendary</option>
+                        <option value="mythic">Mythic</option>
+                    </select>
+                    
+                    <select id="sort-filter" class="marketplace-select">
+                        <option value="popular">Most Popular</option>
+                        <option value="price_low">Price: Low to High</option>
+                        <option value="price_high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                    </select>
                 </div>
             </div>
+            
+            <div id="nft-marketplace-grid" class="nft-marketplace-grid" role="region" aria-label="NFT Marketplace Gallery">
+                <!-- NFTs will be populated by JavaScript -->
+            </div>
+            
+            <script>
+            // NFT Marketplace Data and Logic
+            const MARKETPLACE_NFTS = [
+                {
+                    id: '1',
+                    name: 'Golden Emperor',
+                    description: 'A majestic golden gecko with imperial powers and rare golden scales',
+                    image: 'assets/geckos/gecko-nft-1.jpg',
+                    rarity: 'mythic',
+                    price: '2.5',
+                    priceUSD: '$4,250',
+                    stats: { power: 95, defense: 88, speed: 92, special: 98 },
+                    likes: 2847,
+                    views: 18392,
+                    createdAt: '2024-01-15'
+                },
+                {
+                    id: '2',
+                    name: 'Crystal Warrior',
+                    description: 'Battle-hardened gecko with crystal armor and defensive capabilities',
+                    image: 'assets/geckos/gecko-nft-2.jpg',
+                    rarity: 'legendary',
+                    price: '1.2',
+                    priceUSD: '$2,040',
+                    stats: { power: 89, defense: 95, speed: 78, special: 85 },
+                    likes: 1923,
+                    views: 12847,
+                    createdAt: '2024-02-03'
+                },
+                {
+                    id: '3',
+                    name: 'Shadow Assassin',
+                    description: 'Stealthy gecko master of darkness with incredible speed',
+                    image: 'assets/geckos/gecko-nft-3.jpg',
+                    rarity: 'epic',
+                    price: '0.8',
+                    priceUSD: '$1,360',
+                    stats: { power: 78, defense: 65, speed: 98, special: 88 },
+                    likes: 1456,
+                    views: 9234,
+                    createdAt: '2024-02-18'
+                },
+                {
+                    id: '4',
+                    name: 'Fire Elemental',
+                    description: 'Blazing gecko with fire manipulation powers',
+                    image: 'assets/geckos/gecko-nft-4.jpg',
+                    rarity: 'rare',
+                    price: '0.4',
+                    priceUSD: '$680',
+                    stats: { power: 85, defense: 70, speed: 82, special: 90 },
+                    likes: 892,
+                    views: 5647,
+                    createdAt: '2024-03-05'
+                },
+                {
+                    id: '5',
+                    name: 'Ice Guardian',
+                    description: 'Frozen defender with ice powers and high defense',
+                    image: 'assets/geckos/gecko-nft-5.jpg',
+                    rarity: 'rare',
+                    price: '0.35',
+                    priceUSD: '$595',
+                    stats: { power: 72, defense: 95, speed: 65, special: 78 },
+                    likes: 743,
+                    views: 4921,
+                    createdAt: '2024-03-12'
+                },
+                {
+                    id: '6',
+                    name: 'Nature Spirit',
+                    description: 'Forest guardian with natural healing abilities',
+                    image: 'assets/geckos/gecko-nft-6.jpg',
+                    rarity: 'common',
+                    price: '0.15',
+                    priceUSD: '$255',
+                    stats: { power: 65, defense: 72, speed: 75, special: 68 },
+                    likes: 456,
+                    views: 2834,
+                    createdAt: '2024-03-20'
+                }
+            ];
+            
+            let marketplaceState = {
+                nfts: MARKETPLACE_NFTS,
+                filteredNfts: MARKETPLACE_NFTS,
+                likedNfts: new Set(),
+                searchQuery: '',
+                rarityFilter: 'all',
+                sortFilter: 'popular'
+            };
+            
+            function initializeMarketplace() {
+                renderNFTs();
+                setupEventListeners();
+            }
+            
+            function setupEventListeners() {
+                const searchInput = document.getElementById('nft-search');
+                const rarityFilter = document.getElementById('rarity-filter');
+                const sortFilter = document.getElementById('sort-filter');
+            
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        marketplaceState.searchQuery = e.target.value.toLowerCase();
+                        filterAndRenderNFTs();
+                    });
+                }
+            
+                if (rarityFilter) {
+                    rarityFilter.addEventListener('change', (e) => {
+                        marketplaceState.rarityFilter = e.target.value;
+                        filterAndRenderNFTs();
+                    });
+                }
+            
+                if (sortFilter) {
+                    sortFilter.addEventListener('change', (e) => {
+                        marketplaceState.sortFilter = e.target.value;
+                        filterAndRenderNFTs();
+                    });
+                }
+            }
+            
+            function filterAndRenderNFTs() {
+                let filtered = [...marketplaceState.nfts];
+            
+                // Apply search filter
+                if (marketplaceState.searchQuery) {
+                    filtered = filtered.filter(nft => 
+                        nft.name.toLowerCase().includes(marketplaceState.searchQuery) ||
+                        nft.description.toLowerCase().includes(marketplaceState.searchQuery)
+                    );
+                }
+            
+                // Apply rarity filter
+                if (marketplaceState.rarityFilter !== 'all') {
+                    filtered = filtered.filter(nft => nft.rarity === marketplaceState.rarityFilter);
+                }
+            
+                // Apply sorting
+                filtered.sort((a, b) => {
+                    switch (marketplaceState.sortFilter) {
+                        case 'price_low':
+                            return parseFloat(a.price) - parseFloat(b.price);
+                        case 'price_high':
+                            return parseFloat(b.price) - parseFloat(a.price);
+                        case 'newest':
+                            return new Date(b.createdAt) - new Date(a.createdAt);
+                        case 'popular':
+                        default:
+                            return b.likes - a.likes;
+                    }
+                });
+            
+                marketplaceState.filteredNfts = filtered;
+                renderNFTs();
+            }
+            
+            function toggleLike(nftId) {
+                if (marketplaceState.likedNfts.has(nftId)) {
+                    marketplaceState.likedNfts.delete(nftId);
+                } else {
+                    marketplaceState.likedNfts.add(nftId);
+                }
+                
+                const likeBtn = document.querySelector(`[data-nft-id="${nftId}"] .nft-like-btn`);
+                if (likeBtn) {
+                    likeBtn.classList.toggle('liked', marketplaceState.likedNfts.has(nftId));
+                    likeBtn.innerHTML = marketplaceState.likedNfts.has(nftId) ? '❤️' : '🤍';
+                }
+            }
+            
+            function getRarityEmoji(rarity) {
+                const emojis = {
+                    common: '✨',
+                    rare: '💎',
+                    epic: '👑',
+                    legendary: '🏆',
+                    mythic: '🔥'
+                };
+                return emojis[rarity] || '✨';
+            }
+            
+            function formatNumber(num) {
+                return num.toLocaleString();
+            }
+            
+            function renderNFTs() {
+                const grid = document.getElementById('nft-marketplace-grid');
+                if (!grid) return;
+            
+                if (marketplaceState.filteredNfts.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🦎</div>
+                            <h3 style="color: #d1d5db; margin-bottom: 0.5rem;">No NFTs Found</h3>
+                            <p style="color: #6b7280;">Try adjusting your search or filters</p>
+                        </div>
+                    `;
+                    return;
+                }
+            
+                grid.innerHTML = marketplaceState.filteredNfts.map(nft => `
+                    <div class="nft-marketplace-card" data-nft-id="${nft.id}">
+                        <div class="nft-image-container">
+                            <img src="${nft.image}" alt="${nft.name}" class="nft-marketplace-image" loading="lazy"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                            <div class="gecko-image-fallback" style="display: none; font-size: 4rem;">🦎</div>
+                            <div class="nft-rarity-badge rarity-${nft.rarity}">
+                                ${getRarityEmoji(nft.rarity)} ${nft.rarity.toUpperCase()}
+                            </div>
+                            <button class="nft-like-btn ${marketplaceState.likedNfts.has(nft.id) ? 'liked' : ''}" 
+                                    onclick="toggleLike('${nft.id}')">
+                                ${marketplaceState.likedNfts.has(nft.id) ? '❤️' : '🤍'}
+                            </button>
+                        </div>
+                        
+                        <div class="nft-card-content">
+                            <div class="nft-card-header">
+                                <h3 class="nft-name">${nft.name}</h3>
+                            </div>
+                            
+                            <p class="nft-description">${nft.description}</p>
+                            
+                            <div class="nft-stats">
+                                <div class="nft-stat">
+                                    <div class="nft-stat-label">PWR</div>
+                                    <div class="nft-stat-value stat-power">${nft.stats.power}</div>
+                                </div>
+                                <div class="nft-stat">
+                                    <div class="nft-stat-label">DEF</div>
+                                    <div class="nft-stat-value stat-defense">${nft.stats.defense}</div>
+                                </div>
+                                <div class="nft-stat">
+                                    <div class="nft-stat-label">SPD</div>
+                                    <div class="nft-stat-value stat-speed">${nft.stats.speed}</div>
+                                </div>
+                                <div class="nft-stat">
+                                    <div class="nft-stat-label">SPC</div>
+                                    <div class="nft-stat-value stat-special">${nft.stats.special}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="nft-price-section">
+                                <div class="nft-price">
+                                    <div class="nft-price-eth">${nft.price} ETH</div>
+                                    <div class="nft-price-usd">${nft.priceUSD}</div>
+                                </div>
+                                <div class="nft-engagement">
+                                    <div class="nft-engagement-stat">
+                                        <span>👁️</span> ${formatNumber(nft.views)}
+                                    </div>
+                                    <div class="nft-engagement-stat">
+                                        <span>❤️</span> ${formatNumber(nft.likes)}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="nft-buy-btn" onclick="buyNFT('${nft.id}')">
+                                🛒 Buy Now
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            function buyNFT(nftId) {
+                const nft = marketplaceState.nfts.find(n => n.id === nftId);
+                if (nft) {
+                    alert(`Purchasing ${nft.name} for ${nft.price} ETH!\n\nThis would connect to your Web3 wallet in production.`);
+                }
+            }
+            
+            // Initialize marketplace when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                // Small delay to ensure all elements are rendered
+                setTimeout(initializeMarketplace, 100);
+            });
+            </script>
 
             <!-- Rarity Distribution -->
             <div class="glass" style="margin: 3rem auto; max-width: 1000px;">
