@@ -80,9 +80,9 @@
                 <p>Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs. Join 15,000+ players in the Omniverse.</p>
                 
                 <div class="btn-row">
-                    <a href="#connect-wallet" class="btn btn-gradient">
-                        🔗 Connect Wallet
-                    </a>
+                    <button id="connect-wallet-btn" class="btn btn-gradient" onclick="connectWallet()">
+                        <span id="wallet-icon">🔗</span> <span id="wallet-text">Connect Wallet</span>
+                    </button>
                     <a href="#connect-account" class="btn btn-gradient">
                         👤 Connect Account
                     </a>
@@ -688,7 +688,7 @@
     <!-- Gecko AI Assistant Chat -->
     <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
         <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
-            <h3 style="margin: 0; color: white; font-size: 18px;">🦎 GeckoBot AI Assistant</h3>
+            <h3 style="margin: 0; color: white; font-size: 18px;"><span style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 50%; margin-right: 8px; font-size: 16px;">🦎</span>GeckoBot AI Assistant</h3>
             <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
         </div>
         <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
@@ -719,6 +719,198 @@
                 this.style.transform = 'scale(1) rotate(0deg)';
             }
         });
+
+        // Wallet Connection System
+        let isWalletConnected = false;
+        let connectedAccount = '';
+
+        async function connectWallet() {
+            const button = document.getElementById('connect-wallet-btn');
+            const icon = document.getElementById('wallet-icon');
+            const text = document.getElementById('wallet-text');
+
+            if (isWalletConnected) {
+                // Disconnect wallet
+                disconnectWallet();
+                return;
+            }
+
+            // Check if MetaMask is installed
+            if (typeof window.ethereum === 'undefined') {
+                // Show install prompt
+                showWalletModal('MetaMask not detected!', 'Please install MetaMask to connect your wallet.', [
+                    {text: 'Install MetaMask', action: () => window.open('https://metamask.io/', '_blank')},
+                    {text: 'Try WalletConnect', action: () => connectWalletConnect()}
+                ]);
+                return;
+            }
+
+            try {
+                // Show connecting state
+                button.disabled = true;
+                icon.textContent = '⏳';
+                text.textContent = 'Connecting...';
+
+                // Request account access
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+
+                if (accounts.length > 0) {
+                    connectedAccount = accounts[0];
+                    isWalletConnected = true;
+                    
+                    // Update button to connected state
+                    icon.textContent = '✅';
+                    text.textContent = `${connectedAccount.slice(0, 6)}...${connectedAccount.slice(-4)}`;
+                    button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    
+                    // Show success notification
+                    showNotification('🎉 Wallet Connected Successfully!', 'success');
+                    
+                    // Enable other Web3 features
+                    enableWeb3Features();
+                }
+            } catch (error) {
+                console.error('Wallet connection failed:', error);
+                // Reset button state
+                button.disabled = false;
+                icon.textContent = '🔗';
+                text.textContent = 'Connect Wallet';
+                
+                // Show error
+                if (error.code === 4001) {
+                    showNotification('Connection cancelled by user', 'error');
+                } else {
+                    showNotification('Failed to connect wallet. Please try again.', 'error');
+                }
+            }
+        }
+
+        function disconnectWallet() {
+            const button = document.getElementById('connect-wallet-btn');
+            const icon = document.getElementById('wallet-icon');
+            const text = document.getElementById('wallet-text');
+
+            isWalletConnected = false;
+            connectedAccount = '';
+            
+            // Reset button state
+            icon.textContent = '🔗';
+            text.textContent = 'Connect Wallet';
+            button.style.background = '';
+            
+            showNotification('Wallet disconnected', 'info');
+            disableWeb3Features();
+        }
+
+        function connectWalletConnect() {
+            showNotification('WalletConnect integration coming soon!', 'info');
+        }
+
+        function enableWeb3Features() {
+            // Enable staking, NFT minting, etc.
+            document.querySelectorAll('.web3-feature').forEach(el => {
+                el.classList.remove('disabled');
+            });
+        }
+
+        function disableWeb3Features() {
+            document.querySelectorAll('.web3-feature').forEach(el => {
+                el.classList.add('disabled');
+            });
+        }
+
+        function showWalletModal(title, message, buttons = []) {
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.8); z-index: 10000;
+                display: flex; align-items: center; justify-content: center;
+            `;
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: linear-gradient(135deg, #0a0f1c, #1a1f2c);
+                border-radius: 20px; padding: 30px; max-width: 400px;
+                border: 2px solid #10b981; color: white; text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            `;
+
+            modal.innerHTML = `
+                <h3 style="margin: 0 0 15px 0; color: #FFD700;">${title}</h3>
+                <p style="margin: 0 0 25px 0; color: #ccc;">${message}</p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    ${buttons.map(btn => `
+                        <button onclick="this.closest('.modal-overlay').remove(); (${btn.action.toString()})()" 
+                                style="padding: 10px 20px; border-radius: 8px; border: none; 
+                                       background: #10b981; color: white; cursor: pointer;">
+                            ${btn.text}
+                        </button>
+                    `).join('')}
+                    <button onclick="this.closest('.modal-overlay').remove()" 
+                            style="padding: 10px 20px; border-radius: 8px; border: 1px solid #666; 
+                                   background: transparent; color: white; cursor: pointer;">
+                        Cancel
+                    </button>
+                </div>
+            `;
+
+            overlay.className = 'modal-overlay';
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                info: '#3b82f6',
+                warning: '#f59e0b'
+            };
+
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10001;
+                background: ${colors[type]}; color: white; padding: 15px 20px;
+                border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                font-weight: 500; transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => notification.style.transform = 'translateX(0)', 10);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // Listen for account changes
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else if (isWalletConnected && accounts[0] !== connectedAccount) {
+                    // Account changed, update
+                    connectedAccount = accounts[0];
+                    const text = document.getElementById('wallet-text');
+                    text.textContent = `${connectedAccount.slice(0, 6)}...${connectedAccount.slice(-4)}`;
+                    showNotification('Account changed', 'info');
+                }
+            });
+
+            window.ethereum.on('chainChanged', (chainId) => {
+                // Reload page on chain change
+                window.location.reload();
+            });
+        }
 
         // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
