@@ -2202,70 +2202,110 @@
         });
     </script>
 
-    <!-- GeckoBot Floating Button - Fixed at viewport -->
-    <div id="gecko-bot-fixed-button" style="
-        position: fixed !important;
-        bottom: 30px !important;
-        right: 30px !important;
-        width: 80px !important;
-        height: 80px !important;
-        background: linear-gradient(135deg, #10b981, #059669) !important;
-        border: 4px solid #FFD700 !important;
-        border-radius: 50% !important;
-        cursor: pointer !important;
-        z-index: 2147483647 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-shadow: 0 0 30px #FFD700, 0 0 60px #FFD700 !important;
-        animation: gecko-mega-pulse 1.5s infinite !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        transform: translateZ(0) !important;
-    " onclick="toggleGeckoChat()">
-        <div style="
-            font-size: 50px !important;
-            color: #FFD700 !important;
-            text-shadow: 
-                0 0 10px #FFD700,
-                0 0 20px #FFD700,
-                2px 2px 0 #000,
-                -2px -2px 0 #000 !important;
-            line-height: 1 !important;
-            user-select: none !important;
-        ">🦎</div>
-    </div>
-
-    <style>
-        /* Ensure button stays fixed */
-        #gecko-bot-fixed-button {
-            position: fixed !important;
-            bottom: 30px !important;
-            right: 30px !important;
-            z-index: 2147483647 !important;
-        }
-    </style>
-
     <script>
-        // Ensure button is visible
-        document.addEventListener('DOMContentLoaded', function() {
-            const geckoButton = document.getElementById('gecko-bot-fixed-button');
-            if (geckoButton) {
-                geckoButton.style.position = 'fixed';
-                geckoButton.style.bottom = '30px';
-                geckoButton.style.right = '30px';
-                geckoButton.style.zIndex = '2147483647';
-                console.log('✅ GeckoBot button positioned correctly');
+        // Create and inject GeckoBot button with JavaScript to ensure proper fixed positioning
+        (function() {
+            // Wait for DOM to be ready
+            function createGeckoButton() {
+                // Remove any existing buttons first
+                const existingButton = document.getElementById('gecko-bot-fixed-button');
+                if (existingButton) {
+                    existingButton.remove();
+                }
+                
+                // Create button container
+                const button = document.createElement('div');
+                button.id = 'gecko-bot-fixed-button';
+                button.setAttribute('onclick', 'toggleGeckoChat()');
+                
+                // Apply styles directly via JavaScript to ensure they work
+                const buttonStyles = {
+                    position: 'fixed',
+                    bottom: '30px',
+                    right: '30px',
+                    width: '80px',
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    border: '4px solid #FFD700',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    zIndex: '2147483647',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 0 30px #FFD700, 0 0 60px #FFD700',
+                    opacity: '1',
+                    visibility: 'visible',
+                    pointerEvents: 'auto'
+                };
+                
+                Object.assign(button.style, buttonStyles);
+                
+                // Create inner emoji
+                const emoji = document.createElement('div');
+                emoji.innerHTML = '🦎';
+                const emojiStyles = {
+                    fontSize: '50px',
+                    color: '#FFD700',
+                    textShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 2px 2px 0 #000, -2px -2px 0 #000',
+                    lineHeight: '1',
+                    userSelect: 'none'
+                };
+                Object.assign(emoji.style, emojiStyles);
+                
+                // Append emoji to button
+                button.appendChild(emoji);
+                
+                // Append button to body
+                document.body.appendChild(button);
+                
+                // Force position fixed again after a small delay
+                setTimeout(() => {
+                    button.style.position = 'fixed';
+                    button.style.bottom = '30px';
+                    button.style.right = '30px';
+                    button.style.zIndex = '2147483647';
+                }, 100);
+                
+                console.log('✅ GeckoBot button created and positioned');
+                
+                // Remove old button if exists
+                const oldButton = document.getElementById('gecko-assistant-btn');
+                if (oldButton) {
+                    oldButton.style.display = 'none';
+                }
+                
+                // Add animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes gecko-pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+                    #gecko-bot-fixed-button {
+                        animation: gecko-pulse 2s infinite;
+                    }
+                    #gecko-bot-fixed-button:hover {
+                        transform: scale(1.1);
+                        box-shadow: 0 0 40px #FFD700, 0 0 80px #FFD700 !important;
+                    }
+                `;
+                document.head.appendChild(style);
             }
             
-            // Remove old button if exists
-            const oldButton = document.getElementById('gecko-assistant-btn');
-            if (oldButton && oldButton !== geckoButton) {
-                oldButton.style.display = 'none';
-                console.log('🗑️ Old GeckoBot button hidden');
+            // Execute when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', createGeckoButton);
+            } else {
+                createGeckoButton();
             }
-        });
+            
+            // Also run after everything loads just to be sure
+            window.addEventListener('load', () => {
+                setTimeout(createGeckoButton, 500);
+            });
+        })();
     </script>
 </body>
 </html>
