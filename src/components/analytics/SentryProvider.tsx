@@ -181,8 +181,8 @@ export const startTransaction = (name: string, operation: string) => {
   })
 }
 
-export const measureFunction = async <T>(
-  name: string, 
+export const measureFunction = async <T,>(
+  name: string,
   fn: () => Promise<T>,
   context?: Record<string, any>
 ): Promise<T> => {

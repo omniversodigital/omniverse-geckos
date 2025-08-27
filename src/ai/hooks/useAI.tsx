@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useContext, createContext, ReactNode } from 'react'
+import React, { useState, useEffect, useContext, createContext, ReactNode } from 'react'
 import { useAccount } from 'wagmi'
 import { AIEngine, AIConfig } from '../core/AIEngine'
 import { GameAI } from '../services/GameAI'
@@ -111,17 +111,19 @@ export function AIProvider({ children }: { children: ReactNode }) {
     marketAnalysis: !!nftAI && !!aiEngine
   }
 
+  const contextValue: AIContextType = {
+    aiEngine,
+    gameAI,
+    nftAI,
+    personalizationAI,
+    isInitialized,
+    isLoading,
+    error,
+    capabilities
+  }
+
   return (
-    <AIContext.Provider value={{
-      aiEngine,
-      gameAI,
-      nftAI,
-      personalizationAI,
-      isInitialized,
-      isLoading,
-      error,
-      capabilities
-    }}>
+    <AIContext.Provider value={contextValue}>
       {children}
     </AIContext.Provider>
   )

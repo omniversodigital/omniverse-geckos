@@ -1,6 +1,6 @@
 {
   "name": "omniverse-geckos",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "private": true,
   "description": "Revolutionary AI-Powered Web3 Gaming Ecosystem with NFTs and Token Economy",
   "author": "Omniverso Digital Team",
@@ -30,19 +30,26 @@
     "export": "next export"
   },
   "dependencies": {
-    "next": "^14.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "@next-auth/prisma-adapter": "^1.0.7",
+    "next": "^15.5.2",
     "next-auth": "^4.24.0",
-    "@next-auth/prisma-adapter": "^1.0.7"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "typescript": "^5.0.0",
-    "eslint": "^8.0.0",
-    "eslint-config-next": "^14.0.0"
+    "@eslint/js": "^9.34.0",
+    "@next/eslint-plugin-next": "^15.5.2",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.8",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "^15.5.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.3.0",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=18.0.0",

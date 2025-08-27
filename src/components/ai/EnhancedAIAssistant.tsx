@@ -280,7 +280,7 @@ export function EnhancedAIAssistant({
       if (playerStats.geckoTokens > 1000) {
         suggestions.push({
           id: 'token_investment',
-          text: 'What's the best way to invest my GECKO tokens?',
+          text: "What's the best way to invest my GECKO tokens?",
           priority: 'medium',
           category: 'economy',
           confidence: 0.8
