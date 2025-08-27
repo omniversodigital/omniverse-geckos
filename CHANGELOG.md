@@ -5,6 +5,32 @@ All notable changes to the Omniverse Geckos project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2025-01-31
+
+### Added
+- Aurora animated gradient background with 18s animation cycle
+- Neon grid overlay effect moving across the entire page
+- Enhanced neon glow effects on all interactive elements
+- Particle scanning effect on header navigation
+- Advanced glow animations for NFT rarity badges
+- Text glow effect on gradient text elements
+
+### Changed
+- Glass cards converted to dark opaque style for better contrast
+- Investment banner with rotating neon border effect
+- Feature cards with enhanced shadow and glow effects
+- All buttons now have stronger neon glow shadows
+- NFT cards with improved dark background and subtle lighting
+- Gecko character display with intense neon text shadow
+
+### Visual Improvements
+- Legendary NFTs have pulsing golden glow animation
+- Epic NFTs have scaling pulse animation
+- Rare NFTs have subtle shimmer effect
+- Common NFTs have hover glow enhancement
+- Header now has scanning light particle effect
+- Enhanced backdrop blur effects throughout
+
 ## [3.0.0] - 2025-01-31
 
 ### Added
