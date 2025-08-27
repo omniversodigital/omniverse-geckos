@@ -544,8 +544,8 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 }
 
 .brand-logo {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--bg-2), var(--bg-1));
   border: 2px solid var(--accent);
@@ -595,7 +595,7 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 }
 
 .nav-link {
-  color: var(--ink);
+  color: #FFD700;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
@@ -617,7 +617,8 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 }
 
 .nav-link:hover {
-  color: var(--accent);
+  color: #FFF;
+  text-shadow: 0 0 10px #FFD700;
 }
 
 .nav-link:hover::after {
@@ -929,7 +930,8 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
 .btn-row {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   animation: slideInUp 0.8s ease 0.6s backwards;
 }
 
@@ -1398,7 +1400,7 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
   }
   
   .btn-row {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
   
   .container {
