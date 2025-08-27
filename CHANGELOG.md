@@ -5,6 +5,31 @@ All notable changes to the Omniverse Geckos project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2025-01-31
+
+### Added
+- Real gecko images integrated into Hero section and NFT gallery
+- Advanced image containers with neon glow effects
+- Rotating neon border animations on image hover
+- Image loading optimization with fallback emoji support
+- Preloading system for critical images
+- Lazy loading implementation for performance
+- Shimmer loading animation for image containers
+- Enhanced image quality with CSS filters (brightness, contrast, saturation)
+
+### Images
+- gecko-hero.jpg: Main character display in Hero section
+- gecko-nft-1.jpg: Legendary NFT showcase
+- gecko-nft-2.jpg: Epic NFT showcase
+- Fallback emoji system for failed image loads
+
+### Technical
+- IntersectionObserver API for lazy loading
+- Error handling and graceful degradation
+- Image preloading for instant display
+- Responsive image containers with aspect ratios
+- Performance optimizations for image rendering
+
 ## [3.1.0] - 2025-01-31
 
 ### Added

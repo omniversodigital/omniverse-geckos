@@ -98,7 +98,13 @@
 
             <div class="gecko-showcase">
                 <div class="gecko-frame">
-                    <div class="gecko-img">🦎</div>
+                    <div class="gecko-image-container hero-gecko-image">
+                        <img src="assets/geckos/gecko-hero.jpg" alt="Omniverse Gecko Hero" class="gecko-image" 
+                             onload="this.classList.add('gecko-image-loaded')" 
+                             onerror="this.style.display='none'">
+                        <div class="gecko-image-fallback">🦎</div>
+                        <div class="gecko-image-loading"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,7 +172,12 @@
                 <!-- Legendary -->
                 <div class="nft-card">
                     <div class="nft-rarity rarity-legendary">⭐ LEGENDARY</div>
-                    <div class="nft-image">🦎</div>
+                    <div class="gecko-image-container nft-gecko-image">
+                        <img src="assets/geckos/gecko-nft-1.jpg" alt="Golden Emperor Gecko" class="gecko-image" 
+                             onload="this.classList.add('gecko-image-loaded')" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem;">🦎</div>
+                    </div>
                     <div class="nft-info">
                         <h4>Golden Emperor #0001</h4>
                         <p style="color: var(--muted); font-size: 0.875rem;">Power: 9999 | Speed: MAX</p>
@@ -180,7 +191,12 @@
                 <!-- Epic -->
                 <div class="nft-card">
                     <div class="nft-rarity rarity-epic">💎 EPIC</div>
-                    <div class="nft-image" style="color: var(--accent-3);">🦎</div>
+                    <div class="gecko-image-container nft-gecko-image">
+                        <img src="assets/geckos/gecko-nft-2.jpg" alt="Crystal Guardian Gecko" class="gecko-image" 
+                             onload="this.classList.add('gecko-image-loaded')" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: var(--accent-3);">🦎</div>
+                    </div>
                     <div class="nft-info">
                         <h4>Crystal Guardian #0742</h4>
                         <p style="color: var(--muted); font-size: 0.875rem;">Power: 750 | Defense: 900</p>
@@ -194,7 +210,7 @@
                 <!-- Rare -->
                 <div class="nft-card">
                     <div class="nft-rarity rarity-rare">💙 RARE</div>
-                    <div class="nft-image" style="color: var(--accent-2);">🦎</div>
+                    <div class="nft-image" style="color: var(--accent-2); display: grid; place-items: center; font-size: 4rem;">🦎</div>
                     <div class="nft-info">
                         <h4>Ice Striker #2156</h4>
                         <p style="color: var(--muted); font-size: 0.875rem;">Power: 500 | Speed: 750</p>
@@ -208,7 +224,7 @@
                 <!-- Common -->
                 <div class="nft-card">
                     <div class="nft-rarity rarity-common">💚 COMMON</div>
-                    <div class="nft-image" style="color: var(--accent);">🦎</div>
+                    <div class="nft-image" style="color: var(--accent); display: grid; place-items: center; font-size: 4rem;">🦎</div>
                     <div class="nft-info">
                         <h4>Forest Scout #5823</h4>
                         <p style="color: var(--muted); font-size: 0.875rem;">Power: 250 | Speed: 500</p>
@@ -590,6 +606,85 @@
                 console.log(`User engaged for ${engagementTime} seconds`);
             }
         }, 1000);
+
+        // Image loading optimization
+        function optimizeImageLoading() {
+            const images = document.querySelectorAll('.gecko-image');
+            const loadingElements = document.querySelectorAll('.gecko-image-loading');
+            
+            images.forEach((img, index) => {
+                const loadingEl = loadingElements[index];
+                
+                if (img.complete && img.naturalHeight !== 0) {
+                    // Image already loaded
+                    img.classList.add('gecko-image-loaded');
+                    if (loadingEl) loadingEl.style.display = 'none';
+                } else {
+                    // Show loading animation
+                    if (loadingEl) loadingEl.style.display = 'block';
+                    
+                    img.addEventListener('load', function() {
+                        this.classList.add('gecko-image-loaded');
+                        if (loadingEl) loadingEl.style.display = 'none';
+                        console.log('🦎 Gecko image loaded successfully');
+                    });
+                    
+                    img.addEventListener('error', function() {
+                        console.log('🦎 Gecko image failed to load, showing fallback');
+                        if (loadingEl) loadingEl.style.display = 'none';
+                        const fallback = this.nextElementSibling;
+                        if (fallback && fallback.classList.contains('gecko-image-fallback')) {
+                            fallback.style.display = 'grid';
+                        }
+                    });
+                }
+            });
+        }
+
+        // Lazy loading for images
+        function initLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.classList.remove('lazy');
+                                imageObserver.unobserve(img);
+                            }
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        }
+
+        // Initialize image optimizations
+        document.addEventListener('DOMContentLoaded', () => {
+            optimizeImageLoading();
+            initLazyLoading();
+        });
+
+        // Preload critical images
+        function preloadCriticalImages() {
+            const criticalImages = [
+                'assets/geckos/gecko-hero.jpg',
+                'assets/geckos/gecko-nft-1.jpg',
+                'assets/geckos/gecko-nft-2.jpg'
+            ];
+            
+            criticalImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
+        // Start preloading immediately
+        preloadCriticalImages();
     </script>
 </body>
 </html>
