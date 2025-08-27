@@ -330,6 +330,44 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Mythic NFT -->
+                <div class="nft-card">
+                    <div class="nft-rarity" style="background: linear-gradient(45deg, #FF1493, #8A2BE2); color: white;">🌟 MYTHIC</div>
+                    <div class="gecko-image-container nft-gecko-image">
+                        <img src="assets/geckos/gecko-nft-7.jpg" alt="Cosmic Gecko" class="gecko-image" 
+                             onload="this.classList.add('gecko-image-loaded')" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: #FF1493;">🦎</div>
+                    </div>
+                    <div class="nft-info">
+                        <h4>Cosmic Voyager #0007</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 1500 | Cosmic: 999</p>
+                        <p style="color: #FF1493; font-size: 0.875rem;">Special: Galaxy Burst</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge" style="background: rgba(255,20,147,.15); border-color: rgba(255,20,147,.3); color: #FF1493;">1.5 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divine NFT -->
+                <div class="nft-card">
+                    <div class="nft-rarity" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: #000;">✨ DIVINE</div>
+                    <div class="gecko-image-container nft-gecko-image">
+                        <img src="assets/geckos/gecko-nft-8.jpg" alt="Divine Gecko" class="gecko-image" 
+                             onload="this.classList.add('gecko-image-loaded')" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                        <div class="gecko-image-fallback" style="display: none; font-size: 4rem; color: #FFD700;">🦎</div>
+                    </div>
+                    <div class="nft-info">
+                        <h4>Divine Guardian #0003</h4>
+                        <p style="color: var(--muted); font-size: 0.875rem;">Power: 2000 | Divine: MAX</p>
+                        <p style="color: #FFD700; font-size: 0.875rem;">Special: Holy Light</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="badge" style="background: rgba(255,215,0,.15); border-color: rgba(255,215,0,.3); color: #FFD700;">2.8 ETH Floor</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Rarity Distribution -->
@@ -620,8 +658,8 @@
     </footer>
 
     <!-- Gecko AI Assistant Button -->
-    <button id="gecko-assistant-btn" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #059669); border: 2px solid #FFD700; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 35px; transition: all 0.3s ease; animation: geckoJump 2s ease-in-out infinite;">
-        <span style="animation: geckoWave 1s ease-in-out infinite;">🦎</span>
+    <button id="gecko-assistant-btn" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #FFD700, #FFA500); border: 3px solid #FFFFFF; box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 45px; transition: all 0.3s ease; animation: geckoJump 2s ease-in-out infinite;">
+        <span style="animation: geckoWave 1s ease-in-out infinite; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));">🦎</span>
     </button>
     
     <style>
@@ -637,6 +675,13 @@
         #gecko-assistant-btn:hover {
             transform: scale(1.1);
             animation-play-state: paused;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Show assistant button immediately on page load */
+        #gecko-assistant-btn {
+            opacity: 1 !important;
+            visibility: visible !important;
         }
     </style>
     
