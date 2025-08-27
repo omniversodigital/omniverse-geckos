@@ -83,9 +83,12 @@
                     <button id="connect-wallet-btn" class="btn btn-gradient" onclick="connectWallet()">
                         <span id="wallet-icon">🔗</span> <span id="wallet-text">Connect Wallet</span>
                     </button>
-                    <a href="#connect-account" class="btn btn-gradient">
-                        👤 Connect Account
-                    </a>
+                    <button id="x-missions-btn" class="btn btn-gradient" onclick="openXMissions()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="vertical-align: middle; margin-right: 5px;">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        X Missions
+                    </button>
                     <a href="#early-access" class="btn btn-secondary">
                         📝 Join Whitelist
                     </a>
@@ -706,6 +709,32 @@
         </div>
     </div>
 
+    <!-- X Missions Modal -->
+    <div id="x-missions-modal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; border: 2px solid #10b981; box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
+            <div style="padding: 30px;">
+                <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0; color: #FFD700; font-size: 24px;">🎮 Misiones X para Whitelist</h2>
+                    <button onclick="closeXMissions()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer; margin-left: auto;">✕</button>
+                </div>
+                
+                <div id="x-missions-content">
+                    <div style="text-center; padding: 40px 20px;">
+                        <div class="loading-gecko" style="font-size: 3rem; margin-bottom: 20px;">🦎</div>
+                        <p style="color: #ccc; margin-bottom: 20px;">Conecta tu cuenta de X para comenzar las misiones</p>
+                        
+                        <button id="connect-x-btn" onclick="connectTwitter()" style="background: #1d9bf0; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 0 auto;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            Conectar con X
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
         // Gecko AI Assistant functionality
@@ -910,6 +939,176 @@
                 // Reload page on chain change
                 window.location.reload();
             });
+        }
+
+        // X Missions System
+        let xSession = null;
+        let missionState = { follow: false, like: false, retweet: false };
+        
+        function openXMissions() {
+            document.getElementById('x-missions-modal').style.display = 'flex';
+        }
+        
+        function closeXMissions() {
+            document.getElementById('x-missions-modal').style.display = 'none';
+        }
+        
+        function connectTwitter() {
+            // Simulate OAuth flow - in production this would redirect to X OAuth
+            showNotification('Conectando con X...', 'info');
+            
+            // Simulate successful connection
+            setTimeout(() => {
+                xSession = {
+                    user: { username: 'usuario_demo', name: 'Usuario Demo' },
+                    access_token: 'demo_token'
+                };
+                updateXMissionsUI();
+                showNotification('✅ Conectado con X exitosamente!', 'success');
+            }, 2000);
+        }
+        
+        function updateXMissionsUI() {
+            const content = document.getElementById('x-missions-content');
+            const tweetId = '1859535542876053831';
+            const username = 'OmniverseGeckos';
+            
+            content.innerHTML = `
+                <div style="text-center; padding: 20px; background: linear-gradient(90deg, #1d9bf0/10, #10b981/10); border-radius: 10px; margin-bottom: 20px;">
+                    <p style="color: white; margin: 0;">Conectado como <strong>@${xSession.user.username}</strong></p>
+                </div>
+                
+                <!-- Misión 1: Follow -->
+                <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: white;">Misión 1 — Seguir @${username}</h3>
+                        <span style="color: ${missionState.follow ? '#10b981' : '#f59e0b'}; font-size: 14px;">
+                            ${missionState.follow ? '✅ Completado' : '⏳ Pendiente'}
+                        </span>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://x.com/${username}" target="_blank" style="padding: 8px 16px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 8px; font-size: 14px;">
+                            Abrir perfil
+                        </a>
+                        <button onclick="verifyFollow()" style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">
+                            Seguir y verificar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Misión 2: Like + Retweet -->
+                <div style="padding: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: white;">Misión 2 — Like + Retweet</h3>
+                        <div style="font-size: 14px;">
+                            <span style="color: ${missionState.like ? '#10b981' : '#f59e0b'}; margin-right: 10px;">
+                                Like: ${missionState.like ? '✅' : '⏳'}
+                            </span>
+                            <span style="color: ${missionState.retweet ? '#10b981' : '#f59e0b'};">
+                                RT: ${missionState.retweet ? '✅' : '⏳'}
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://x.com/${username}/status/${tweetId}" target="_blank" style="padding: 8px 16px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 8px; font-size: 14px;">
+                            Ver tweet
+                        </a>
+                        <a href="https://x.com/intent/like?tweet_id=${tweetId}" target="_blank" style="padding: 8px 16px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 8px; font-size: 14px;">
+                            ❤️ Like
+                        </a>
+                        <a href="https://x.com/intent/retweet?tweet_id=${tweetId}" target="_blank" style="padding: 8px 16px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 8px; font-size: 14px;">
+                            🔁 Retweet  
+                        </a>
+                        <button onclick="verifyMission2()" style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">
+                            Verificar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Botón de acceso -->
+                <button onclick="claimWhitelist()" 
+                        disabled="${!(missionState.follow && missionState.like && missionState.retweet)}"
+                        style="width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; border: none; cursor: ${(missionState.follow && missionState.like && missionState.retweet) ? 'pointer' : 'not-allowed'}; background: ${(missionState.follow && missionState.like && missionState.retweet) ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255,255,255,0.1)'}; color: ${(missionState.follow && missionState.like && missionState.retweet) ? 'white' : 'rgba(255,255,255,0.5)'};">
+                    ${(missionState.follow && missionState.like && missionState.retweet) ? '🎉 ¡Acceso Desbloqueado! (Whitelist)' : 'Completa las 2 misiones para acceder'}
+                </button>
+                
+                <div style="text-center; margin-top: 20px;">
+                    <button onclick="disconnectTwitter()" style="background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 14px;">
+                        Cerrar sesión
+                    </button>
+                </div>
+            `;
+        }
+        
+        async function verifyFollow() {
+            showNotification('Verificando follow...', 'info');
+            
+            // Simulate API call - in production this would call /api/verify/follow
+            setTimeout(() => {
+                missionState.follow = Math.random() > 0.3; // 70% success rate for demo
+                updateXMissionsUI();
+                
+                if (missionState.follow) {
+                    showNotification('✅ Follow verificado correctamente!', 'success');
+                } else {
+                    showNotification('❌ No se pudo verificar el follow. Asegúrate de seguir @OmniverseGeckos', 'error');
+                }
+            }, 1500);
+        }
+        
+        async function verifyMission2() {
+            showNotification('Verificando Like y Retweet...', 'info');
+            
+            // Simulate API calls - in production these would call /api/verify/like and /api/verify/retweet
+            setTimeout(() => {
+                missionState.like = Math.random() > 0.3;
+                missionState.retweet = Math.random() > 0.3;
+                updateXMissionsUI();
+                
+                if (missionState.like && missionState.retweet) {
+                    showNotification('✅ Like y Retweet verificados!', 'success');
+                } else if (missionState.like) {
+                    showNotification('✅ Like verificado. Falta Retweet.', 'warning');
+                } else if (missionState.retweet) {
+                    showNotification('✅ Retweet verificado. Falta Like.', 'warning');
+                } else {
+                    showNotification('❌ No se pudieron verificar Like y Retweet', 'error');
+                }
+            }, 1500);
+        }
+        
+        function claimWhitelist() {
+            if (missionState.follow && missionState.like && missionState.retweet) {
+                showNotification('🎉 ¡Felicidades! Has sido añadido a la whitelist', 'success');
+                closeXMissions();
+                
+                // Update main UI to show whitelist status
+                const button = document.getElementById('x-missions-btn');
+                button.innerHTML = '✅ Whitelist Claimed';
+                button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                button.disabled = true;
+            }
+        }
+        
+        function disconnectTwitter() {
+            xSession = null;
+            missionState = { follow: false, like: false, retweet: false };
+            
+            const content = document.getElementById('x-missions-content');
+            content.innerHTML = `
+                <div style="text-center; padding: 40px 20px;">
+                    <div class="loading-gecko" style="font-size: 3rem; margin-bottom: 20px;">🦎</div>
+                    <p style="color: #ccc; margin-bottom: 20px;">Conecta tu cuenta de X para comenzar las misiones</p>
+                    
+                    <button id="connect-x-btn" onclick="connectTwitter()" style="background: #1d9bf0; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 0 auto;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        Conectar con X
+                    </button>
+                </div>
+            `;
+            showNotification('Sesión de X cerrada', 'info');
         }
 
         // Set current year

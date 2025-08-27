@@ -1,6 +1,6 @@
 {
   "name": "omniverse-geckos",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "private": true,
   "description": "Revolutionary AI-Powered Web3 Gaming Ecosystem with NFTs and Token Economy",
   "author": "Omniverso Digital Team",
@@ -18,14 +18,31 @@
     "ethereum",
     "gecko",
     "tower-defense",
-    "play-to-earn"
+    "play-to-earn",
+    "nextjs",
+    "twitter-oauth"
   ],
   "scripts": {
-    "dev": "echo 'Static site - open index.html in browser'",
-    "build": "cp public/index.html index.html",
-    "start": "echo 'Static site ready - Deploy to GitHub Pages or Netlify'",
-    "serve": "python -m http.server 8000 || python3 -m http.server 8000",
-    "deploy": "echo 'Push to main branch to auto-deploy to GitHub Pages'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "next-auth": "^4.24.0",
+    "@next-auth/prisma-adapter": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"
   },
   "engines": {
     "node": ">=18.0.0",
