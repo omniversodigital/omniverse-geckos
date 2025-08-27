@@ -1806,24 +1806,43 @@
         let riskAcknowledged = localStorage.getItem('gecko_risk_acknowledged');
         
         function showRiskWarning() {
-            if (riskAcknowledged === 'true') return;
+            // Check if already acknowledged or modal already exists
+            if (localStorage.getItem('gecko_risk_acknowledged') === 'true') return;
+            if (document.getElementById('risk-warning-modal')) return;
             
             const modal = document.createElement('div');
+            modal.id = 'risk-warning-modal';
             modal.style.cssText = `
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0,0,0,0.9); z-index: 20000;
-                display: flex; align-items: center; justify-content: center;
-                padding: 20px;
+                position: fixed !important; 
+                top: 0 !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                bottom: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0,0,0,0.95) !important; 
+                z-index: 999999 !important;
+                display: flex !important; 
+                align-items: center !important; 
+                justify-content: center !important;
+                padding: 20px !important;
+                backdrop-filter: blur(10px) !important;
             `;
             
             modal.innerHTML = `
                 <div style="
-                    background: linear-gradient(135deg, #0a0f1c, #1a1f2c);
-                    border-radius: 20px; max-width: 600px; max-height: 80vh;
-                    overflow-y: auto; border: 2px solid #ef4444;
-                    color: white; padding: 30px;
+                    background: linear-gradient(135deg, #0a0f1c, #1a1f2c) !important;
+                    border-radius: 20px !important; 
+                    max-width: 600px !important; 
+                    max-height: 80vh !important;
+                    overflow-y: auto !important; 
+                    border: 2px solid #ef4444 !important;
+                    color: white !important; 
+                    padding: 30px !important;
+                    position: relative !important;
+                    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3) !important;
                 ">
-                    <h2 style="color: #ef4444; margin-bottom: 20px; text-align: center;">
+                    <h2 style="color: #ef4444; margin-bottom: 20px; text-align: center; font-size: 1.5rem;">
                         ⚠️ High-Risk Investment Warning
                     </h2>
                     <div style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px;">
@@ -1842,25 +1861,49 @@
                     </div>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                         <button onclick="hideRiskDisclosure()" style="
-                            padding: 12px 24px; background: #ef4444; color: white;
-                            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
-                        ">I Understand the Risks</button>
+                            padding: 12px 24px; 
+                            background: #ef4444; 
+                            color: white;
+                            border: none; 
+                            border-radius: 8px; 
+                            cursor: pointer; 
+                            font-weight: bold;
+                            font-size: 1rem;
+                            transition: all 0.3s;
+                        " onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
+                            I Understand the Risks
+                        </button>
                         <a href="docs/RISK_DISCLOSURE.md" target="_blank" style="
-                            padding: 12px 24px; background: transparent; color: #fca5a5;
-                            border: 1px solid #fca5a5; border-radius: 8px; text-decoration: none;
+                            padding: 12px 24px; 
+                            background: transparent; 
+                            color: #fca5a5;
+                            border: 1px solid #fca5a5; 
+                            border-radius: 8px; 
+                            text-decoration: none;
                             display: inline-block;
-                        ">Read Full Risk Disclosure</a>
+                            font-size: 1rem;
+                            transition: all 0.3s;
+                        " onmouseover="this.style.background='rgba(252, 165, 165, 0.1)'" onmouseout="this.style.background='transparent'">
+                            Read Full Risk Disclosure
+                        </a>
                     </div>
                 </div>
             `;
             
             document.body.appendChild(modal);
+            
+            // Prevent scrolling while modal is open
+            document.body.style.overflow = 'hidden';
         }
         
         function acknowledgeRisks() {
             localStorage.setItem('gecko_risk_acknowledged', 'true');
-            const modal = document.querySelector('[style*="rgba(0,0,0,0.9)"]');
-            if (modal) modal.remove();
+            const modal = document.getElementById('risk-warning-modal');
+            if (modal) {
+                modal.remove();
+                // Restore scrolling
+                document.body.style.overflow = '';
+            }
         }
         
         function hideRiskDisclosure() {
