@@ -87,6 +87,11 @@
             opacity: 1 !important;
             visibility: visible !important;
             pointer-events: auto !important;
+            display: flex !important;
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            z-index: 999999 !important;
         }
         
         #gecko-assistant-btn:hover {
@@ -1319,6 +1324,54 @@
 
         // Start preloading immediately
         preloadCriticalAssets();
+
+        // Force Gecko Assistant Button Visibility
+        function forceGeckoVisibility() {
+            const geckoBtn = document.getElementById('gecko-assistant-btn');
+            if (geckoBtn) {
+                geckoBtn.style.cssText = `
+                    position: fixed !important;
+                    bottom: 30px !important;
+                    right: 30px !important;
+                    z-index: 999999 !important;
+                    width: 90px !important;
+                    height: 90px !important;
+                    border-radius: 50% !important;
+                    background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+                    border: 4px solid #FFFFFF !important;
+                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 215, 0, 0.5) !important;
+                    cursor: pointer !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    font-size: 50px !important;
+                    transition: all 0.3s ease !important;
+                    animation: geckoJump 2s ease-in-out infinite !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                `;
+                // Also force gecko emoji visibility
+                const geckoEmoji = geckoBtn.querySelector('span');
+                if (geckoEmoji) {
+                    geckoEmoji.style.cssText = `
+                        animation: geckoWave 1s ease-in-out infinite !important;
+                        filter: drop-shadow(4px 4px 8px rgba(0,0,0,1)) drop-shadow(0 0 10px rgba(255,215,0,0.8)) !important;
+                        color: #FFD700 !important;
+                        text-shadow: 3px 3px 0px #000000, -2px -2px 0px #000000, 2px -2px 0px #000000, -2px 2px 0px #000000, 0 0 15px #FFD700 !important;
+                        font-size: 50px !important;
+                        display: block !important;
+                    `;
+                }
+                console.log('🦎 Gecko button forced visible');
+            } else {
+                console.error('🚨 Gecko button not found!');
+            }
+        }
+
+        // Force visibility immediately and on DOM ready
+        forceGeckoVisibility();
+        document.addEventListener('DOMContentLoaded', forceGeckoVisibility);
+        window.addEventListener('load', forceGeckoVisibility);
 
         // Video Controls Functions
         function toggleVideo(button) {
