@@ -864,8 +864,8 @@ h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
-  min-height: 80px;
+  padding: 1.5rem 0;
+  min-height: 100px;
 }
 
 .brand {
