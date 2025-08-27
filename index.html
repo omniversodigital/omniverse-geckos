@@ -1810,16 +1810,17 @@
             if (localStorage.getItem('gecko_risk_acknowledged') === 'true') return;
             if (document.getElementById('risk-warning-modal')) return;
             
+            // Force scroll to top before showing modal
+            window.scrollTo(0, 0);
+            
             const modal = document.createElement('div');
             modal.id = 'risk-warning-modal';
             modal.style.cssText = `
                 position: fixed !important; 
                 top: 0 !important; 
                 left: 0 !important; 
-                right: 0 !important; 
-                bottom: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 background: rgba(0,0,0,0.95) !important; 
                 z-index: 999999 !important;
                 display: flex !important; 
@@ -1827,6 +1828,7 @@
                 justify-content: center !important;
                 padding: 20px !important;
                 backdrop-filter: blur(10px) !important;
+                box-sizing: border-box !important;
             `;
             
             modal.innerHTML = `
@@ -1890,9 +1892,36 @@
                 </div>
             `;
             
+            // Add style for the modal to ensure it works
+            if (!document.getElementById('risk-modal-styles')) {
+                const style = document.createElement('style');
+                style.id = 'risk-modal-styles';
+                style.innerHTML = `
+                    #risk-warning-modal {
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        right: 0 !important;
+                        bottom: 0 !important;
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        transform: none !important;
+                    }
+                    body.modal-open {
+                        overflow: hidden !important;
+                        position: fixed !important;
+                        width: 100% !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
             document.body.appendChild(modal);
             
             // Prevent scrolling while modal is open
+            document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
         }
         
@@ -1902,7 +1931,10 @@
             if (modal) {
                 modal.remove();
                 // Restore scrolling
+                document.body.classList.remove('modal-open');
                 document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
             }
         }
         
