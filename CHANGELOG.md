@@ -5,6 +5,37 @@ All notable changes to the Omniverse Geckos project will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2025-01-31
+
+### Changed
+- Replaced hero image with dynamic action sequence video
+- Removed gecko-hero.jpg (Imageneee.jpg) from assets
+- Enhanced hero section with professional video presentation
+
+### Added
+- Dynamic action sequence video (gecko-hero.mp4) in Hero section
+- Advanced video container with enhanced neon glow effects
+- Custom video controls with play/pause and mute/unmute
+- Video optimization with IntersectionObserver
+- Automatic video restart and error handling
+- Click-to-play functionality for mobile devices
+- Video metadata preloading for faster load times
+- Scanning light overlay effect on video hover
+- Enhanced neon border rotation animation for videos
+
+### Technical
+- Video lazy loading and performance optimization
+- Graceful fallback to gecko emoji if video fails
+- Mobile-optimized video playback with playsinline
+- Autoplay with muted by default for browser compatibility
+- Custom video controls with neon styling
+
+### Visual Improvements
+- Video container with pulsing neon glow animation
+- Hover effects intensify neon borders and video filters
+- Professional video controls that appear on hover
+- Enhanced brightness, contrast, and saturation filters
+
 ## [3.2.0] - 2025-01-31
 
 ### Added

@@ -250,6 +250,184 @@ body::before {
   transform: translateZ(0);
 }
 
+/* ========== Video Integration Styles ========== */
+.gecko-video-container {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-0);
+  border: 2px solid rgba(16,185,129,.4);
+  box-shadow: 
+    0 0 60px rgba(16,185,129,.3),
+    inset 0 0 40px rgba(16,185,129,.08);
+  transition: all var(--transition-base);
+  animation: videoGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes videoGlow {
+  0% { 
+    box-shadow: 
+      0 0 60px rgba(16,185,129,.3),
+      inset 0 0 40px rgba(16,185,129,.08);
+    border-color: rgba(16,185,129,.4);
+  }
+  100% { 
+    box-shadow: 
+      0 0 120px rgba(16,185,129,.5),
+      0 0 200px rgba(59,130,246,.2),
+      inset 0 0 80px rgba(16,185,129,.15);
+    border-color: rgba(16,185,129,.7);
+  }
+}
+
+.gecko-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all var(--transition-slow);
+  filter: 
+    brightness(1.1) 
+    contrast(1.3) 
+    saturate(1.4);
+}
+
+.gecko-video-container:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 
+    0 0 150px rgba(16,185,129,.7),
+    0 0 300px rgba(59,130,246,.3),
+    0 30px 80px rgba(0,0,0,.5),
+    inset 0 0 120px rgba(16,185,129,.2);
+  border-color: rgba(16,185,129,.9);
+}
+
+.gecko-video-container:hover .gecko-video {
+  filter: 
+    brightness(1.3) 
+    contrast(1.4) 
+    saturate(1.6)
+    drop-shadow(0 0 30px rgba(16,185,129,.8));
+}
+
+/* Enhanced neon border for video */
+.gecko-video-container::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(45deg, 
+    var(--accent),
+    var(--accent-2),
+    var(--accent-3),
+    var(--accent-gold),
+    var(--accent)
+  );
+  border-radius: var(--radius-lg);
+  z-index: -1;
+  opacity: 0;
+  animation: videoBorderRotate 5s linear infinite;
+  transition: opacity var(--transition-base);
+  filter: blur(2px);
+}
+
+.gecko-video-container:hover::before {
+  opacity: 1;
+}
+
+@keyframes videoBorderRotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Video control styling */
+.gecko-video-container .video-controls {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.gecko-video-container:hover .video-controls {
+  opacity: 1;
+}
+
+.video-control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(16,185,129,.2);
+  border: 1px solid rgba(16,185,129,.5);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(10px);
+  font-size: 1.2rem;
+}
+
+.video-control-btn:hover {
+  background: rgba(16,185,129,.4);
+  box-shadow: 0 0 20px rgba(16,185,129,.6);
+  transform: scale(1.1);
+}
+
+/* Hero video specific styles */
+.hero-gecko-video {
+  aspect-ratio: 16/9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Video loading placeholder */
+.video-loading-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg-0);
+  color: var(--accent);
+  font-size: 6rem;
+  text-shadow: 
+    0 0 30px var(--accent),
+    0 0 60px var(--accent-glow);
+  animation: float 6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.gecko-video-loaded + .video-loading-placeholder {
+  display: none;
+}
+
+/* Video overlay effects */
+.gecko-video-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(16,185,129,.05) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  animation: videoScan 8s linear infinite;
+}
+
+.gecko-video-container:hover::after {
+  opacity: 1;
+}
+
+@keyframes videoScan {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+
 /* ========== Container System ========== */
 .container {
   width: min(1280px, 92vw);

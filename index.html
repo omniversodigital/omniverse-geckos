@@ -98,12 +98,29 @@
 
             <div class="gecko-showcase">
                 <div class="gecko-frame">
-                    <div class="gecko-image-container hero-gecko-image">
-                        <img src="assets/geckos/gecko-hero.jpg" alt="Omniverse Gecko Hero" class="gecko-image" 
-                             onload="this.classList.add('gecko-image-loaded')" 
-                             onerror="this.style.display='none'">
-                        <div class="gecko-image-fallback">🦎</div>
-                        <div class="gecko-image-loading"></div>
+                    <div class="gecko-video-container hero-gecko-video">
+                        <video class="gecko-video" 
+                               autoplay 
+                               loop 
+                               muted 
+                               playsinline 
+                               preload="metadata"
+                               onloadeddata="this.classList.add('gecko-video-loaded')"
+                               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                            <source src="assets/videos/gecko-hero.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-loading-placeholder">🦎</div>
+                        
+                        <!-- Custom Video Controls -->
+                        <div class="video-controls">
+                            <button class="video-control-btn" onclick="toggleVideo(this)" title="Play/Pause">
+                                ⏸️
+                            </button>
+                            <button class="video-control-btn" onclick="toggleMute(this)" title="Mute/Unmute">
+                                🔇
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -669,10 +686,10 @@
             initLazyLoading();
         });
 
-        // Preload critical images
-        function preloadCriticalImages() {
+        // Preload critical images and videos
+        function preloadCriticalAssets() {
+            // Preload images
             const criticalImages = [
-                'assets/geckos/gecko-hero.jpg',
                 'assets/geckos/gecko-nft-1.jpg',
                 'assets/geckos/gecko-nft-2.jpg'
             ];
@@ -681,10 +698,146 @@
                 const img = new Image();
                 img.src = src;
             });
+            
+            // Preload video metadata
+            const criticalVideos = [
+                'assets/videos/gecko-hero.mp4'
+            ];
+            
+            criticalVideos.forEach(src => {
+                const video = document.createElement('video');
+                video.preload = 'metadata';
+                video.src = src;
+            });
+            
+            console.log('🚀 Preloading critical assets (images and videos)');
         }
 
         // Start preloading immediately
-        preloadCriticalImages();
+        preloadCriticalAssets();
+
+        // Video Controls Functions
+        function toggleVideo(button) {
+            const container = button.closest('.gecko-video-container');
+            const video = container.querySelector('.gecko-video');
+            
+            if (video.paused) {
+                video.play();
+                button.innerHTML = '⏸️';
+                button.title = 'Pause';
+                console.log('🎬 Gecko video playing');
+            } else {
+                video.pause();
+                button.innerHTML = '▶️';
+                button.title = 'Play';
+                console.log('⏸️ Gecko video paused');
+            }
+        }
+
+        function toggleMute(button) {
+            const container = button.closest('.gecko-video-container');
+            const video = container.querySelector('.gecko-video');
+            
+            if (video.muted) {
+                video.muted = false;
+                button.innerHTML = '🔊';
+                button.title = 'Mute';
+                console.log('🔊 Gecko video unmuted');
+            } else {
+                video.muted = true;
+                button.innerHTML = '🔇';
+                button.title = 'Unmute';
+                console.log('🔇 Gecko video muted');
+            }
+        }
+
+        // Video optimization and error handling
+        function optimizeVideoPlayback() {
+            const videos = document.querySelectorAll('.gecko-video');
+            
+            videos.forEach(video => {
+                // Handle video loading
+                video.addEventListener('loadeddata', function() {
+                    console.log('🦎 Gecko video loaded successfully');
+                    this.classList.add('gecko-video-loaded');
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('video-loading-placeholder')) {
+                        placeholder.style.display = 'none';
+                    }
+                });
+                
+                // Handle video errors
+                video.addEventListener('error', function() {
+                    console.log('❌ Gecko video failed to load');
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('video-loading-placeholder')) {
+                        placeholder.style.display = 'grid';
+                        placeholder.innerHTML = '🦎';
+                    }
+                });
+                
+                // Auto-restart video when it ends (backup for loop)
+                video.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                });
+                
+                // Optimize video performance
+                video.addEventListener('loadstart', function() {
+                    // Preload video metadata
+                    this.preload = 'metadata';
+                });
+            });
+        }
+
+        // Intersection Observer for video performance
+        function initVideoLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            // Video is in view, ensure it's playing if autoplay
+                            if (video.hasAttribute('autoplay') && video.paused) {
+                                video.play().catch(e => {
+                                    console.log('🦎 Autoplay blocked, user interaction required');
+                                });
+                            }
+                        } else {
+                            // Video is out of view, pause to save resources
+                            if (!video.paused && video.hasAttribute('data-pause-offscreen')) {
+                                video.pause();
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                document.querySelectorAll('.gecko-video').forEach(video => {
+                    videoObserver.observe(video);
+                });
+            }
+        }
+
+        // Initialize video optimizations
+        document.addEventListener('DOMContentLoaded', () => {
+            optimizeVideoPlayback();
+            initVideoLazyLoading();
+            
+            // Click to play functionality for mobile
+            document.querySelectorAll('.gecko-video-container').forEach(container => {
+                container.addEventListener('click', (e) => {
+                    if (e.target === container || e.target.classList.contains('gecko-video')) {
+                        const video = container.querySelector('.gecko-video');
+                        const playBtn = container.querySelector('.video-control-btn');
+                        if (video && playBtn) {
+                            toggleVideo(playBtn);
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
