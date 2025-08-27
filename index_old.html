@@ -107,24 +107,99 @@
         </div>
     </header>
 
+    <!-- GECKO BOT (OLD - HIDDEN) -->
+    <div id="gecko-assistant-btn" onclick="toggleGeckoChat()" style="
+        display: none !important;
+        position: fixed !important;
+        bottom: 30px !important;
+        right: 30px !important;
+        width: 80px !important;
+        height: 80px !important;
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: 4px solid #FFD700 !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
+        z-index: 999999 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 6px 20px rgba(16,185,129,0.4), 0 0 30px rgba(255,215,0,0.3) !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 0 30px #FFD700, 0 0 60px #FFD700, inset 0 0 20px #333 !important;
+        animation: gecko-mega-pulse 1.5s infinite !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    ">
+        <div style="
+            font-size: 60px !important;
+            color: #FFD700 !important;
+            text-shadow: 
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                0 0 30px #FFD700,
+                2px 2px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000 !important;
+            animation: gecko-mega-wiggle 2s infinite !important;
+            filter: drop-shadow(0 0 15px #FFD700) !important;
+            line-height: 1 !important;
+            user-select: none !important;
+        ">🦎</div>
     </div>
     
     <style>
         /* MEGA ANIMACIONES PARA GECKO ULTRA VISIBLE */
-        50% { 
+        @keyframes gecko-mega-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 30px #FFD700, 0 0 60px #FFD700, inset 0 0 20px #333;
+                border-color: #FFD700;
+            }
+            50% { 
                 transform: scale(1.08);
                 box-shadow: 0 0 50px #FFD700, 0 0 100px #FFD700, inset 0 0 30px #333;
                 border-color: #FFFF00;
             }
         }
         
-        25% { transform: rotate(-8deg) scale(1.02); }
+        @keyframes gecko-mega-wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.02); }
             50% { transform: rotate(0deg) scale(1.05); }
             75% { transform: rotate(8deg) scale(1.02); }
         }
         
         /* HOVER MEGA INTENSO */
+        #gecko-assistant-btn:hover {
+            transform: scale(1.15) !important;
+            box-shadow: 0 0 60px #FFD700, 0 0 120px #FFD700, inset 0 0 40px #333 !important;
+            border-width: 10px !important;
+            border-color: #FFFF00 !important;
+        }
+        
+        #gecko-assistant-btn:hover div {
+            font-size: 70px !important;
+            text-shadow: 
+                0 0 15px #FFD700,
+                0 0 30px #FFD700,
+                0 0 45px #FFD700,
+                3px 3px 0 #000,
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000 !important;
+        }
+        
         /* FUERZA BRUTA PARA VISIBILIDAD */
+        #gecko-assistant-btn {
+            position: fixed !important;
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 2147483647 !important;
+        }
+        
         /* MEGA ANIMACIÓN PARA LOGO INTERNO DEL CHAT */
         @keyframes gecko-logo-mega-glow {
             0%, 100% {
@@ -163,7 +238,80 @@
     </style>
     
     <!-- Gecko AI Assistant Chat -->
-    
+    <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
+            <h3 style="margin: 0; color: white; font-size: 18px;">
+                <span style="
+                    display: inline-block !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    background: 
+                        radial-gradient(circle at 30% 30%, #FFFFFF 0%, #FFD700 20%, #FFA500 60%, #000000 100%),
+                        linear-gradient(45deg, #FFD700, #FFA500, #FF8C00, #FFD700) !important;
+                    color: #000000 !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    margin-right: 15px !important;
+                    font-size: 28px !important;
+                    line-height: 50px !important;
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    box-shadow: 
+                        0 0 30px #FFD700,
+                        0 0 50px #FFD700,
+                        0 8px 25px rgba(0,0,0,0.8),
+                        inset 0 4px 12px rgba(255,255,255,0.6),
+                        inset 0 -4px 8px rgba(0,0,0,0.3) !important;
+                    border: 5px solid #FFFFFF !important;
+                    text-shadow: 
+                        3px 3px 0px #000000,
+                        -3px -3px 0px #000000,
+                        3px -3px 0px #000000,
+                        -3px 3px 0px #000000,
+                        0 0 15px #000000,
+                        0 0 25px #FFD700 !important;
+                    filter: 
+                        drop-shadow(4px 4px 8px rgba(0,0,0,1)) 
+                        drop-shadow(0 0 20px #FFD700) !important;
+                    animation: gecko-logo-mega-glow 1.8s infinite !important;
+                    transform: translateZ(0) !important;
+                    will-change: transform, box-shadow !important;
+                ">🦎</span>GeckoBot AI Assistant</h3>
+            <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
+        </div>
+        <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
+            <p style="margin-bottom: 10px;">👋 Hi! I'm GeckoBot, your AI gaming assistant. How can I help you today?</p>
+            <p style="margin-bottom: 10px;">Ask me about:</p>
+            <ul style="margin-left: 20px;">
+                <li>🎮 Game mechanics</li>
+                <li>💎 NFT collections</li>
+                <li>🪙 $GECKO tokenomics</li>
+                <li>📈 Investment opportunities</li>
+            </ul>
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 3px solid #10b981;">
+                <p style="margin: 5px 0; font-weight: bold; color: #10b981;">🚀 Latest Updates:</p>
+                <p style="margin: 5px 0; font-size: 14px;">• Pre-sale is now LIVE!</p>
+                <p style="margin: 5px 0; font-size: 14px;">• New NFT collection dropping soon</p>
+                <p style="margin: 5px 0; font-size: 14px;">• Exclusive whitelist access available</p>
+            </div>
+        </div>
+        <div style="padding: 15px; border-top: 1px solid rgba(16, 185, 129, 0.3);">
+            <input type="text" placeholder="Type your question..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #10b981; background: rgba(16, 185, 129, 0.1); color: white; font-size: 14px;" onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()" style="width: 100%; margin-top: 10px; padding: 10px; background: linear-gradient(90deg, #10b981, #059669); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer;">Send Message 🚀</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <main class="hero" id="main-content">
+        <div class="container hero-grid">
+            <!-- Hero Image Section -->
+            <div class="hero-image-section">
+                <div class="gecko-frame">
+                    <div class="gecko-image-container">
+                        <img src="assets/geckos/hero-gecko.jpg" alt="Omniverse Gecko Hero" class="hero-gecko-image" loading="eager">
+                    </div>
+                </div>
+            </div>
             
             <div class="hero-content">
                 <span class="badge badge-gold">🔥 PRE-SALE LIVE</span>
@@ -786,12 +934,106 @@
     </footer>
     
     <!-- Gecko AI Assistant Chat -->
-    
+    <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
+            <h3 style="margin: 0; color: white; font-size: 18px;">
+                <span style="
+                    display: inline-block !important;
+                    width: 50px !important;
+                    height: 50px !important;
+                    background: 
+                        radial-gradient(circle at 30% 30%, #FFFFFF 0%, #FFD700 20%, #FFA500 60%, #000000 100%),
+                        linear-gradient(45deg, #FFD700, #FFA500, #FF8C00, #FFD700) !important;
+                    color: #000000 !important;
+                    padding: 0 !important;
+                    border-radius: 50% !important;
+                    margin-right: 15px !important;
+                    font-size: 28px !important;
+                    line-height: 50px !important;
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    box-shadow: 
+                        0 0 30px #FFD700,
+                        0 0 50px #FFD700,
+                        0 8px 25px rgba(0,0,0,0.8),
+                        inset 0 4px 12px rgba(255,255,255,0.6),
+                        inset 0 -4px 8px rgba(0,0,0,0.3) !important;
+                    border: 5px solid #FFFFFF !important;
+                    text-shadow: 
+                        3px 3px 0px #000000,
+                        -3px -3px 0px #000000,
+                        3px -3px 0px #000000,
+                        -3px 3px 0px #000000,
+                        0 0 15px #000000,
+                        0 0 25px #FFD700 !important;
+                    filter: 
+                        drop-shadow(4px 4px 8px rgba(0,0,0,1)) 
+                        drop-shadow(0 0 20px #FFD700) !important;
+                    animation: gecko-logo-mega-glow 1.8s infinite !important;
+                    transform: translateZ(0) !important;
+                    will-change: transform, box-shadow !important;
+                ">🦎</span>GeckoBot AI Assistant</h3>
+            <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
+        </div>
+        <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
+            <p style="margin-bottom: 10px;">👋 Hi! I'm GeckoBot, your AI gaming assistant. How can I help you today?</p>
+            <p style="margin-bottom: 10px;">Ask me about:</p>
+            <ul style="margin-left: 20px;">
+                <li>🎮 Game mechanics</li>
+                <li>💎 NFT collections</li>
+                <li>🪙 $GECKO tokenomics</li>
+                <li>📈 Investment opportunities</li>
+            </ul>
+        </div>
+        <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <input type="text" placeholder="Type your question..." style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #10b981; background: rgba(255,255,255,0.05); color: white;">
+        </div>
+    </div>
+
+    <!-- X Missions Modal -->
+    <div id="x-missions-modal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; border: 2px solid #10b981; box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
+            <div style="padding: 30px;">
+                <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="margin: 0; color: #FFD700; font-size: 24px;">🎮 Misiones X para Whitelist</h2>
+                    <button onclick="closeXMissions()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer; margin-left: auto;">✕</button>
+                </div>
+                
+                <div id="x-missions-content">
+                    <div style="text-center; padding: 40px 20px;">
+                        <div class="loading-gecko" style="font-size: 3rem; margin-bottom: 20px;">🦎</div>
+                        <p style="color: #ccc; margin-bottom: 20px;">Conecta tu cuenta de X para comenzar las misiones</p>
+                        
+                        <button id="connect-x-btn" onclick="connectTwitter()" style="background: #1d9bf0; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 0 auto;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            Conectar con X
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Scripts -->
     <script>
+        // NUEVA función simplificada para el gecko
+        function toggleGeckoChat() {
+            const assistant = document.getElementById('gecko-assistant');
+            const button = document.getElementById('gecko-bot-fixed-button') || document.getElementById('gecko-assistant-btn');
+            
+            if (assistant.style.display === 'none' || assistant.style.display === '') {
+                assistant.style.display = 'flex';
+                if (button) button.style.transform = 'scale(1.1) rotate(180deg)';
+                console.log('🦎 Gecko chat abierto');
+            } else {
+                assistant.style.display = 'none';
+                if (button) button.style.transform = 'scale(1) rotate(0deg)';
+                console.log('🦎 Gecko chat cerrado');
+            }
+        }
+
         // Simple wallet check function for immediate feedback
         function checkWalletAvailability() {
             console.log('Checking wallet availability...');
@@ -1961,94 +2203,109 @@
     </script>
 
     <script>
-        </script>
-
-    <!-- New Floating Assistant -->
-    <style>
-        .omni-assistant-btn {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            width: 60px !important;
-            height: 60px !important;
-            border-radius: 50% !important;
-            background: linear-gradient(135deg, #10b981, #059669) !important;
-            border: 3px solid #ffd700 !important;
-            cursor: pointer !important;
-            z-index: 999999 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
-            transition: transform 0.3s !important;
-        }
-        
-        .omni-assistant-btn:hover {
-            transform: scale(1.1) !important;
-        }
-        
-        .omni-assistant-chat {
-            position: fixed !important;
-            bottom: 90px !important;
-            right: 20px !important;
-            width: 380px !important;
-            height: 500px !important;
-            background: linear-gradient(135deg, #0f172a, #1e293b) !important;
-            border-radius: 16px !important;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
-            z-index: 999998 !important;
-            display: none !important;
-            flex-direction: column !important;
-            border: 2px solid #10b981 !important;
-        }
-        
-        .omni-assistant-chat.active {
-            display: flex !important;
-        }
-    </style>
-    
-    <button class="omni-assistant-btn" id="omni-assistant-btn" onclick="toggleAssistant()">
-        <span style="font-size: 30px;">🦎</span>
-    </button>
-    
-    <div class="omni-assistant-chat" id="omni-assistant-chat">
-        <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 15px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="margin: 0; color: white; font-size: 18px;">🦎 Omniverse Assistant</h3>
-            <button onclick="toggleAssistant()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
-        </div>
-        <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
-            <p>Welcome! How can I help you today?</p>
-            <ul style="margin-top: 10px;">
-                <li>🎮 Game mechanics</li>
-                <li>💎 NFT collections</li>
-                <li>🪙 Tokenomics</li>
-                <li>📈 Investment info</li>
-            </ul>
-        </div>
-        <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <input type="text" placeholder="Type your message..." style="width: 100%; padding: 10px; border-radius: 20px; border: 1px solid #10b981; background: rgba(255,255,255,0.05); color: white;">
-        </div>
-    </div>
-    
-    <script>
-        function toggleAssistant() {
-            const chat = document.getElementById('omni-assistant-chat');
-            chat.classList.toggle('active');
-        }
-        
-        // Ensure button stays fixed
-        window.addEventListener('load', function() {
-            const btn = document.getElementById('omni-assistant-btn');
-            if (btn) {
-                setInterval(() => {
-                    btn.style.position = 'fixed';
-                    btn.style.bottom = '20px';
-                    btn.style.right = '20px';
-                    btn.style.zIndex = '999999';
-                }, 500);
+        // Create and inject GeckoBot button with JavaScript to ensure proper fixed positioning
+        (function() {
+            // Wait for DOM to be ready
+            function createGeckoButton() {
+                // Remove any existing buttons first
+                const existingButton = document.getElementById('gecko-bot-fixed-button');
+                if (existingButton) {
+                    existingButton.remove();
+                }
+                
+                // Create button container
+                const button = document.createElement('div');
+                button.id = 'gecko-bot-fixed-button';
+                button.setAttribute('onclick', 'toggleGeckoChat()');
+                
+                // Apply styles directly via JavaScript to ensure they work
+                const buttonStyles = {
+                    position: 'fixed',
+                    bottom: '30px',
+                    right: '30px',
+                    width: '80px',
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    border: '4px solid #FFD700',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    zIndex: '2147483647',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 0 30px #FFD700, 0 0 60px #FFD700',
+                    opacity: '1',
+                    visibility: 'visible',
+                    pointerEvents: 'auto'
+                };
+                
+                Object.assign(button.style, buttonStyles);
+                
+                // Create inner emoji
+                const emoji = document.createElement('div');
+                emoji.innerHTML = '🦎';
+                const emojiStyles = {
+                    fontSize: '50px',
+                    color: '#FFD700',
+                    textShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 2px 2px 0 #000, -2px -2px 0 #000',
+                    lineHeight: '1',
+                    userSelect: 'none'
+                };
+                Object.assign(emoji.style, emojiStyles);
+                
+                // Append emoji to button
+                button.appendChild(emoji);
+                
+                // Append button to body
+                document.body.appendChild(button);
+                
+                // Force position fixed again after a small delay
+                setTimeout(() => {
+                    button.style.position = 'fixed';
+                    button.style.bottom = '30px';
+                    button.style.right = '30px';
+                    button.style.zIndex = '2147483647';
+                }, 100);
+                
+                console.log('✅ GeckoBot button created and positioned');
+                
+                // Remove old button if exists
+                const oldButton = document.getElementById('gecko-assistant-btn');
+                if (oldButton) {
+                    oldButton.style.display = 'none';
+                }
+                
+                // Add animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes gecko-pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+                    #gecko-bot-fixed-button {
+                        animation: gecko-pulse 2s infinite;
+                    }
+                    #gecko-bot-fixed-button:hover {
+                        transform: scale(1.1);
+                        box-shadow: 0 0 40px #FFD700, 0 0 80px #FFD700 !important;
+                    }
+                `;
+                document.head.appendChild(style);
             }
-        });
+            
+            // Execute when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', createGeckoButton);
+            } else {
+                createGeckoButton();
+            }
+            
+            // Also run after everything loads just to be sure
+            window.addEventListener('load', () => {
+                setTimeout(createGeckoButton, 500);
+            });
+        })();
     </script>
-
 </body>
 </html>

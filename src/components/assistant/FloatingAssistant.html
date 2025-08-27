@@ -1,0 +1,304 @@
+<!-- New Floating Assistant Component -->
+<!-- This can be included in any page -->
+
+<style>
+    /* Floating Assistant Button */
+    .floating-assistant-btn {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: 3px solid #ffd700 !important;
+        cursor: pointer !important;
+        z-index: 10000 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+        transition: all 0.3s ease !important;
+        animation: assistant-pulse 2s infinite !important;
+    }
+
+    .floating-assistant-btn:hover {
+        transform: scale(1.1) !important;
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6) !important;
+    }
+
+    .floating-assistant-btn span {
+        font-size: 30px !important;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)) !important;
+    }
+
+    /* Chat Window */
+    .assistant-chat-window {
+        position: fixed !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        width: 380px !important;
+        max-width: 90vw !important;
+        height: 500px !important;
+        max-height: 70vh !important;
+        background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+        z-index: 9999 !important;
+        display: none;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        border: 2px solid #10b981 !important;
+    }
+
+    .assistant-chat-window.active {
+        display: flex !important;
+    }
+
+    /* Chat Header */
+    .assistant-header {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        padding: 16px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        color: white !important;
+    }
+
+    .assistant-header h3 {
+        margin: 0 !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .assistant-close-btn {
+        background: none !important;
+        border: none !important;
+        color: white !important;
+        font-size: 24px !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        width: 30px !important;
+        height: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        transition: background 0.3s !important;
+    }
+
+    .assistant-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Chat Body */
+    .assistant-body {
+        flex: 1 !important;
+        padding: 20px !important;
+        overflow-y: auto !important;
+        color: white !important;
+    }
+
+    .assistant-message {
+        margin-bottom: 16px !important;
+        padding: 12px !important;
+        border-radius: 12px !important;
+        background: rgba(16, 185, 129, 0.1) !important;
+        border-left: 3px solid #10b981 !important;
+    }
+
+    /* Chat Footer */
+    .assistant-footer {
+        padding: 16px !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: flex !important;
+        gap: 8px !important;
+    }
+
+    .assistant-input {
+        flex: 1 !important;
+        padding: 10px 14px !important;
+        border-radius: 24px !important;
+        border: 1px solid #10b981 !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: white !important;
+        font-size: 14px !important;
+        outline: none !important;
+    }
+
+    .assistant-input::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .assistant-send-btn {
+        padding: 10px 20px !important;
+        border-radius: 24px !important;
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: white !important;
+        border: none !important;
+        cursor: pointer !important;
+        font-weight: 600 !important;
+        transition: transform 0.2s !important;
+    }
+
+    .assistant-send-btn:hover {
+        transform: scale(1.05) !important;
+    }
+
+    @keyframes assistant-pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .assistant-chat-window {
+            bottom: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100vh !important;
+            border-radius: 0 !important;
+        }
+    }
+</style>
+
+<div id="omniverse-assistant-container">
+    <!-- Floating Button -->
+    <button class="floating-assistant-btn" id="floating-assistant-trigger">
+        <span>🦎</span>
+    </button>
+
+    <!-- Chat Window -->
+    <div class="assistant-chat-window" id="assistant-chat-window">
+        <div class="assistant-header">
+            <h3><span>🦎</span> Omniverse Assistant</h3>
+            <button class="assistant-close-btn" id="assistant-close">✕</button>
+        </div>
+        
+        <div class="assistant-body" id="assistant-messages">
+            <div class="assistant-message">
+                <strong>Welcome to Omniverse Geckos!</strong><br>
+                I'm your AI assistant. How can I help you today?
+            </div>
+            <div class="assistant-message">
+                Ask me about:
+                <ul style="margin: 8px 0 0 20px; padding: 0;">
+                    <li>🎮 Game mechanics and strategies</li>
+                    <li>💎 NFT collections and breeding</li>
+                    <li>🪙 $GECKO tokenomics</li>
+                    <li>📈 Investment opportunities</li>
+                    <li>🏆 Tournaments and events</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="assistant-footer">
+            <input type="text" class="assistant-input" id="assistant-input" placeholder="Type your message..." />
+            <button class="assistant-send-btn" id="assistant-send">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    
+    // Get elements
+    const trigger = document.getElementById('floating-assistant-trigger');
+    const chatWindow = document.getElementById('assistant-chat-window');
+    const closeBtn = document.getElementById('assistant-close');
+    const input = document.getElementById('assistant-input');
+    const sendBtn = document.getElementById('assistant-send');
+    const messagesContainer = document.getElementById('assistant-messages');
+    
+    // Toggle chat window
+    function toggleChat() {
+        chatWindow.classList.toggle('active');
+        if (chatWindow.classList.contains('active')) {
+            input.focus();
+        }
+    }
+    
+    // Close chat
+    function closeChat() {
+        chatWindow.classList.remove('active');
+    }
+    
+    // Send message
+    function sendMessage() {
+        const message = input.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'assistant-message';
+        userMsg.style.background = 'rgba(255, 255, 255, 0.05)';
+        userMsg.innerHTML = `<strong>You:</strong> ${message}`;
+        messagesContainer.appendChild(userMsg);
+        
+        // Clear input
+        input.value = '';
+        
+        // Simulate bot response
+        setTimeout(() => {
+            const botMsg = document.createElement('div');
+            botMsg.className = 'assistant-message';
+            botMsg.innerHTML = `<strong>🦎 Assistant:</strong> ${getResponse(message)}`;
+            messagesContainer.appendChild(botMsg);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 500);
+        
+        // Scroll to bottom
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Get response based on message
+    function getResponse(message) {
+        const msg = message.toLowerCase();
+        
+        if (msg.includes('token') || msg.includes('gecko')) {
+            return 'The $GECKO token is our native currency with a total supply of 1 billion tokens. It features a deflationary mechanism with 2% burn on transactions.';
+        } else if (msg.includes('nft')) {
+            return 'Our NFT Geckos come in 5 rarities: Common, Rare, Epic, Legendary, and Mythic. Each has unique abilities for tower defense gameplay!';
+        } else if (msg.includes('game') || msg.includes('play')) {
+            return 'Omniverse Geckos is a tower defense game where you use your NFT Geckos to defend against waves of enemies. Win battles to earn $GECKO tokens!';
+        } else if (msg.includes('invest') || msg.includes('buy')) {
+            return 'You can participate in our pre-sale for a 25% bonus! Connect your wallet to get started. Remember to only invest what you can afford to lose.';
+        } else {
+            return 'That\'s a great question! For more detailed information, please check our whitepaper or join our Discord community for live support.';
+        }
+    }
+    
+    // Event listeners
+    trigger.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', sendMessage);
+    
+    // Enter key to send
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // Ensure button stays fixed
+    setInterval(() => {
+        if (trigger) {
+            trigger.style.position = 'fixed';
+            trigger.style.bottom = '20px';
+            trigger.style.right = '20px';
+            trigger.style.zIndex = '10000';
+        }
+    }, 1000);
+    
+    console.log('✅ Omniverse Assistant initialized');
+})();
+</script>
