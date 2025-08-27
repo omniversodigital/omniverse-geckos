@@ -110,8 +110,15 @@
                 </div>
             </div>
 
-            <!-- Video section moved to separate section below -->
-            <div class="gecko-showcase">
+            <!-- Video section removed from hero -->
+        </div>
+    </main>
+
+    <!-- Video Showcase Section -->
+    <section class="video-showcase-section" style="padding: 80px 0; background: linear-gradient(135deg, #0a0f1c, #1a1f2c);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; color: var(--accent);">🎮 Gameplay Preview</h2>
+            <div class="gecko-showcase" style="max-width: 800px; margin: 0 auto;">
                 <div class="gecko-frame">
                     <div class="gecko-video-container hero-gecko-video">
                         <video class="gecko-video" 
@@ -140,7 +147,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <!-- Investment Section -->
     <section id="investment" class="section">
@@ -555,13 +562,46 @@
         </div>
     </footer>
 
-    <!-- Gecko AI Assistant (Hidden by default, can be enabled) -->
-    <div id="gecko-assistant" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: none;">
-        <!-- Assistant code here if needed -->
+    <!-- Gecko AI Assistant Button -->
+    <button id="gecko-assistant-btn" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #059669); border: 2px solid #FFD700; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; transition: all 0.3s ease;">
+        🤖
+    </button>
+    
+    <!-- Gecko AI Assistant Chat -->
+    <div id="gecko-assistant" style="position: fixed; bottom: 120px; right: 30px; z-index: 999; width: 350px; height: 500px; background: linear-gradient(135deg, #0a0f1c, #1a1f2c); border-radius: 20px; border: 2px solid #10b981; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, #10b981, #059669); padding: 15px; border-radius: 18px 18px 0 0;">
+            <h3 style="margin: 0; color: white; font-size: 18px;">🦎 GeckoBot AI Assistant</h3>
+            <button onclick="document.getElementById('gecko-assistant').style.display='none'" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
+        </div>
+        <div style="flex: 1; padding: 20px; overflow-y: auto; color: white;">
+            <p style="margin-bottom: 10px;">👋 Hi! I'm GeckoBot, your AI gaming assistant. How can I help you today?</p>
+            <p style="margin-bottom: 10px;">Ask me about:</p>
+            <ul style="margin-left: 20px;">
+                <li>🎮 Game mechanics</li>
+                <li>💎 NFT collections</li>
+                <li>🪙 $GECKO tokenomics</li>
+                <li>📈 Investment opportunities</li>
+            </ul>
+        </div>
+        <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <input type="text" placeholder="Type your question..." style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #10b981; background: rgba(255,255,255,0.05); color: white;">
+        </div>
     </div>
 
     <!-- Scripts -->
     <script>
+        // Gecko AI Assistant functionality
+        document.getElementById('gecko-assistant-btn').addEventListener('click', function() {
+            const assistant = document.getElementById('gecko-assistant');
+            if (assistant.style.display === 'none' || assistant.style.display === '') {
+                assistant.style.display = 'flex';
+                this.style.transform = 'scale(1.1) rotate(180deg)';
+            } else {
+                assistant.style.display = 'none';
+                this.style.transform = 'scale(1) rotate(0deg)';
+            }
+        });
+
         // Set current year
         document.getElementById('year').textContent = new Date().getFullYear();
 
