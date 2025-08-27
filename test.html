@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Position Fixed</title>
+    <style>
+        body {
+            height: 300vh; /* Make page very tall to test scroll */
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #0a0d10, #1a1f2c);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .test-button {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            width: 80px !important;
+            height: 80px !important;
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            border: 4px solid #FFD700 !important;
+            border-radius: 50% !important;
+            cursor: pointer !important;
+            z-index: 999999 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 2rem;
+            box-shadow: 0 6px 20px rgba(16,185,129,0.4) !important;
+        }
+        
+        .test-modal {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: rgba(0,0,0,0.9) !important;
+            z-index: 100000 !important;
+            display: none !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .test-modal.active {
+            display: flex !important;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #0a0f1c, #1a1f2c);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 520px;
+            width: 90%;
+            border: 3px solid #f59e0b;
+            color: white;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.9);
+        }
+        
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #10b981;
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">SECTION 1 - TOP</div>
+    <div class="section">SECTION 2 - MIDDLE</div>
+    <div class="section">SECTION 3 - BOTTOM</div>
+    
+    <!-- Fixed Button -->
+    <div class="test-button" onclick="showModal()">🦎</div>
+    
+    <!-- Fixed Modal -->
+    <div class="test-modal" id="testModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <h2 style="color: #f59e0b; margin-bottom: 20px;">🦎 Test Modal</h2>
+            <p>This modal should appear centered on screen no matter where you are scrolling!</p>
+            <button onclick="closeModal()" style="
+                padding: 12px 24px; 
+                background: #ef4444; 
+                color: white; 
+                border: none; 
+                border-radius: 8px; 
+                cursor: pointer;
+                margin-top: 20px;
+            ">Close Modal</button>
+        </div>
+    </div>
+    
+    <script>
+        function showModal() {
+            console.log('showModal called');
+            const modal = document.getElementById('testModal');
+            modal.classList.add('active');
+            console.log('Modal should be visible now');
+        }
+        
+        function closeModal(event) {
+            if (event && event.target === event.currentTarget) {
+                // Clicked outside modal
+                const modal = document.getElementById('testModal');
+                modal.classList.remove('active');
+            } else if (!event) {
+                // Called from button
+                const modal = document.getElementById('testModal');
+                modal.classList.remove('active');
+            }
+        }
+        
+        // Test on page load
+        window.addEventListener('load', () => {
+            console.log('Test page loaded');
+            console.log('Button element:', document.querySelector('.test-button'));
+            console.log('Modal element:', document.querySelector('.test-modal'));
+        });
+    </script>
+</body>
+</html>

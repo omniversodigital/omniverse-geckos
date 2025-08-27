@@ -1,0 +1,46 @@
+Contact: mailto:security@omniversegeckos.com
+Expires: 2026-01-27T23:59:59.000Z
+Encryption: https://omniversodigital.github.io/omniverse-geckos/pgp-key.txt
+Preferred-Languages: en, es, pt
+Canonical: https://omniversodigital.github.io/omniverse-geckos/.well-known/security.txt
+Policy: https://omniversodigital.github.io/omniverse-geckos/docs/SECURITY_POLICY.md
+Hiring: mailto:careers@omniversegeckos.com
+
+# Security Information for Omniverse Geckos
+
+## Scope
+This security policy covers:
+- Main website (omniversodigital.github.io/omniverse-geckos)
+- Smart contracts (when deployed)
+- Associated infrastructure and services
+
+## Vulnerability Disclosure
+We welcome security researchers to report vulnerabilities responsibly:
+1. Email security@omniversegeckos.com with details
+2. Allow reasonable time for response and fix
+3. Do not publicly disclose until resolved
+4. Provide clear steps to reproduce
+
+## Reward Program
+We offer recognition and potential rewards for valid security findings:
+- Critical vulnerabilities: Up to $1,000 USD in tokens
+- High severity: Up to $500 USD in tokens  
+- Medium severity: Up to $200 USD in tokens
+- Low severity: Public recognition
+
+## Out of Scope
+The following are not eligible for rewards:
+- Social engineering attacks
+- Physical security issues
+- Denial of service attacks
+- Spam or harassment
+- Issues in third-party services we don't control
+
+## Legal Safe Harbor
+We will not pursue legal action against security researchers who:
+- Act in good faith
+- Follow responsible disclosure
+- Do not harm users or steal data
+- Report findings promptly
+
+Thank you for helping keep Omniverse Geckos secure!

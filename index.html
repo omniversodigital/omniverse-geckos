@@ -25,10 +25,56 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#10b981">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Omniverse Geckos",
+      "description": "Revolutionary AI-Powered Web3 Gaming Platform with Dual-Token Economy and Deflationary NFTs",
+      "url": "https://omniversodigital.github.io/omniverse-geckos/",
+      "logo": "https://omniversodigital.github.io/omniverse-geckos/assets/logo.jpg",
+      "sameAs": [
+        "https://twitter.com/omniversegeckos",
+        "https://discord.gg/Ze3Z3jtK"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "contact@omniversegeckos.com"
+      }
+    }
+    </script>
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.github.com">
+    <link rel="dns-prefetch" href="//github.com">
+    
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+    /* Critical above-the-fold styles */
+    .header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,13,16,0.9); backdrop-filter: blur(10px); }
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 2rem 0; }
+    .btn { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .btn-gradient { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .loading { color: #10b981; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
 </head>
 <body>
+    <!-- Skip navigation for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -45,16 +91,15 @@
                 </div>
             </a>
 
-            <nav class="nav-links">
-                <a href="#investment" class="nav-link">Investment</a>
-                <a href="#nft-gallery" class="nav-link">NFT Gallery</a>
+            <nav class="nav-links" role="navigation" aria-label="Main navigation">
                 <a href="#features" class="nav-link">Features</a>
+                <a href="#nft-gallery" class="nav-link">NFT Gallery</a>
                 <a href="#tokenomics" class="nav-link">Tokenomics</a>
                 <a href="#roadmap" class="nav-link">Roadmap</a>
-                <a href="#team" class="nav-link">Team</a>
+                <a href="#investment" class="nav-link nav-cta">Pre-Sale</a>
             </nav>
 
-            <button class="menu-toggle" id="menuToggle">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -65,18 +110,20 @@
     <!-- GECKO BOT ULTRA VISIBLE - Versión Extrema -->
     <div id="gecko-assistant-btn" onclick="toggleGeckoChat()" style="
         position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        width: 100px !important;
-        height: 100px !important;
-        background: #000000 !important;
-        border: 8px solid #FFD700 !important;
+        bottom: 30px !important;
+        right: 30px !important;
+        width: 80px !important;
+        height: 80px !important;
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: 4px solid #FFD700 !important;
         border-radius: 50% !important;
         cursor: pointer !important;
-        z-index: 2147483647 !important;
+        z-index: 999999 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        box-shadow: 0 6px 20px rgba(16,185,129,0.4), 0 0 30px rgba(255,215,0,0.3) !important;
+        transition: all 0.3s ease !important;
         box-shadow: 0 0 30px #FFD700, 0 0 60px #FFD700, inset 0 0 20px #333 !important;
         animation: gecko-mega-pulse 1.5s infinite !important;
         opacity: 1 !important;
@@ -254,7 +301,7 @@
     </div>
 
     <!-- Hero Section -->
-    <main class="hero" id="home">
+    <main class="hero" id="main-content">
         <div class="container hero-grid">
             <!-- Hero Image Section -->
             <div class="hero-image-section">
@@ -270,31 +317,35 @@
                 <h1 class="gradient-text">The Future of Web3 Gaming is Here</h1>
                 <p>Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs. Join 15,000+ players in the Omniverse.</p>
                 
-                <div class="btn-row">
-                    <button id="connect-wallet-btn" class="btn btn-gradient" onclick="connectWallet()">
-                        <span id="wallet-icon">🔗</span> <span id="wallet-text">Connect Wallet</span>
-                    </button>
-                    <button id="x-missions-btn" class="btn btn-gradient" onclick="openXMissions()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="vertical-align: middle; margin-right: 5px;">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                        X Missions
-                    </button>
-                    <a href="#early-access" class="btn btn-secondary">
-                        📝 Join Whitelist
-                    </a>
-                    <a href="https://twitter.com/omniversegeckos" target="_blank" class="btn btn-secondary" style="background: #000; border-color: #000;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="vertical-align: middle; margin-right: 5px;">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                        X
-                    </a>
-                    <a href="https://discord.gg/Ze3Z3jtK" target="_blank" class="btn btn-secondary" style="background: #5865F2; border-color: #5865F2;">
-                        <svg width="20" height="20" viewBox="0 0 71 55" fill="white" style="vertical-align: middle; margin-right: 5px;">
-                            <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
-                        </svg>
-                        Discord
-                    </a>
+                <div class="cta-section">
+                    <div class="primary-actions">
+                        <button id="connect-wallet-btn" class="btn btn-gradient btn-primary" onclick="connectWallet()">
+                            <span id="wallet-icon">🔗</span> <span id="wallet-text">Connect Wallet</span>
+                        </button>
+                        <a href="#early-access" class="btn btn-secondary">
+                            📝 Join Whitelist
+                        </a>
+                    </div>
+                    <div class="social-actions">
+                        <button id="x-missions-btn" class="btn btn-outline" onclick="openXMissions()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            X Missions
+                        </button>
+                        <a href="https://twitter.com/omniversegeckos" target="_blank" class="btn btn-social twitter" rel="noopener">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            Follow
+                        </a>
+                        <a href="https://discord.gg/Ze3Z3jtK" target="_blank" class="btn btn-social discord" rel="noopener">
+                            <svg width="16" height="16" viewBox="0 0 71 55" fill="currentColor">
+                                <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+                            </svg>
+                            Join
+                        </a>
+                    </div>
                 </div>
                 
                 <div style="margin-top: 2rem; display: flex; gap: 2rem; flex-wrap: wrap;">
@@ -304,11 +355,14 @@
                     </div>
                     <div>
                         <strong style="color: var(--accent-2);">$5.2M</strong><br>
-                        <span style="color: var(--muted); font-size: 0.875rem;">Projected Revenue</span>
+                        <span style="color: var(--muted); font-size: 0.875rem;">Target Market Cap</span>
                     </div>
                     <div>
-                        <strong style="color: var(--accent-3);">750%</strong><br>
-                        <span style="color: var(--muted); font-size: 0.875rem;">ROI Projection</span>
+                        <strong style="color: var(--accent-3);">Play-to-Earn</strong><br>
+                        <span style="color: var(--muted); font-size: 0.875rem;">Game Mechanics</span>
+                    </div>
+                    <div class="risk-warning" style="grid-column: 1/-1; background: rgba(239,68,68,0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 1rem;">
+                        <small style="color: #fca5a5;">⚠️ <strong>Investment Risk:</strong> Cryptocurrency investments carry high risk. Past performance doesn't guarantee future results. Only invest what you can afford to lose.</small>
                     </div>
                 </div>
             </div>
@@ -378,24 +432,37 @@
                     </div>
                 </div>
 
-                <div style="max-width: 800px; margin: 2rem auto;">
-                    <h3 style="margin-bottom: 1.5rem;">🔥 Why Invest Now?</h3>
-                    <div style="text-align: left; display: grid; gap: 0.75rem;">
-                        <p>✅ <strong>First AI-Native Gaming Platform</strong> - Revolutionary personalization technology</p>
-                        <p>✅ <strong>Multiple Revenue Streams</strong> - Play-to-earn, marketplace, casino, breeding</p>
-                        <p>✅ <strong>Deflationary Tokenomics</strong> - Built-in scarcity with automatic token burns</p>
-                        <p>✅ <strong>Functional NFTs</strong> - Real utility in tower defense gameplay</p>
-                        <p>✅ <strong>Experienced Team</strong> - Gaming and blockchain industry veterans</p>
-                        <p>✅ <strong>Audited Contracts</strong> - Security-first development by CertiK</p>
+                <div class="investment-info" style="max-width: 800px; margin: 2rem auto;">
+                    <h3 style="margin-bottom: 1.5rem;">💡 Platform Advantages</h3>
+                    <div class="feature-list" style="text-align: left; display: grid; gap: 0.75rem;">
+                        <p>✅ <strong>AI-Native Gaming Platform</strong> - Advanced personalization technology</p>
+                        <p>✅ <strong>Multiple Revenue Streams</strong> - Play-to-earn, marketplace, mini-games</p>
+                        <p>✅ <strong>Utility-First NFTs</strong> - Real gameplay function in tower defense</p>
+                        <p>✅ <strong>Community Governance</strong> - Decentralized decision making via DAO</p>
+                    </div>
+                    
+                    <div class="disclaimer-section" style="margin-top: 2rem; padding: 1.5rem; background: rgba(239,68,68,0.1); border-radius: 12px; border: 2px solid rgba(239,68,68,0.3);">
+                        <h4 style="color: #fca5a5; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            ⚠️ Important Risk Disclosure
+                        </h4>
+                        <div style="font-size: 0.875rem; line-height: 1.6; color: #fca5a5;">
+                            <p style="margin-bottom: 0.75rem;">• <strong>High Risk Investment:</strong> Cryptocurrency and NFT investments are highly speculative and volatile.</p>
+                            <p style="margin-bottom: 0.75rem;">• <strong>No Guaranteed Returns:</strong> Past performance does not indicate future results.</p>
+                            <p style="margin-bottom: 0.75rem;">• <strong>Regulatory Risk:</strong> Digital assets may be subject to regulatory changes.</p>
+                            <p style="margin-bottom: 0;">• <strong>Only Invest What You Can Afford to Lose:</strong> Never invest money you cannot afford to lose entirely.</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="btn-row" style="justify-content: center; margin-top: 2rem;">
-                    <a href="mailto:invest@omniversegeckos.com" class="btn btn-gradient">
-                        💎 Invest Now - 25% Bonus
+                <div class="investment-actions" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                    <a href="#early-access" class="btn btn-gradient">
+                        📝 Join Whitelist
                     </a>
-                    <a href="docs/INVESTOR_DECK.md" class="btn btn-secondary">
-                        📊 Download Investor Deck
+                    <a href="docs/WHITEPAPER.md" class="btn btn-secondary">
+                        📄 Read Whitepaper
+                    </a>
+                    <a href="mailto:contact@omniversegeckos.com" class="btn btn-outline">
+                        📧 Contact Team
                     </a>
                 </div>
             </div>
@@ -410,9 +477,9 @@
                 <p>10,000 Unique AI-Generated Geckos with Functional Gaming Utility</p>
             </div>
             
-            <div class="nft-grid">
+            <div class="nft-grid" role="region" aria-label="NFT Collection Gallery">
                 <!-- Legendary -->
-                <div class="nft-card">
+                <article class="nft-card" tabindex="0" role="article" aria-labelledby="nft-1-title">
                     <div class="nft-rarity rarity-legendary">⭐ LEGENDARY</div>
                     <div class="gecko-image-container nft-gecko-image">
                         <img src="assets/geckos/gecko-nft-1.jpg" alt="Golden Emperor Gecko" class="gecko-image" 
@@ -421,7 +488,7 @@
                         <div class="gecko-image-fallback" style="display: none; font-size: 4rem;">🦎</div>
                     </div>
                     <div class="nft-info">
-                        <h4>Golden Emperor #0001</h4>
+                        <h4 id="nft-1-title">Golden Emperor #0001</h4>
                         <p style="color: var(--muted); font-size: 0.875rem;">Power: 9999 | Speed: MAX</p>
                         <p style="color: var(--accent-gold); font-size: 0.875rem;">Special: Instant Kill Wave</p>
                         <div style="margin-top: 1rem;">
@@ -803,13 +870,12 @@
                 <div class="footer-brand">
                     <h3>🦎 Omniverse Geckos</h3>
                     <p style="color: var(--muted); margin: 1rem 0;">
-                        Revolutionary AI-Powered Web3 Gaming Platform. Building the future of blockchain gaming with NFTs, tokens, and immersive gameplay.
+                        AI-Powered Web3 Gaming Platform. Building innovative blockchain gaming experiences with NFTs and immersive gameplay.
                     </p>
                     <div class="social-links" style="justify-content: flex-start;">
-                        <a href="https://github.com/omniversodigital/omniverse-geckos" class="social-link">📚</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">💬</a>
-                        <a href="#" class="social-link">📝</a>
+                        <a href="https://github.com/omniversodigital/omniverse-geckos" class="social-link" aria-label="GitHub" rel="noopener" target="_blank">📚</a>
+                        <a href="https://twitter.com/omniversegeckos" class="social-link" aria-label="Twitter" rel="noopener" target="_blank">🐦</a>
+                        <a href="https://discord.gg/Ze3Z3jtK" class="social-link" aria-label="Discord" rel="noopener" target="_blank">💬</a>
                     </div>
                 </div>
 
@@ -827,26 +893,41 @@
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="docs/WHITEPAPER.md">Whitepaper</a></li>
-                        <li><a href="docs/INVESTOR_DECK.md">Investor Deck</a></li>
-                        <li><a href="https://github.com/omniversodigital/omniverse-geckos">GitHub</a></li>
-                        <li><a href="#team">Team</a></li>
+                        <li><a href="https://github.com/omniversodigital/omniverse-geckos" rel="noopener" target="_blank">GitHub</a></li>
+                        <li><a href="#early-access">Early Access</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Contact</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="mailto:contact@omniversegeckos.com">General</a></li>
-                        <li><a href="mailto:invest@omniversegeckos.com">Investment</a></li>
-                        <li><a href="mailto:support@omniversegeckos.com">Support</a></li>
-                        <li><a href="mailto:press@omniversegeckos.com">Press</a></li>
+                        <li><a href="docs/TERMS_OF_SERVICE.md" target="_blank" rel="noopener">Terms of Service</a></li>
+                        <li><a href="docs/PRIVACY_POLICY.md" target="_blank" rel="noopener">Privacy Policy</a></li>
+                        <li><a href="docs/RISK_DISCLOSURE.md" target="_blank" rel="noopener">Risk Disclosure</a></li>
+                        <li><a href="mailto:contact@omniversegeckos.com">Contact</a></li>
                     </ul>
                 </div>
             </div>
 
+            <!-- Legal Compliance Section -->
+            <div class="legal-compliance" style="margin: 2rem 0; padding: 1.5rem; background: rgba(239,68,68,0.08); border-radius: 12px; border: 1px solid rgba(239,68,68,0.2);">
+                <h4 style="color: #fca5a5; margin-bottom: 1rem; text-align: center;">⚖️ Legal & Compliance</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; font-size: 0.875rem; color: #fca5a5;">
+                    <div>
+                        <strong>Investment Risk:</strong> This project involves high-risk digital assets. Regulatory status may change. No investment advice provided.
+                    </div>
+                    <div>
+                        <strong>No Guarantees:</strong> Token prices, game features, and roadmap items are subject to change. No returns guaranteed.
+                    </div>
+                    <div>
+                        <strong>Geographic Restrictions:</strong> Services may not be available in all jurisdictions. Users responsible for compliance with local laws.
+                    </div>
+                </div>
+            </div>
+
             <div class="footer-bottom">
-                <p>&copy; <span id="year">2025</span> Omniverse Geckos - Revolutionary Gaming Platform</p>
-                <p style="margin-top: 0.5rem; font-size: 0.875rem;">Built with ❤️ by Omniverso Digital Team</p>
+                <p>&copy; <span id="year">2025</span> Omniverse Geckos - Web3 Gaming Platform</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--muted);">Built by Omniverso Digital Team • Not financial advice • High risk investment</p>
             </div>
         </div>
     </footer>
@@ -952,69 +1033,121 @@
             }
         }
 
+        // Simple wallet check function for immediate feedback
+        function checkWalletAvailability() {
+            console.log('Checking wallet availability...');
+            console.log('window.ethereum exists:', typeof window.ethereum !== 'undefined');
+            console.log('window.web3 exists:', typeof window.web3 !== 'undefined');
+            console.log('window.ethereum value:', window.ethereum);
+            
+            if (typeof window.ethereum === 'undefined' && typeof window.web3 === 'undefined') {
+                console.log('No wallet detected - showing notification');
+                return false;
+            }
+            return true;
+        }
+
         // Wallet Connection System
         let isWalletConnected = false;
         let connectedAccount = '';
 
         async function connectWallet() {
+            console.log('connectWallet function called');
+            
             const button = document.getElementById('connect-wallet-btn');
             const icon = document.getElementById('wallet-icon');
             const text = document.getElementById('wallet-text');
+            
+            if (!button || !icon || !text) {
+                console.error('Button elements not found');
+                return;
+            }
+            
+            // Prevent multiple simultaneous attempts
+            if (button.disabled) {
+                console.log('Wallet connection already in progress');
+                return;
+            }
+            
+            // Show risk warning if not acknowledged
+            if (localStorage.getItem('gecko_risk_acknowledged') !== 'true') {
+                console.log('Risk not acknowledged - showing warning');
+                showNotification('⚠️ Please acknowledge the risk warning first', 'warning');
+                setTimeout(() => showRiskWarning(), 500);
+                return;
+            }
 
             if (isWalletConnected) {
-                // Disconnect wallet
+                console.log('Disconnecting wallet');
                 disconnectWallet();
                 return;
             }
 
-            // Check if MetaMask is installed
-            if (typeof window.ethereum === 'undefined') {
-                // Show install prompt
-                showWalletModal('MetaMask not detected!', 'Please install MetaMask to connect your wallet.', [
-                    {text: 'Install MetaMask', action: () => window.open('https://metamask.io/', '_blank')},
-                    {text: 'Try WalletConnect', action: () => connectWalletConnect()}
-                ]);
+            console.log('Starting wallet connection process...');
+            
+            // IMMEDIATE CHECK - before any async operations
+            if (!window.ethereum && !window.web3) {
+                console.log('NO WALLET DETECTED - showing prominent notification');
+                
+                // Show prominent wallet install modal
+                showWalletInstallModal();
                 return;
             }
 
+            // Show connecting state
+            button.disabled = true;
+            icon.textContent = '⏳';
+            text.textContent = 'Connecting...';
+            
             try {
-                // Show connecting state
-                button.disabled = true;
-                icon.textContent = '⏳';
-                text.textContent = 'Connecting...';
+                // Check if wallet is locked or needs setup
+                if (window.ethereum.isConnected && !window.ethereum.isConnected()) {
+                    text.textContent = 'Unlock Wallet...';
+                }
 
                 // Request account access
                 const accounts = await window.ethereum.request({
                     method: 'eth_requestAccounts'
                 });
 
-                if (accounts.length > 0) {
-                    connectedAccount = accounts[0];
+                if (accounts && accounts.length > 0) {
+                    const account = accounts[0];
+                    if (!account || !account.startsWith('0x') || account.length !== 42) {
+                        throw new Error('Invalid wallet address format');
+                    }
+                    
+                    connectedAccount = account;
                     isWalletConnected = true;
                     
                     // Update button to connected state
                     icon.textContent = '✅';
                     text.textContent = `${connectedAccount.slice(0, 6)}...${connectedAccount.slice(-4)}`;
                     button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    button.disabled = false;
                     
-                    // Show success notification
                     showNotification('🎉 Wallet Connected Successfully!', 'success');
+                    console.log('Wallet connected successfully');
                     
-                    // Enable other Web3 features
                     enableWeb3Features();
+                } else {
+                    throw new Error('No accounts returned from wallet');
                 }
+                
             } catch (error) {
                 console.error('Wallet connection failed:', error);
+                
                 // Reset button state
                 button.disabled = false;
                 icon.textContent = '🔗';
                 text.textContent = 'Connect Wallet';
                 
-                // Show error
+                // Show appropriate error message
                 if (error.code === 4001) {
-                    showNotification('Connection cancelled by user', 'error');
+                    showNotification('❌ Connection cancelled by user', 'error');
+                } else if (error.code === -32002) {
+                    showNotification('⏳ Please check your wallet - connection request pending', 'warning');
                 } else {
-                    showNotification('Failed to connect wallet. Please try again.', 'error');
+                    showNotification('❌ Connection failed. Please try again.', 'error');
                 }
             }
         }
@@ -1037,7 +1170,10 @@
         }
 
         function connectWalletConnect() {
-            showNotification('WalletConnect integration coming soon!', 'info');
+            showNotification('📱 WalletConnect: Scan QR code with your mobile wallet app', 'info');
+            closeWalletModal();
+            // In production, this would initialize WalletConnect
+            console.log('WalletConnect integration would be initialized here');
         }
 
         function enableWeb3Features() {
@@ -1053,49 +1189,237 @@
             });
         }
 
-        function showWalletModal(title, message, buttons = []) {
-            // Create modal overlay
+        function showWalletInstallModal() {
+            console.log('Showing wallet install modal - FIXED POSITION');
+            
+            // Remove any existing modal
+            const existingModal = document.querySelector('.wallet-install-modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Create modal overlay with AGGRESSIVE fixed positioning
             const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(0,0,0,0.8); z-index: 10000;
-                display: flex; align-items: center; justify-content: center;
-            `;
+            overlay.className = 'wallet-install-modal';
+            
+            // Set styles one by one to ensure they stick
+            overlay.style.setProperty('position', 'fixed', 'important');
+            overlay.style.setProperty('top', '0', 'important');
+            overlay.style.setProperty('left', '0', 'important');
+            overlay.style.setProperty('right', '0', 'important');
+            overlay.style.setProperty('bottom', '0', 'important');
+            overlay.style.setProperty('width', '100vw', 'important');
+            overlay.style.setProperty('height', '100vh', 'important');
+            overlay.style.setProperty('background', 'rgba(0,0,0,0.95)', 'important');
+            overlay.style.setProperty('z-index', '999998', 'important');
+            overlay.style.setProperty('display', 'flex', 'important');
+            overlay.style.setProperty('align-items', 'center', 'important');
+            overlay.style.setProperty('justify-content', 'center', 'important');
+            overlay.style.setProperty('padding', '20px', 'important');
+            overlay.style.setProperty('margin', '0', 'important');
+            overlay.style.setProperty('transform', 'none', 'important');
+            
+            console.log('Modal overlay created with fixed positioning');
 
-            // Create modal
+            // Create modal content with AGGRESSIVE positioning
             const modal = document.createElement('div');
-            modal.style.cssText = `
-                background: linear-gradient(135deg, #0a0f1c, #1a1f2c);
-                border-radius: 20px; padding: 30px; max-width: 400px;
-                border: 2px solid #10b981; color: white; text-align: center;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            `;
+            
+            // Set modal styles aggressively
+            modal.style.setProperty('position', 'relative', 'important');
+            modal.style.setProperty('background', 'linear-gradient(135deg, #0a0f1c, #1a1f2c)', 'important');
+            modal.style.setProperty('border-radius', '24px', 'important');
+            modal.style.setProperty('padding', '40px', 'important');
+            modal.style.setProperty('max-width', '520px', 'important');
+            modal.style.setProperty('width', '90%', 'important');
+            modal.style.setProperty('border', '3px solid #f59e0b', 'important');
+            modal.style.setProperty('color', 'white', 'important');
+            modal.style.setProperty('text-align', 'center', 'important');
+            modal.style.setProperty('box-shadow', '0 25px 80px rgba(0,0,0,0.9)', 'important');
+            modal.style.setProperty('transform', 'scale(1)', 'important');
+            modal.style.setProperty('margin', '0', 'important');
+            
+            console.log('Modal content created with aggressive styling');
 
             modal.innerHTML = `
-                <h3 style="margin: 0 0 15px 0; color: #FFD700;">${title}</h3>
-                <p style="margin: 0 0 25px 0; color: #ccc;">${message}</p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    ${buttons.map(btn => `
-                        <button onclick="this.closest('.modal-overlay').remove(); (${btn.action.toString()})()" 
-                                style="padding: 10px 20px; border-radius: 8px; border: none; 
-                                       background: #10b981; color: white; cursor: pointer;">
-                            ${btn.text}
-                        </button>
-                    `).join('')}
-                    <button onclick="this.closest('.modal-overlay').remove()" 
-                            style="padding: 10px 20px; border-radius: 8px; border: 1px solid #666; 
-                                   background: transparent; color: white; cursor: pointer;">
-                        Cancel
+                <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 2s infinite;">🦎</div>
+                <h2 style="margin: 0 0 10px 0; color: #f59e0b; font-size: 28px; font-weight: bold;">
+                    Wallet Required!
+                </h2>
+                <h4 style="margin: 0 0 20px 0; color: #10b981; font-size: 16px;">
+                    Connect to the Gecko Universe
+                </h4>
+                <p style="margin: 0 0 25px 0; color: #e5e7eb; line-height: 1.6; font-size: 16px;">
+                    You need a <strong>Web3 wallet</strong> to access NFTs, gaming features, and token rewards.
+                    <br><strong>MetaMask</strong> is free, secure, and takes 2 minutes to install!
+                </p>
+                <div style="display: grid; gap: 15px; margin-bottom: 25px;">
+                    <button onclick="installMetaMask()" 
+                            style="padding: 16px 32px; border-radius: 12px; border: none; 
+                                   background: linear-gradient(135deg, #f59e0b, #d97706); 
+                                   color: white; cursor: pointer; font-weight: bold; font-size: 16px;
+                                   transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(245,158,11,0.3);" 
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(245,158,11,0.4)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(245,158,11,0.3)'">
+                        🦊 Install MetaMask - It's Free!
+                    </button>
+                    <button onclick="showWalletOptions()" 
+                            style="padding: 12px 24px; border-radius: 10px; 
+                                   border: 2px solid #10b981; background: rgba(16,185,129,0.1); 
+                                   color: #10b981; cursor: pointer; font-weight: 600; transition: all 0.2s ease;"
+                            onmouseover="this.style.background='rgba(16,185,129,0.2)'"
+                            onmouseout="this.style.background='rgba(16,185,129,0.1)'">
+                        🔗 Other Wallet Options
                     </button>
                 </div>
+                <div style="padding: 15px; background: rgba(16,185,129,0.1); border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #10b981;">
+                    <p style="margin: 0; font-size: 14px; color: #10b981;">
+                        <strong>💡 Why do I need this?</strong><br>
+                        Web3 wallets let you own digital assets, play games, and earn rewards safely on the blockchain.
+                    </p>
+                </div>
+                <button onclick="closeWalletModal()" 
+                        style="padding: 10px 20px; border-radius: 8px; border: 1px solid #4b5563; 
+                               background: transparent; color: #9ca3af; cursor: pointer; font-size: 14px;
+                               transition: color 0.2s ease;"
+                        onmouseover="this.style.color='#e5e7eb'"
+                        onmouseout="this.style.color='#9ca3af'">
+                    I'll Install Later
+                </button>
             `;
+            
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes modalPop {
+                    from { transform: scale(0.8) translateY(30px); opacity: 0; }
+                    to { transform: scale(1) translateY(0); opacity: 1; }
+                }
+                @keyframes bounce {
+                    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                    40% { transform: translateY(-10px); }
+                    60% { transform: translateY(-5px); }
+                }
+                @keyframes notificationPop {
+                    from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+                    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                }
+                @keyframes notificationExit {
+                    from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                    to { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
 
-            overlay.className = 'modal-overlay';
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
+            
+            // No need to update position - fixed positioning handles this automatically
+            
+            // Close on click outside
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeWalletModal();
+                }
+            });
+            
+            // Close on escape key
+            const escapeHandler = (e) => {
+                if (e.key === 'Escape') {
+                    closeWalletModal();
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
+            
+            // Store cleanup function for later use
+            overlay._cleanup = () => {
+                document.removeEventListener('keydown', escapeHandler);
+            };
         }
+        
+        function installMetaMask() {
+            window.open('https://metamask.io/download/', '_blank');
+            showNotification('📥 MetaMask download opened. After installing, refresh this page!', 'info');
+            closeWalletModal();
+        }
+        
+        function showWalletOptions() {
+            const modal = document.querySelector('.wallet-install-modal div');
+            if (modal) {
+                modal.innerHTML = `
+                    <div style="font-size: 2rem; margin-bottom: 15px;">🔗</div>
+                    <h3 style="margin: 0 0 20px 0; color: #10b981;">Choose Your Wallet</h3>
+                    <div style="display: grid; gap: 12px; margin-bottom: 20px;">
+                        <button onclick="window.open('https://metamask.io/', '_blank')" 
+                                style="padding: 12px 20px; border-radius: 10px; border: none; 
+                                       background: #f59e0b; color: white; cursor: pointer;">
+                            🦊 MetaMask (Most Popular)
+                        </button>
+                        <button onclick="window.open('https://trustwallet.com/', '_blank')" 
+                                style="padding: 12px 20px; border-radius: 10px; border: none; 
+                                       background: #3375bb; color: white; cursor: pointer;">
+                            🛡️ Trust Wallet
+                        </button>
+                        <button onclick="window.open('https://wallet.coinbase.com/', '_blank')" 
+                                style="padding: 12px 20px; border-radius: 10px; border: none; 
+                                       background: #0052ff; color: white; cursor: pointer;">
+                            🔵 Coinbase Wallet
+                        </button>
+                        <button onclick="connectWalletConnect()" 
+                                style="padding: 12px 20px; border-radius: 10px; border: 1px solid #10b981; 
+                                       background: transparent; color: #10b981; cursor: pointer;">
+                            📱 WalletConnect (Mobile)
+                        </button>
+                    </div>
+                    <button onclick="closeWalletModal()" 
+                            style="padding: 8px 16px; border-radius: 8px; border: 1px solid #4b5563; 
+                                   background: transparent; color: #6b7280; cursor: pointer;">
+                        Cancel
+                    </button>
+                `;
+            }
+        }
+        
+        function closeWalletModal() {
+            const modal = document.querySelector('.wallet-install-modal');
+            if (modal) {
+                // Clean up event listeners if cleanup function exists
+                if (modal._cleanup) {
+                    modal._cleanup();
+                }
+                
+                modal.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => {
+                    modal.remove();
+                    console.log('Wallet install modal closed and cleaned up');
+                }, 300);
+            }
+        }
+        
+        // Add fadeOut animation
+        const fadeOutStyle = document.createElement('style');
+        fadeOutStyle.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fadeOutStyle);
 
         function showNotification(message, type = 'info') {
+            console.log('Showing notification with FIXED positioning:', message);
+            
+            // Sanitize message to prevent XSS
+            const sanitizedMessage = message.replace(/<[^>]*>/g, '');
+            
             const notification = document.createElement('div');
             const colors = {
                 success: '#10b981',
@@ -1104,24 +1428,59 @@
                 warning: '#f59e0b'
             };
 
-            notification.style.cssText = `
-                position: fixed; top: 20px; right: 20px; z-index: 10001;
-                background: ${colors[type]}; color: white; padding: 15px 20px;
-                border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                font-weight: 500; transform: translateX(400px);
-                transition: transform 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            // Animate in
-            setTimeout(() => notification.style.transform = 'translateX(0)', 10);
+            // AGGRESSIVE positioning for notifications
+            notification.style.setProperty('position', 'fixed', 'important');
+            notification.style.setProperty('top', '50%', 'important');
+            notification.style.setProperty('left', '50%', 'important');
+            notification.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
+            notification.style.setProperty('z-index', '999997', 'important');
+            notification.style.setProperty('background', colors[type], 'important');
+            notification.style.setProperty('color', 'white', 'important');
+            notification.style.setProperty('padding', '20px 25px', 'important');
+            notification.style.setProperty('border-radius', '15px', 'important');
+            notification.style.setProperty('box-shadow', '0 10px 40px rgba(0,0,0,0.7)', 'important');
+            notification.style.setProperty('font-weight', '600', 'important');
+            notification.style.setProperty('max-width', '400px', 'important');
+            notification.style.setProperty('min-width', '300px', 'important');
+            notification.style.setProperty('text-align', 'center', 'important');
+            notification.style.setProperty('font-size', '16px', 'important');
+            notification.style.setProperty('margin', '0', 'important');
             
-            // Remove after 4 seconds
-            setTimeout(() => {
-                notification.style.transform = 'translateX(400px)';
+            console.log('Notification positioned at center of viewport');
+            
+            // Use textContent to prevent XSS
+            notification.textContent = sanitizedMessage;
+            
+            // Add close button for accessibility
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '×';
+            closeBtn.style.cssText = `
+                background: rgba(255,255,255,0.2); border: none; color: white; 
+                font-size: 20px; cursor: pointer; position: absolute; 
+                top: 8px; right: 8px; width: 28px; height: 28px; 
+                border-radius: 50%; display: flex; align-items: center;
+                justify-content: center; transition: background 0.2s ease;
+            `;
+            closeBtn.onmouseenter = () => closeBtn.style.background = 'rgba(255,255,255,0.3)';
+            closeBtn.onmouseleave = () => closeBtn.style.background = 'rgba(255,255,255,0.2)';
+            
+            const closeNotification = () => {
+                notification.style.animation = 'notificationExit 0.3s ease forwards';
                 setTimeout(() => notification.remove(), 300);
-            }, 4000);
+            };
+            
+            closeBtn.onclick = closeNotification;
+            notification.appendChild(closeBtn);
+            document.body.appendChild(notification);
+            
+            // Remove after 6 seconds for better visibility
+            const timer = setTimeout(closeNotification, 6000);
+            
+            // Clear timer if manually closed
+            closeBtn.onclick = () => {
+                clearTimeout(timer);
+                closeNotification();
+            };
         }
 
         // Listen for account changes
@@ -1344,6 +1703,60 @@
         
         // Initialize countdown
         updateCountdown();
+        
+        // Test wallet detection on page load
+        console.log('🦎 Omniverse Geckos loaded');
+        console.log('Wallet detection test:', {
+            ethereum: typeof window.ethereum !== 'undefined',
+            web3: typeof window.web3 !== 'undefined',
+            hasWallet: !!(window.ethereum || window.web3)
+        });
+        
+        // Add click event test
+        const walletBtn = document.getElementById('connect-wallet-btn');
+        if (walletBtn) {
+            console.log('✅ Wallet button found and ready');
+        } else {
+            console.error('❌ Wallet button not found!');
+        }
+        
+        // Add test button for modal positioning
+        const testPositionBtn = document.createElement('button');
+        testPositionBtn.innerHTML = '🔧 Test Modal Position';
+        testPositionBtn.style.cssText = `
+            position: fixed !important;
+            top: 20px !important;
+            left: 20px !important;
+            z-index: 999996 !important;
+            background: #ef4444 !important;
+            color: white !important;
+            border: none !important;
+            padding: 10px 15px !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            font-size: 12px !important;
+        `;
+        testPositionBtn.onclick = () => {
+            console.log('🔧 Testing modal position');
+            console.log('Current scroll Y:', window.scrollY);
+            console.log('Window inner height:', window.innerHeight);
+            showWalletInstallModal();
+        };
+        document.body.appendChild(testPositionBtn);
+        
+        // Add test for bot button visibility
+        const botBtn = document.getElementById('gecko-assistant-btn');
+        if (botBtn) {
+            console.log('🦎 Bot button found');
+            console.log('Bot button computed style:');
+            const computed = window.getComputedStyle(botBtn);
+            console.log('Position:', computed.position);
+            console.log('Z-index:', computed.zIndex);
+            console.log('Bottom:', computed.bottom);
+            console.log('Right:', computed.right);
+            console.log('Visibility:', computed.visibility);
+            console.log('Display:', computed.display);
+        }
 
         // Scroll Progress Bar
         window.addEventListener('scroll', () => {
@@ -1372,24 +1785,123 @@
             });
         });
 
-        // Mobile menu toggle
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // Mobile menu toggle with accessibility
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            navLinks.classList.toggle('active');
             this.classList.toggle('active');
+            this.setAttribute('aria-expanded', !isExpanded);
+            
+            // Focus management
+            if (!isExpanded) {
+                const firstLink = navLinks.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }
+        });
+        
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.focus();
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
         });
 
         // Analytics
         console.log('🦎 Omniverse Geckos v2.0 - Revolutionary Web3 Gaming Platform');
         console.log('🚀 Pre-sale is LIVE with 25% bonus tokens!');
         
-        // Track engagement
+        // Risk acknowledgment system
+        let riskAcknowledged = localStorage.getItem('gecko_risk_acknowledged');
+        
+        function showRiskWarning() {
+            if (riskAcknowledged === 'true') return;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.9); z-index: 20000;
+                display: flex; align-items: center; justify-content: center;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #0a0f1c, #1a1f2c);
+                    border-radius: 20px; max-width: 600px; max-height: 80vh;
+                    overflow-y: auto; border: 2px solid #ef4444;
+                    color: white; padding: 30px;
+                ">
+                    <h2 style="color: #ef4444; margin-bottom: 20px; text-align: center;">
+                        ⚠️ High-Risk Investment Warning
+                    </h2>
+                    <div style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px;">
+                        <p style="margin-bottom: 15px; color: #fca5a5; font-weight: bold;">
+                            Omniverse Geckos involves high-risk digital assets. You could lose your entire investment.
+                        </p>
+                        <ul style="margin-left: 20px; color: #fca5a5; margin-bottom: 15px;">
+                            <li>Cryptocurrency and NFT investments are highly speculative</li>
+                            <li>No guaranteed returns - you may lose 100% of your investment</li>
+                            <li>Regulatory changes may affect platform operations</li>
+                            <li>Smart contract risks and technical failures possible</li>
+                        </ul>
+                        <p style="margin-bottom: 15px; color: #fca5a5;">
+                            <strong>Only invest money you can afford to lose completely.</strong>
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="acknowledgeRisks()" style="
+                            padding: 12px 24px; background: #ef4444; color: white;
+                            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
+                        ">I Understand the Risks</button>
+                        <a href="docs/RISK_DISCLOSURE.md" target="_blank" style="
+                            padding: 12px 24px; background: transparent; color: #fca5a5;
+                            border: 1px solid #fca5a5; border-radius: 8px; text-decoration: none;
+                            display: inline-block;
+                        ">Read Full Risk Disclosure</a>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        function acknowledgeRisks() {
+            localStorage.setItem('gecko_risk_acknowledged', 'true');
+            document.querySelector('[style*="rgba(0,0,0,0.9)"]').remove();
+        }
+        
+        // Show risk warning after page load
+        setTimeout(showRiskWarning, 2000);
+        
+        // Track engagement (privacy-conscious)
         let engagementTime = 0;
-        setInterval(() => {
+        const engagementInterval = setInterval(() => {
             engagementTime++;
-            if (engagementTime % 30 === 0) {
-                console.log(`User engaged for ${engagementTime} seconds`);
+            if (engagementTime % 60 === 0) {
+                console.log(`User engaged for ${Math.floor(engagementTime/60)} minutes`);
             }
         }, 1000);
+        
+        // Clear interval when user leaves
+        window.addEventListener('beforeunload', () => {
+            clearInterval(engagementInterval);
+        });
 
         // Image loading optimization
         function optimizeImageLoading() {
@@ -1483,6 +1995,29 @@
         // Start preloading immediately
         preloadCriticalAssets();
 
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('🦎 Service Worker registered successfully');
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showNotification('🦎 New version available! Refresh to update.', 'info');
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+        
         // Verificación simple del nuevo gecko button
         console.log('🦎 Nuevo Gecko Button inicializado');
 
