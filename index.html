@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>🦎 Omniverse Geckos - Revolutionary Web3 Gaming Platform</title>
     <meta name="description" content="The Future of Web3 Gaming is Here - Revolutionary AI-Powered Gaming Ecosystem with Dual-Token Economy and Deflationary NFTs">
     <meta name="keywords" content="Web3 Gaming, NFT Games, Play-to-Earn, Tower Defense, Blockchain Gaming, Cryptocurrency Gaming, NFT Marketplace, GameFi, Ethereum Gaming, DeFi Gaming">
@@ -62,14 +65,255 @@
     
     <!-- Critical CSS -->
     <style>
+    /* Reset and Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+        font-size: 16px;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
     /* Critical above-the-fold styles */
-    .header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,13,16,0.9); backdrop-filter: blur(10px); }
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: 2rem 0; }
-    .btn { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
-    .btn-gradient { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-    .loading { color: #10b981; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .header { 
+        position: fixed; 
+        top: 0; 
+        width: 100%; 
+        z-index: 1000; 
+        background: rgba(10,13,16,0.95); 
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 0;
+    }
+    
+    .hero { 
+        min-height: 100vh; 
+        display: flex; 
+        align-items: center; 
+        padding: 1rem;
+    }
+    
+    .btn { 
+        padding: 10px 20px; 
+        border-radius: 8px; 
+        border: none; 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: all 0.3s ease;
+        font-size: 0.875rem;
+        touch-action: manipulation;
+    }
+    
+    .btn-gradient { 
+        background: linear-gradient(135deg, #10b981, #059669); 
+        color: white; 
+    }
+    
+    .container { 
+        max-width: 1200px; 
+        margin: 0 auto; 
+        padding: 0 1rem; 
+        width: 100%;
+    }
+    
+    .loading { 
+        color: #10b981; 
+        animation: pulse 2s infinite; 
+    }
+
+    /* Mobile Navigation */
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-actions {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 3px;
+    }
+
+    /* Brand/Logo Mobile Optimized */
+    .brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 0.5rem;
+    }
+
+    .brand-logo-img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+    }
+
+    .brand-title {
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+    }
+
+    .brand-title span {
+        font-size: 0.75rem;
+        color: #10b981;
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(10,13,16,0.98);
+        z-index: 999;
+        transition: left 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        overflow-y: auto;
+    }
+
+    .mobile-menu.active {
+        left: 0;
+    }
+
+    .mobile-menu .nav-link {
+        display: block;
+        padding: 15px 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.125rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.3s;
+    }
+
+    .mobile-menu .nav-link:hover {
+        background: rgba(16,185,129,0.2);
+    }
+
+    .mobile-menu .nav-btn {
+        margin: 10px 20px;
+        padding: 12px 24px;
+        width: calc(100% - 40px);
+        font-size: 1rem;
+    }
+
+    /* Responsive Gecko Assistant Button */
+    @media (max-width: 640px) {
+        #gecko-assistant-btn {
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 60px !important;
+            height: 60px !important;
+        }
+
+        #gecko-assistant-btn div {
+            font-size: 40px !important;
+        }
+    }
+
+    /* Tablet and Desktop Styles */
+    @media (min-width: 768px) {
+        .header {
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .mobile-menu {
+            display: none !important;
+        }
+
+        .brand-logo-img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .brand-title {
+            font-size: 1.125rem;
+        }
+
+        .brand-title span {
+            font-size: 0.875rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
+
+        .hero {
+            padding: 2rem;
+        }
+    }
+
+    /* Large Desktop */
+    @media (min-width: 1024px) {
+        .container {
+            padding: 0 2rem;
+        }
+    }
+
+    /* Animations */
+    @keyframes pulse { 
+        0%, 100% { opacity: 1; } 
+        50% { opacity: 0.5; } 
+    }
     </style>
 </head>
 <body>
@@ -112,6 +356,22 @@
             </button>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#nft-gallery" class="nav-link">NFT Gallery</a>
+        <a href="#tokenomics" class="nav-link">Tokenomics</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+        <div style="margin-top: 20px;">
+            <button class="nav-btn connect-wallet-btn" onclick="connectWallet()">
+                🔗 Connect Wallet
+            </button>
+            <button class="nav-btn whitelist-btn" onclick="joinWhitelist()">
+                📝 Join Whitelist
+            </button>
+        </div>
+    </div>
 
     <!-- GECKO BOT - FIXED POSITIONING -->
     <div id="gecko-assistant-btn" onclick="toggleGeckoChat()" style="
@@ -2200,31 +2460,48 @@
 
         // Mobile menu toggle with accessibility
         const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.querySelector('.nav-links');
-        const navActions = document.querySelector('.nav-actions');
+        const mobileMenu = document.getElementById('mobileMenu');
         
-        menuToggle.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                
+                mobileMenu.classList.toggle('active');
+                this.classList.toggle('active');
+                this.setAttribute('aria-expanded', !isExpanded);
+                
+                // Prevent body scroll when menu is open
+                if (!isExpanded) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+                
+                // Focus management
+                if (!isExpanded) {
+                    const firstLink = mobileMenu.querySelector('a');
+                    if (firstLink) firstLink.focus();
+                }
+            });
             
-            navLinks.classList.toggle('active');
-            navActions.classList.toggle('active');
-            this.classList.toggle('active');
-            this.setAttribute('aria-expanded', !isExpanded);
-            
-            // Focus management
-            if (!isExpanded) {
-                const firstLink = navLinks.querySelector('a');
-                if (firstLink) firstLink.focus();
-            }
-        });
+            // Close menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
         
         // Close mobile menu on escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                navActions.classList.remove('active');
+            if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
                 menuToggle.focus();
             }
         });

@@ -282,7 +282,7 @@ export function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className="md:hidden border-t bg-background/95 backdrop-blur"
+            className="sm:hidden border-t bg-background/95 backdrop-blur"
           >
             <div className="container px-4 py-4 space-y-2">
               {navigationItems.map((item) => {

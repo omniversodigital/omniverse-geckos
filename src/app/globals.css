@@ -3,6 +3,73 @@
 @import 'tailwindcss/utilities';
 
 /* =============================================================================
+   Mobile First Responsive Styles
+   ============================================================================= */
+
+@layer base {
+  /* Ensure proper box-sizing and prevent horizontal scroll on mobile */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  /* Prevent iOS bounce effect */
+  html, body {
+    overscroll-behavior: none;
+  }
+
+  /* Mobile tap highlight */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Improve touch responsiveness */
+  button, 
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  /* Safe area for notched devices */
+  @supports (padding: max(0px)) {
+    .safe-top {
+      padding-top: max(1rem, env(safe-area-inset-top));
+    }
+    .safe-bottom {
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+    .safe-left {
+      padding-left: max(1rem, env(safe-area-inset-left));
+    }
+    .safe-right {
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* Mobile-optimized font sizes */
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
+  }
+}
+
+/* =============================================================================
    CSS Variables
    ============================================================================= */
 
