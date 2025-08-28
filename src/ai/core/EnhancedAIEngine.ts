@@ -1,5 +1,6 @@
 'use client'
 
+import { AIEngine } from './AIEngine'
 import { GeckoNFT } from '@/src/blockchain/hooks/useGeckoNFT'
 import { GameState, PlacedTower, Enemy } from '@/src/lib/state/GameStateManager'
 
@@ -115,13 +116,15 @@ export interface ChatMessage {
 // =============================================================================
 
 export class EnhancedAIEngine {
+  private aiEngine: AIEngine
   private context: AIContext | null = null
   private personalization: AIPersonalization | null = null
   private chatHistory: ChatMessage[] = []
   private activeRecommendations: AIRecommendation[] = []
   private insights: AIInsight[] = []
   
-  constructor() {
+  constructor(aiEngine: AIEngine) {
+    this.aiEngine = aiEngine
     this.initializePersonalization()
   }
 
@@ -220,140 +223,9 @@ export class EnhancedAIEngine {
     return recommendations
   }
 
-  findBestTowersForSituation(enemies: Enemy[], availableNFTs: GeckoNFT[]): GeckoNFT[] {
-    // Analyze enemy types and recommend counter towers
-    const enemyTypes = enemies.map(e => e.type)
-    const typeFrequency = enemyTypes.reduce((acc, type) => {
-      acc[type] = (acc[type] || 0) + 1
-      return acc
-    }, {} as Record<string, number>)
-
-    // Sort NFTs by effectiveness against current enemy composition
-    return availableNFTs
-      .map(nft => ({
-        nft,
-        effectiveness: this.calculateTowerEffectivenessAgainstEnemies(nft, typeFrequency)
-      }))
-      .sort((a, b) => b.effectiveness - a.effectiveness)
-      .map(item => item.nft)
-      .slice(0, 3)
-  }
-
-  private calculateTowerEffectivenessAgainstEnemies(
-    tower: GeckoNFT, 
-    enemyTypes: Record<string, number>
-  ): number {
-    // Mock effectiveness calculation based on tower type vs enemy types
-    const typeMatchups: Record<string, Record<string, number>> = {
-      'Fire': { 'ice': 1.5, 'plant': 1.3, 'normal': 1.0, 'fire': 0.7 },
-      'Ice': { 'fire': 1.5, 'flying': 1.3, 'normal': 1.0, 'ice': 0.7 },
-      'Electric': { 'flying': 1.8, 'water': 1.4, 'normal': 1.0, 'ground': 0.5 },
-      'Poison': { 'plant': 1.6, 'normal': 1.2, 'poison': 0.6, 'steel': 0.3 }
-    }
-
-    const towerType = tower.geckoType
-    let totalEffectiveness = 0
-    let totalEnemies = 0
-
-    for (const [enemyType, count] of Object.entries(enemyTypes)) {
-      const multiplier = typeMatchups[towerType]?.[enemyType] || 1.0
-      totalEffectiveness += multiplier * count * tower.stats.damage
-      totalEnemies += count
-    }
-
-    return totalEnemies > 0 ? totalEffectiveness / totalEnemies : 0
-  }
-
-  private calculateTowerEfficiency(towers: PlacedTower[], totalScore: number): number {
-    if (towers.length === 0 || totalScore === 0) return 0
-    
-    // Calculate efficiency based on damage output vs score gained
-    const totalDamage = towers.reduce((sum, tower) => sum + tower.stats.damage, 0)
-    const efficiency = Math.min(1.0, totalScore / (totalDamage * 100))
-    
-    return efficiency
-  }
-
   // =============================================================================
   // Market Analysis AI
   // =============================================================================
-
-  analyzeMarketTrends(): AIInsight[] {
-    if (!this.context?.market) return []
-
-    const insights: AIInsight[] = []
-    const { market } = this.context
-
-    // Price trend analysis
-    insights.push({
-      id: `market_trend_${Date.now()}`,
-      category: 'market',
-      title: 'Market Price Analysis',
-      description: `Floor price ${market.priceChange >= 0 ? 'increased' : 'decreased'} by ${Math.abs(market.priceChange)}%`,
-      data: {
-        floorPrice: market.floorPrice,
-        priceChange: market.priceChange,
-        volume: market.volume24h
-      },
-      confidence: 0.8,
-      impact: Math.abs(market.priceChange) > 10 ? 'high' : 'medium',
-      trend: market.priceChange > 5 ? 'up' : market.priceChange < -5 ? 'down' : 'stable',
-      createdAt: Date.now()
-    })
-
-    // Volume analysis
-    if (market.volume24h > 1000) {
-      insights.push({
-        id: `volume_${Date.now()}`,
-        category: 'market',
-        title: 'High Trading Volume',
-        description: 'Increased market activity detected - good time for trading',
-        data: { volume: market.volume24h },
-        confidence: 0.9,
-        impact: 'high',
-        trend: 'up',
-        createdAt: Date.now()
-      })
-    }
-
-    return insights
-  }
-
-  generateTradingRecommendations(): AIRecommendation[] {
-    if (!this.context?.market || !this.context?.nfts) return []
-
-    const recommendations: AIRecommendation[] = []
-    const { market, nfts, user } = this.context
-
-    // Analyze user's NFT portfolio
-    const portfolioValue = nfts.reduce((sum, nft) => 
-      sum + parseFloat(nft.price || '0'), 0
-    )
-
-    const undervaluedNFTs = nfts.filter(nft => {
-      const nftPrice = parseFloat(nft.price || '0')
-      return nftPrice < market.floorPrice * 0.8
-    })
-
-    if (undervaluedNFTs.length > 0 && user.preferredStrategy !== 'conservative') {
-      recommendations.push({
-        id: `undervalued_${Date.now()}`,
-        type: 'market',
-        priority: 'medium',
-        title: 'Undervalued NFTs Detected',
-        description: `You have ${undervaluedNFTs.length} NFTs priced below market average`,
-        actionable: true,
-        confidence: 0.75,
-        reasoning: 'These NFTs could be repriced for better market positioning',
-        expectedOutcome: 'Potential increased revenue from sales',
-        tags: ['trading', 'pricing', 'opportunity'],
-        context: { market, nfts: undervaluedNFTs },
-        createdAt: Date.now()
-      })
-    }
-
-    return recommendations
-  }
 
   // =============================================================================
   // Personalized AI Chat
@@ -365,177 +237,63 @@ export class EnhancedAIEngine {
       this.updateContext(context)
     }
 
-    // Analyze message intent
-    const intent = this.analyzeMessageIntent(message)
-    
-    let response: string
-    let recommendations: AIRecommendation[] = []
+    const prompt = `
+You are GeckoBot, an advanced AI assistant for the Web3 game Omniverse Geckos. Your goal is to provide helpful, context-aware, and personalized assistance to players.
 
-    switch (intent.category) {
-      case 'game_strategy':
-        response = this.generateGameStrategyResponse(intent.details)
-        recommendations = this.analyzeGameSituation()
-        break
-        
-      case 'nft_advice':
-        response = this.generateNFTAdviceResponse(intent.details)
-        recommendations = this.generateTradingRecommendations()
-        break
-        
-      case 'market_inquiry':
-        response = this.generateMarketResponse(intent.details)
-        break
-        
-      case 'general_help':
-        response = this.generateHelpResponse(intent.details)
-        break
-        
-      default:
-        response = this.generateContextualResponse(message)
+Here is the current context:
+${JSON.stringify(this.context, null, 2)}
+
+Here is the recent chat history:
+${this.chatHistory.slice(-5).map(h => `${h.sender}: ${h.message}`).join('\n')}
+
+The user's message is: "${message}"
+
+Based on this information, please provide a response in the following JSON format:
+{
+  "response": "Your response to the user's message.",
+  "recommendations": [
+    {
+      "id": "recommendation_id",
+      "type": "tower_placement" | "strategy" | "market" | "upgrade" | "general",
+      "priority": "low" | "medium" | "high" | "urgent",
+      "title": "Recommendation Title",
+      "description": "Recommendation Description",
+      "actionable": true | false,
+      "confidence": 0.0 - 1.0,
+      "reasoning": "Why you are making this recommendation."
     }
+  ]
+}
 
-    const chatMessage: ChatMessage = {
-      id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-      sender: 'ai',
-      message: response,
-      timestamp: Date.now(),
-      context: this.context || undefined,
-      recommendations: recommendations.length > 0 ? recommendations : undefined,
-      type: intent.category === 'general_help' ? 'welcome' : 'query'
+If you don't have any recommendations, please provide an empty array.
+`;
+
+    try {
+      const aiResponse = await this.aiEngine.generateText(prompt);
+      const parsedResponse = JSON.parse(aiResponse.content);
+
+      const chatMessage: ChatMessage = {
+        id: `msg_${Date.now()}`,
+        sender: 'ai',
+        message: parsedResponse.response,
+        timestamp: Date.now(),
+        context: this.context || undefined,
+        recommendations: parsedResponse.recommendations,
+      };
+
+      this.chatHistory.push(chatMessage);
+      return chatMessage;
+    } catch (error) {
+      console.error("Error processing AI message:", error);
+      const errorMessage: ChatMessage = {
+        id: `msg_${Date.now()}`,
+        sender: 'ai',
+        message: "I'm sorry, I encountered an error. Please try again.",
+        timestamp: Date.now(),
+      };
+      this.chatHistory.push(errorMessage);
+      return errorMessage;
     }
-
-    this.chatHistory.push(chatMessage)
-    return chatMessage
-  }
-
-  private analyzeMessageIntent(message: string): {
-    category: string
-    details: string
-    confidence: number
-  } {
-    const lowerMessage = message.toLowerCase()
-    
-    // Game strategy keywords
-    if (lowerMessage.includes('tower') || lowerMessage.includes('defense') || 
-        lowerMessage.includes('strategy') || lowerMessage.includes('enemy')) {
-      return {
-        category: 'game_strategy',
-        details: message,
-        confidence: 0.9
-      }
-    }
-    
-    // NFT and trading keywords
-    if (lowerMessage.includes('nft') || lowerMessage.includes('trading') ||
-        lowerMessage.includes('buy') || lowerMessage.includes('sell') ||
-        lowerMessage.includes('price')) {
-      return {
-        category: 'nft_advice',
-        details: message,
-        confidence: 0.85
-      }
-    }
-    
-    // Market keywords
-    if (lowerMessage.includes('market') || lowerMessage.includes('trend') ||
-        lowerMessage.includes('volume') || lowerMessage.includes('floor')) {
-      return {
-        category: 'market_inquiry',
-        details: message,
-        confidence: 0.8
-      }
-    }
-    
-    // Help keywords
-    if (lowerMessage.includes('help') || lowerMessage.includes('how') ||
-        lowerMessage.includes('what') || lowerMessage.includes('guide')) {
-      return {
-        category: 'general_help',
-        details: message,
-        confidence: 0.7
-      }
-    }
-    
-    return {
-      category: 'general',
-      details: message,
-      confidence: 0.5
-    }
-  }
-
-  private generateGameStrategyResponse(query: string): string {
-    if (!this.context?.game) {
-      return "I'd love to help with game strategy! Start playing a level so I can analyze your situation and provide specific recommendations."
-    }
-
-    const { game, user } = this.context
-    const responses = [
-      `Based on your current situation (Wave ${game.currentWave}, ${game.lives} lives remaining), I recommend focusing on ${game.placedTowers.length < 5 ? 'placing more towers' : 'upgrading existing towers'}.`,
-      
-      `Your win rate is ${Math.round(user.winRate * 100)}%. ${user.winRate > 0.7 ? 'Great job! Consider trying higher difficulty levels.' : 'Try focusing on tower positioning and timing your upgrades better.'}`,
-      
-      `With ${game.activeEnemies.length} enemies active, ${game.activeEnemies.length > 8 ? 'prioritize area damage towers' : 'single-target towers should work well'}.`
-    ]
-
-    return responses[Math.floor(Math.random() * responses.length)]
-  }
-
-  private generateNFTAdviceResponse(query: string): string {
-    if (!this.context?.nfts || this.context.nfts.length === 0) {
-      return "You don't have any NFTs yet! Visit the marketplace to mint or buy your first Gecko NFT and start your collection."
-    }
-
-    const { nfts, market } = this.context
-    const totalValue = nfts.reduce((sum, nft) => sum + parseFloat(nft.price || '0'), 0)
-    
-    const responses = [
-      `Your collection of ${nfts.length} NFTs is worth approximately ${totalValue.toFixed(2)} ETH. ${totalValue > market.floorPrice * nfts.length ? 'Your collection is performing above floor price!' : 'Consider optimizing your collection strategy.'}`,
-      
-      `I notice you have ${nfts.filter(nft => nft.rarity === 'Legendary').length} legendary NFTs. These are great for both gameplay and long-term value.`,
-      
-      `Based on current market trends, ${market.priceChange > 0 ? "it's a good time to consider selling" : "it might be worth holding or buying more"}. Floor price is ${market.floorPrice} ETH.`
-    ]
-
-    return responses[Math.floor(Math.random() * responses.length)]
-  }
-
-  private generateMarketResponse(query: string): string {
-    if (!this.context?.market) {
-      return "Let me check the current market conditions... The market data is currently being updated. Please try again in a moment."
-    }
-
-    const { market } = this.context
-    
-    return `Current market overview:
-• Floor price: ${market.floorPrice} ETH (${market.priceChange > 0 ? '+' : ''}${market.priceChange.toFixed(1)}%)
-• 24h volume: ${market.volume24h} ETH
-• Market sentiment: ${market.priceChange > 5 ? 'Bullish' : market.priceChange < -5 ? 'Bearish' : 'Neutral'}
-• Trending collections: ${market.trending.join(', ')}`
-  }
-
-  private generateHelpResponse(query: string): string {
-    const helpTopics = [
-      "🎮 **Game Strategy**: I can help you optimize tower placement, suggest upgrades, and analyze enemy waves.",
-      "🖼️ **NFT Management**: Get advice on your collection, pricing strategies, and market opportunities.",
-      "📊 **Market Analysis**: Stay updated on trends, floor prices, and trading opportunities.",
-      "⚙️ **Personalization**: I learn your preferences to provide better recommendations over time."
-    ]
-
-    return `I'm your AI assistant for Omniverse Geckos! Here's how I can help:\n\n${helpTopics.join('\n\n')}\n\nJust ask me anything about the game, your NFTs, or the market!`
-  }
-
-  private generateContextualResponse(message: string): string {
-    if (!this.context) {
-      return "Hello! I'm your Omniverse Geckos AI assistant. Connect your wallet and start playing to get personalized recommendations!"
-    }
-
-    const contextualResponses = [
-      `Hi ${this.context.user.address.slice(0, 6)}...! I see you're level ${this.context.user.level}. What would you like to know?`,
-      "I'm here to help optimize your gameplay and NFT strategy. What's on your mind?",
-      "Based on your activity, I can provide insights about gaming, trading, or market trends. What interests you most?"
-    ]
-
-    return contextualResponses[Math.floor(Math.random() * contextualResponses.length)]
   }
 
   // =============================================================================
@@ -627,17 +385,40 @@ export class EnhancedAIEngine {
     }
   }
 
-  private generateContextualRecommendations(): void {
-    if (!this.context) return
+  private async generateContextualRecommendations(): Promise<void> {
+    if (!this.context) return;
 
-    // Generate recommendations based on current context
-    const gameRecommendations = this.analyzeGameSituation()
-    const marketRecommendations = this.generateTradingRecommendations()
+    const prompt = `
+You are GeckoBot, an advanced AI assistant for the Web3 game Omniverse Geckos. Your goal is to proactively provide helpful, context-aware, and personalized recommendations to players based on their current situation.
 
-    this.activeRecommendations = [
-      ...gameRecommendations,
-      ...marketRecommendations
-    ].slice(0, 10) // Limit to 10 active recommendations
+Here is the current context:
+${JSON.stringify(this.context, null, 2)}
+
+Based on this information, please provide a list of recommendations in the following JSON format:
+[
+    {
+      "id": "recommendation_id",
+      "type": "tower_placement" | "strategy" | "market" | "upgrade" | "general",
+      "priority": "low" | "medium" | "high" | "urgent",
+      "title": "Recommendation Title",
+      "description": "Recommendation Description",
+      "actionable": true | false,
+      "confidence": 0.0 - 1.0,
+      "reasoning": "Why you are making this recommendation."
+    }
+]
+
+If you don't have any recommendations, please provide an empty array.
+`;
+
+    try {
+      const aiResponse = await this.aiEngine.generateText(prompt);
+      const recommendations = JSON.parse(aiResponse.content);
+      this.activeRecommendations = recommendations.slice(0, 10); // Limit to 10 active recommendations
+    } catch (error) {
+      console.error("Error generating contextual recommendations:", error);
+      this.activeRecommendations = [];
+    }
   }
 
   // =============================================================================
@@ -672,9 +453,12 @@ export class EnhancedAIEngine {
 // Singleton instance
 let aiEngineInstance: EnhancedAIEngine | null = null
 
-export function getAIEngine(): EnhancedAIEngine {
+export function getAIEngine(aiEngine?: AIEngine): EnhancedAIEngine {
   if (!aiEngineInstance) {
-    aiEngineInstance = new EnhancedAIEngine()
+    if (!aiEngine) {
+      throw new Error("AIEngine instance is required to initialize EnhancedAIEngine");
+    }
+    aiEngineInstance = new EnhancedAIEngine(aiEngine)
   }
   return aiEngineInstance
 }

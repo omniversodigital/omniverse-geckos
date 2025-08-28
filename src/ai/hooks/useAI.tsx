@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useContext, createContext, ReactNode } from 'react'
 import { useAccount } from 'wagmi'
 import { AIEngine, AIConfig } from '../core/AIEngine'
+import { EnhancedAIEngine, getAIEngine } from '../core/EnhancedAIEngine'
 import { GameAI } from '../services/GameAI'
 import { NFTAI } from '../services/NFTAI'
 import { PersonalizationAI } from '../services/PersonalizationAI'
@@ -13,6 +14,7 @@ import { PersonalizationAI } from '../services/PersonalizationAI'
 
 interface AIContextType {
   aiEngine: AIEngine | null
+  enhancedAIEngine: EnhancedAIEngine | null
   gameAI: GameAI | null
   nftAI: NFTAI | null
   personalizationAI: PersonalizationAI | null
@@ -40,6 +42,7 @@ const AIContext = createContext<AIContextType | undefined>(undefined)
 
 export function AIProvider({ children }: { children: ReactNode }) {
   const [aiEngine, setAIEngine] = useState<AIEngine | null>(null)
+  const [enhancedAIEngine, setEnhancedAIEngine] = useState<EnhancedAIEngine | null>(null)
   const [gameAI, setGameAI] = useState<GameAI | null>(null)
   const [nftAI, setNFTAI] = useState<NFTAI | null>(null)
   const [personalizationAI, setPersonalizationAI] = useState<PersonalizationAI | null>(null)
@@ -84,6 +87,10 @@ export function AIProvider({ children }: { children: ReactNode }) {
       await engine.initialize()
       setAIEngine(engine)
 
+      // Initialize Enhanced AI Engine
+      const enhancedEngine = getAIEngine(engine);
+      setEnhancedAIEngine(enhancedEngine);
+
       // Initialize AI Services
       const gameAIService = new GameAI(engine)
       const nftAIService = new NFTAI(engine)
@@ -113,6 +120,7 @@ export function AIProvider({ children }: { children: ReactNode }) {
 
   const contextValue: AIContextType = {
     aiEngine,
+    enhancedAIEngine,
     gameAI,
     nftAI,
     personalizationAI,
@@ -398,21 +406,17 @@ export function useSmartRecommendations() {
 // AI Chat Assistant Hook
 // =============================================================================
 
+import { ChatMessage } from '../core/EnhancedAIEngine'
+
 export function useAIChatAssistant() {
-  const { aiEngine, isInitialized } = useAI()
-  const [chatHistory, setChatHistory] = useState<Array<{
-    id: string
-    message: string
-    sender: 'user' | 'ai'
-    timestamp: number
-    context?: any
-  }>>([])
+  const { enhancedAIEngine, isInitialized } = useAI()
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
   const [isTyping, setIsTyping] = useState(false)
 
   const sendMessage = async (message: string, context?: any) => {
-    if (!aiEngine || !isInitialized) return
+    if (!enhancedAIEngine || !isInitialized) return
 
-    const userMessage = {
+    const userMessage: ChatMessage = {
       id: `user_${Date.now()}`,
       message,
       sender: 'user' as const,
@@ -424,32 +428,12 @@ export function useAIChatAssistant() {
     setIsTyping(true)
 
     try {
-      const prompt = `
-You are an expert AI assistant for Omniverse Geckos, a Web3 tower defense game with NFTs. 
-Help the user with their question: "${message}"
-
-Context: ${context ? JSON.stringify(context) : 'General inquiry'}
-
-Previous conversation: ${chatHistory.slice(-5).map(h => `${h.sender}: ${h.message}`).join('\n')}
-
-Provide helpful, accurate, and engaging assistance. Keep responses concise but informative.
-Focus on game mechanics, strategy, NFT advice, or technical support as appropriate.
-`
-
-      const response = await aiEngine.generateText(prompt)
-
-      const aiMessage = {
-        id: `ai_${Date.now()}`,
-        message: response.content,
-        sender: 'ai' as const,
-        timestamp: Date.now()
-      }
-
+      const aiMessage = await enhancedAIEngine.processMessage(message, context)
       setChatHistory(prev => [...prev, aiMessage])
     } catch (error) {
       console.error('Chat assistant error:', error)
       
-      const errorMessage = {
+      const errorMessage: ChatMessage = {
         id: `ai_${Date.now()}`,
         message: "I'm sorry, I'm having trouble processing that right now. Please try again later!",
         sender: 'ai' as const,

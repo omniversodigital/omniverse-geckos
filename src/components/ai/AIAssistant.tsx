@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { useAIChatAssistant, usePersonalizationAI } from '@/ai/hooks/useAI'
+import { useAIChatAssistant, usePersonalizationAI, useSmartRecommendations } from '@/ai/hooks/useAI'
 import { cn } from '@/lib/utils'
 
 // =============================================================================
@@ -96,21 +96,30 @@ export function AIAssistant({ className, defaultOpen = false, context }: AIAssis
   } = useAIChatAssistant()
 
   const { personalizedExperience } = usePersonalizationAI()
+  const { recommendations, generateRecommendations } = useSmartRecommendations()
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chatHistory, isTyping])
 
-  // Send welcome message when first opened
+  // Send welcome message and generate recommendations when first opened
   useEffect(() => {
-    if (isOpen && chatHistory.length === 0 && isAvailable) {
-      setTimeout(() => {
-        sendMessage("Hello! I'm your AI assistant for Omniverse Geckos. How can I help you today?", {
-          type: 'welcome',
-          userContext: context
-        })
-      }, 1000)
+    if (isOpen && isAvailable) {
+      if (chatHistory.length === 0) {
+        setTimeout(() => {
+          sendMessage("Hello! I'm your AI assistant for Omniverse Geckos. How can I help you today?", {
+            type: 'welcome',
+            userContext: context
+          })
+        }, 1000)
+      }
+      generateRecommendations({
+        currentActivity: 'general',
+        recentHistory: [],
+        preferences: {},
+        performance: {}
+      });
     }
   }, [isOpen, isAvailable])
 
@@ -127,6 +136,12 @@ export function AIAssistant({ className, defaultOpen = false, context }: AIAssis
 
   const handleQuickAction = async (action: QuickAction) => {
     await generateGameHelp(action.topic)
+  }
+
+  const handleRecommendationClick = (recommendation: any) => {
+    sendMessage(`Tell me more about "${recommendation.title}"`, {
+      recommendationContext: recommendation
+    });
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -264,6 +279,13 @@ export function AIAssistant({ className, defaultOpen = false, context }: AIAssis
                     </div>
                   </div>
                 )}
+
+                {/* Recommendations Panel */}
+                <AIRecommendationsPanel
+                  recommendations={recommendations.gameplay}
+                  onRecommendationClick={handleRecommendationClick}
+                  className="p-3 border-b"
+                />
 
                 {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto p-3 space-y-3 h-80">
