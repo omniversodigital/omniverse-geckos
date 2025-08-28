@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { xPost } from "@/lib/x";
 import { resolveTargetId } from "@/lib/target";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST() {
   try {
     const session = await getServerSession();

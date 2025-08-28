@@ -1,6 +1,8 @@
 import { getServerSession } from "next-auth";
 import { xGet } from "@/lib/x";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const session = await getServerSession();
